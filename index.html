@@ -238,8 +238,6 @@
       });
     })();
   </script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
   <script src="assets/gsap-lite.js"></script>
   <script>
     const header = document.querySelector(".header");
@@ -251,21 +249,5 @@
       window.addEventListener("scroll", apply, {passive:true}); apply();
     }
   </script>
-
-
-
-  <script>
-    (function(){
-      const scroller = document.getElementById("svc-scroller");
-      const prev = document.getElementById("svc-prev");
-      const next = document.getElementById("svc-next");
-      if(!scroller || !prev || !next) return;
-      function scrollByCard(dir){
-        const card = scroller.querySelector("[data-card=\"true\"]");
-        const delta = card ? card.clientWidth + 24 : scroller.clientWidth * 0.9;
-        scroller.scrollBy({ left: dir * delta, behavior: "smooth" });
-      }
-      prev.addEventListener("click", () => scrollByCard(-1));
-      next.addEventListener("click", () => scrollByCard(1));
-    })();
-  </script>
+</body>
+</html>
