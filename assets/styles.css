@@ -359,3 +359,71 @@ html{scroll-behavior:smooth; scroll-padding-top: 80px}
 .hero-cta{background:#111;color:#fff;border:none;border-radius:12px;padding:14px 32px;font-size:16px;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.3);transition:transform .2s,box-shadow .2s}
 .hero-cta:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.4)}
 @media (max-width:768px){.hero-logo{max-width:200px}}
+
+/* Contact Page */
+.contact-page{max-width:1400px;margin:80px auto 0;padding:40px 24px}
+.contact-hero{max-width:768px;margin:0 auto;text-align:center;margin-bottom:48px}
+.contact-hero h1{font-size:2.5rem;font-weight:700;color:#111;margin-bottom:12px}
+.contact-hero p{color:#666;line-height:1.6}
+.contact-split{display:grid;grid-template-columns:1fr;gap:32px}
+@media (min-width:1024px){.contact-split{grid-template-columns:1fr 1fr}}
+.contact-form-container{display:flex;flex-direction:column;gap:24px}
+.contact-form-card{border:1px solid #e5e5e5;border-radius:16px;background:#fff;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.contact-form-card h2{font-size:20px;font-weight:700;color:#111;margin-bottom:8px}
+.contact-form-card>p{color:#666;font-size:14px;margin-bottom:20px}
+.contact-form-card a{color:#111;font-weight:600;text-decoration:underline}
+.contact-form{display:flex;flex-direction:column;gap:20px}
+.contact-info-cards{display:grid;grid-template-columns:1fr;gap:16px}
+@media (min-width:640px){.contact-info-cards{grid-template-columns:repeat(3,1fr)}}
+.contact-info-card{border:1px solid #e5e5e5;border-radius:12px;background:#fff;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.contact-info-card h3{font-size:14px;font-weight:700;color:#111;margin-bottom:6px}
+.contact-info-card p{color:#666;font-size:14px}
+.contact-info-card a{color:#111;font-weight:600;text-decoration:underline}
+.contact-images{display:grid;grid-template-columns:1fr;gap:16px}
+@media (min-width:640px){.contact-images{grid-template-columns:1fr 1fr}}
+@media (min-width:1024px){.contact-images{grid-template-columns:1fr;grid-template-rows:2fr 1fr}}
+.contact-img-wrapper{overflow:hidden;border-radius:16px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.contact-img-wrapper img{width:100%;height:100%;object-fit:cover;display:block}
+.contact-img-main{min-height:300px;max-height:400px}
+.contact-img-secondary{min-height:150px;max-height:200px}
+.contact-quick-links{margin-top:48px}
+.contact-quick-links h2{font-size:24px;font-weight:700;color:#111;margin-bottom:20px;text-align:center}
+.quick-links-grid{display:grid;grid-template-columns:1fr;gap:16px}
+@media (min-width:768px){.quick-links-grid{grid-template-columns:repeat(3,1fr)}}
+.quick-link-card{position:relative;border:1px solid #e5e5e5;border-radius:16px;background:#fff;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.06);text-decoration:none;transition:box-shadow .2s,transform .2s}
+.quick-link-card:hover{box-shadow:0 6px 20px rgba(0,0,0,.1);transform:translateY(-2px)}
+.quick-link-card h3{font-size:18px;font-weight:700;color:#111;margin-bottom:6px}
+.quick-link-card p{color:#666;font-size:14px}
+.quick-link-card .arrow{position:absolute;right:16px;top:16px;font-size:20px;color:#111;transition:transform .2s}
+.quick-link-card:hover .arrow{transform:translateX(4px)}
+
+/* Contact image column */
+.contact-image-column{overflow:hidden;border-radius:16px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.contact-image-column img{width:100%;height:100%;min-height:500px;max-height:700px;object-fit:cover;display:block}
+@media (max-width:1024px){.contact-image-column img{min-height:300px;max-height:400px}}
+
+/* Instagram Grid Section */
+.instagram-section{background:#fafafa;padding:48px 0;margin:48px 0}
+.instagram-container{max-width:1200px;margin:0 auto;padding:0 24px}
+.instagram-header{text-align:center;margin-bottom:32px}
+.instagram-link{display:inline-flex;align-items:center;gap:12px;color:#111;text-decoration:none;font-size:20px;font-weight:700;transition:opacity .3s}
+.instagram-link:hover{opacity:.7}
+.instagram-link svg{width:32px;height:32px}
+.instagram-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;max-width:100%}
+@media (min-width:640px){.instagram-grid{grid-template-columns:repeat(3,1fr)}}
+@media (min-width:900px){.instagram-grid{grid-template-columns:repeat(4,1fr)}}
+@media (min-width:1200px){.instagram-grid{grid-template-columns:repeat(6,1fr)}}
+.instagram-item{position:relative;aspect-ratio:1;overflow:hidden;cursor:pointer;background:#e5e5e5}
+.instagram-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+.instagram-item:hover img{transform:scale(1.05)}
+.instagram-item-overlay{position:absolute;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;color:#fff;font-weight:600}
+.instagram-item:hover .instagram-item-overlay{opacity:1}
+.instagram-item-overlay svg{width:24px;height:24px;margin-right:8px}
+.instagram-placeholder{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+@media (min-width:640px){.instagram-placeholder{grid-template-columns:repeat(3,1fr)}}
+@media (min-width:900px){.instagram-placeholder{grid-template-columns:repeat(4,1fr)}}
+@media (min-width:1200px){.instagram-placeholder{grid-template-columns:repeat(6,1fr)}}
+.instagram-placeholder-item{aspect-ratio:1;background:#e5e5e5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-decoration:none;color:#666;transition:background .3s;padding:24px;text-align:center}
+.instagram-placeholder-item:hover{background:#d5d5d5}
+.instagram-placeholder-item svg{width:48px;height:48px;opacity:.5}
+.instagram-placeholder-item p{font-size:14px;font-weight:600}
