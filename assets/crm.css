@@ -5,8 +5,9 @@
   --mm-line: #e7e2df;
   --mm-paper: #ffffff;
   --mm-soft: #f7f4f1;
-  --mm-rose: #a6062a;
-  --mm-rose-dark: #7d0824;
+  --mm-rose: #9f7a64;
+  --mm-rose-dark: #6f5142;
+  --mm-rose-soft: #f5eee9;
   --mm-teal: #087f7b;
   --mm-gold: #bf8f2f;
   --mm-blue: #3858d8;
@@ -211,7 +212,7 @@ body.admin-body {
 
 .lane-tab[aria-selected="true"] {
   border-color: var(--mm-rose);
-  background: #fff7f8;
+  background: var(--mm-rose-soft);
   box-shadow: inset 0 0 0 1px var(--mm-rose);
 }
 
@@ -341,7 +342,7 @@ body.admin-body {
 .crm-field input:focus,
 .crm-field select:focus,
 .crm-field textarea:focus {
-  outline: 3px solid rgba(166, 6, 42, .14);
+  outline: 3px solid rgba(159, 122, 100, .16);
   border-color: var(--mm-rose);
 }
 
@@ -429,8 +430,8 @@ body.admin-body {
 }
 
 .status-message.error {
-  border: 1px solid rgba(166, 6, 42, .28);
-  background: #fff2f4;
+  border: 1px solid rgba(159, 122, 100, .3);
+  background: var(--mm-rose-soft);
   color: var(--mm-rose-dark);
 }
 
@@ -1258,7 +1259,7 @@ body.admin-body {
 }
 
 .pill.rose {
-  background: #fff1f3;
+  background: var(--mm-rose-soft);
   color: var(--mm-rose-dark);
 }
 
