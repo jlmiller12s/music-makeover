@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Client Portal - The Music Makeover</title>
+  <link rel="icon" href="media/Logo-black.png">
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/crm.css">
+</head>
+
+<body class="portal-body">
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <a href="index.html"><img src="media/MMO-Logo.png" alt="The Music Makeover"></a>
+      </div>
+      <nav class="nav" aria-label="Primary">
+        <a href="booking.html">BOOKING</a>
+        <a href="admin.html">ADMIN</a>
+        <a href="contact.html">CONTACT</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="portal-shell mm-page">
+    <section class="portal-hero">
+      <div>
+        <p class="mm-kicker">Client Portal</p>
+        <h1 id="portal-client-name">Client workspace</h1>
+        <p>Upcoming appointments, signed contracts, invoices, files, shared notes, session summaries, next steps, and media release status live here.</p>
+      </div>
+      <aside class="portal-summary">
+        <dl>
+          <div>
+            <dt>Client type</dt>
+            <dd id="portal-client-type">Loading</dd>
+          </div>
+          <div>
+            <dt>Email</dt>
+            <dd id="portal-client-email">Loading</dd>
+          </div>
+          <div>
+            <dt>Total revenue</dt>
+            <dd id="portal-client-revenue">$0</dd>
+          </div>
+        </dl>
+      </aside>
+    </section>
+
+    <section class="portal-grid">
+      <div class="side-stack">
+        <section class="portal-panel">
+          <div class="panel-header">
+            <h2>Upcoming appointments</h2>
+          </div>
+          <div class="portal-list" id="portal-appointments"></div>
+        </section>
+
+        <section class="portal-panel">
+          <div class="panel-header">
+            <h2>Contracts and invoices</h2>
+          </div>
+          <div class="portal-list" id="portal-contracts"></div>
+          <div class="portal-list" id="portal-invoices"></div>
+        </section>
+
+        <section class="portal-panel">
+          <div class="panel-header">
+            <h2>Shared notes and summaries</h2>
+          </div>
+          <div class="portal-list" id="portal-notes"></div>
+        </section>
+      </div>
+
+      <aside class="side-stack">
+        <section class="portal-panel">
+          <h2>Resources</h2>
+          <div class="portal-list" id="portal-resources"></div>
+        </section>
+
+        <section class="portal-panel">
+          <h2>Media release</h2>
+          <div class="portal-list" id="portal-media"></div>
+        </section>
+
+        <section class="portal-panel">
+          <h2>Need Ashley?</h2>
+          <p>Use this space for a contact button, reschedule links, intake questionnaires, and secure file upload once those integrations are connected.</p>
+          <a class="mm-button" href="mailto:davis.ashley2@gmail.com">Contact Ashley</a>
+        </section>
+      </aside>
+    </section>
+  </main>
+
+  <script src="assets/portal.js"></script>
+</body>
+
+</html>

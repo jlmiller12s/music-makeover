@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Dashboard - The Music Makeover</title>
+  <link rel="icon" href="media/Logo-black.png">
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/crm.css">
+</head>
+
+<body class="admin-body">
+  <div class="admin-shell">
+    <aside class="admin-sidebar">
+      <div class="admin-brand">
+        <img src="media/MMO-Logo.png" alt="">
+        <span>Music Makeover</span>
+      </div>
+
+      <section class="setup-card" aria-label="Setup progress">
+        <strong>Launch setup</strong>
+        <div class="setup-bar"><span></span></div>
+        <small>Phase 1 foundation active</small>
+      </section>
+
+      <nav class="admin-nav" aria-label="Admin sections">
+        <button type="button" data-panel-target="home" class="is-active">Home</button>
+        <button type="button" data-panel-target="pipeline">Pipeline</button>
+        <button type="button" data-panel-target="calendar">Calendar</button>
+        <button type="button" data-panel-target="services">Services</button>
+        <button type="button" data-panel-target="consultations">Consultation Notes</button>
+        <button type="button" data-panel-target="recommendations">AI Recommendations</button>
+        <button type="button" data-panel-target="files">Files</button>
+        <button type="button" data-panel-target="finance">Finance</button>
+        <button type="button" data-panel-target="contacts">Contacts</button>
+        <button type="button" data-panel-target="reports">Reports</button>
+        <button type="button" data-panel-target="settings">Settings</button>
+        <a href="booking.html">Public booking</a>
+      </nav>
+    </aside>
+
+    <main class="admin-main">
+      <header class="admin-topbar">
+        <label class="admin-search">
+          <span aria-hidden="true">Search</span>
+          <input type="search" placeholder="Clients, services, invoices">
+        </label>
+        <div class="topbar-actions">
+          <a class="mm-ghost-button" href="booking.html">Booking page</a>
+          <a class="mm-ghost-button" href="client-portal.html">Client portal</a>
+          <button class="mm-button" id="new-inquiry-button" type="button">New inquiry</button>
+        </div>
+      </header>
+
+      <div class="admin-content">
+        <section class="admin-hero">
+          <div>
+            <p class="mm-kicker">Thursday, May 14, 2026</p>
+            <h1>Good afternoon, Ashley</h1>
+            <p>Here is what needs attention across inquiries, proposals, contracts, invoices, sessions, and follow-ups.</p>
+          </div>
+          <span class="admin-status">CRM API online</span>
+        </section>
+
+        <section class="metric-grid" id="metric-grid" aria-label="Dashboard metrics"></section>
+
+        <section class="admin-panel" data-panel="home">
+          <div class="panel-header">
+            <div>
+              <h2>Command center</h2>
+              <p>New inquiries, due follow-ups, recent payments, and the next client-facing actions.</p>
+            </div>
+            <button class="mm-ghost-button" type="button" data-panel-target="pipeline">Go to pipeline</button>
+          </div>
+          <div class="workspace-grid">
+            <div>
+              <div class="panel-header">
+                <h3>Pipeline snapshot</h3>
+              </div>
+              <div class="kanban" id="pipeline-board-home"></div>
+            </div>
+            <aside class="side-stack">
+              <section class="admin-panel">
+                <h3>Follow-ups due</h3>
+                <div class="side-stack" id="follow-up-list"></div>
+              </section>
+              <section class="admin-panel">
+                <h3>Recent payments</h3>
+                <div class="side-stack" id="payment-list"></div>
+              </section>
+            </aside>
+          </div>
+        </section>
+
+        <section class="admin-panel" data-panel="pipeline" hidden>
+          <div class="panel-header">
+            <div>
+              <h2>Lead / Client Pipeline</h2>
+              <p>Move every relationship from inquiry through completion without losing the thread.</p>
+            </div>
+          </div>
+          <div class="kanban" id="pipeline-board"></div>
+        </section>
+
+        <section class="admin-panel" data-panel="calendar" hidden>
+          <div class="panel-header">
+            <div>
+              <h2>Calendar</h2>
+              <p>Google Calendar sync, availability, buffers, and manual booking can connect here.</p>
+            </div>
+            <span class="pill gold">America/Chicago</span>
+          </div>
+          <div class="side-stack" id="calendar-list"></div>
+        </section>
+
+        <section class="admin-panel" data-panel="services" hidden>
+          <div class="panel-header">
+            <div>
+              <h2>Services & Pricing</h2>
+              <p>Edit service names, prices, descriptions, duration, and whether a service is bookable.</p>
+            </div>
+          </div>
+          <div id="service-list"></div>
+        </section>
+
+        <section class="admin-panel" data-panel="consultations" hidden>
+          <div class="panel-header">
+            <div>
+              <h2>Consultation Notes</h2>
+              <p>Upload or paste session notes so recommendations can be based on what the client actually shared.</p>
+            </div>
+            <span class="pill teal">AI-ready</span>
+          </div>
+          <div class="consultation-layout">
+            <form class="consultation-form" id="consultation-form">
+              <div class="crm-form-grid">
+                <div class="crm-field">
+                  <label for="consult-client-name">Client / organization</label>
+                  <input id="consult-client-name" name="clientName" required placeholder="Grace City Church">
+                </div>
+                <div class="crm-field">
+                  <label for="consult-category">Service lane</label>
+                  <select id="consult-category" name="category">
+                    <option value="school">School</option>
+                    <option value="ensemble">Choir / Ensemble</option>
+                    <option value="worship">Worship Team</option>
+                    <option value="private">Private Coaching</option>
+                    <option value="general">General Inquiry</option>
+                  </select>
+                </div>
+                <div class="crm-field">
+                  <label for="consult-date">Session date</label>
+                  <input id="consult-date" name="sessionDate" type="date">
+                </div>
+                <div class="crm-field">
+                  <label for="consult-organization">Organization, if different</label>
+                  <input id="consult-organization" name="organization" placeholder="School, church, ensemble, or parent">
+                </div>
+              </div>
+              <div class="crm-form-grid">
+                <div class="crm-field">
+                  <label for="consult-goals">Goals</label>
+                  <textarea id="consult-goals" name="goals" placeholder="What do they want to improve?"></textarea>
+                </div>
+                <div class="crm-field">
+                  <label for="consult-challenges">Challenges</label>
+                  <textarea id="consult-challenges" name="challenges" placeholder="What is getting in the way?"></textarea>
+                </div>
+              </div>
+              <div class="crm-field">
+                <label for="consult-notes">Consultation notes</label>
+                <textarea id="consult-notes" name="notes" required placeholder="Paste call notes, session observations, service needs, timeline, budget cues, and next steps."></textarea>
+              </div>
+              <label class="upload-drop" for="consult-files">
+                <strong>Upload notes, PDFs, rehearsal plans, song lists, or videos</strong>
+                <span id="consult-file-summary">No files selected</span>
+                <input id="consult-files" name="files" type="file" multiple>
+              </label>
+              <div class="dialog-actions">
+                <button class="mm-button" type="submit">Save consultation notes</button>
+              </div>
+            </form>
+            <aside class="consultation-list-panel">
+              <h3>Saved notes</h3>
+              <div class="side-stack" id="consultation-list"></div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="admin-panel" data-panel="recommendations" hidden>
+          <div class="panel-header">
+            <div>
+              <h2>AI Service Recommendations</h2>
+              <p>Choose a consultation session and generate a ranked service/package recommendation for proposals.</p>
+            </div>
+            <span class="pill gold">Services & packages</span>
+          </div>
+          <div class="recommendation-control">
+            <div class="crm-field">
+              <label for="recommendation-consultation">Consultation session</label>
+              <select id="recommendation-consultation"></select>
+            </div>
+            <button class="mm-button" id="generate-recommendation" type="button">Generate recommendation</button>
+          </div>
+          <div id="recommendation-latest"></div>
+          <div class="panel-header compact-header">
+            <div>
+              <h3>Recommendation history</h3>
+              <p>Use the latest recommendation as a starting point for proposals and contracts.</p>
+            </div>
+          </div>
+          <div class="side-stack" id="recommendation-history"></div>
+        </section>
+
+        <section class="admin-panel" data-panel="files" hidden>
+          <div class="panel-header">
+            <div>
+              <h2>Files & Resources</h2>
+              <p>Track uploads, resource sharing, rehearsal plans, PDFs, video notes, and client files.</p>
+            </div>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>File name</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Uploaded</th>
+              </tr>
+            </thead>
+            <tbody id="file-list"></tbody>
+          </table>
+        </section>
+
+        <section class="admin-panel" data-panel="finance" hidden>
+          <div class="panel-header">
+            <div>
+              <h2>Finance</h2>
+              <p>Invoices, deposits, partial payments, unpaid reminders, receipts, and manual payment tracking.</p>
+            </div>
+            <span class="pill teal">Stripe-ready</span>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Client</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Due</th>
+              </tr>
+            </thead>
+            <tbody id="invoice-list"></tbody>
+          </table>
+          <section class="stripe-placeholder" aria-label="Stripe integration placeholder">
+            <div class="stripe-mark" aria-hidden="true">S</div>
+            <div>
+              <p class="mm-kicker">Stripe integration</p>
+              <h3>Online payments placeholder</h3>
+              <p>Connect Stripe here later to create checkout links, collect deposits, track paid invoices, send receipts, and record refunds. Payment details should stay inside Stripe, not inside this CRM.</p>
+            </div>
+            <div class="stripe-placeholder-actions">
+              <span class="pill gold">Not connected</span>
+              <button class="mm-ghost-button" type="button" disabled>Connect Stripe</button>
+            </div>
+          </section>
+        </section>
+
+        <section class="admin-panel" data-panel="contacts" hidden>
+          <div class="panel-header">
+            <div>
+              <h2>Contacts</h2>
+              <p>Searchable CRM database with client type, tags, notes, lead source, and revenue.</p>
+            </div>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Email</th>
+                <th>Total revenue</th>
+              </tr>
+            </thead>
+            <tbody id="contact-list"></tbody>
+          </table>
+        </section>
+
+        <section class="admin-panel" data-panel="reports" hidden>
+          <div class="panel-header">
+            <div>
+              <h2>Reports</h2>
+              <p>Basic lead mix, monthly revenue, outstanding invoices, conversion signals, and repeat client tracking.</p>
+            </div>
+          </div>
+          <div class="chart-bars" id="lead-chart"></div>
+        </section>
+
+        <section class="admin-panel" data-panel="settings" hidden>
+          <div class="panel-header">
+            <div>
+              <h2>Settings</h2>
+              <p>Connect calendar, email, payments, file storage, backups, privacy pages, and editable content.</p>
+            </div>
+          </div>
+          <div class="side-stack" id="integration-list"></div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <dialog class="admin-dialog" id="inquiry-dialog">
+    <div class="dialog-card">
+      <h2>Create inquiry</h2>
+      <form id="new-inquiry-form">
+        <div class="crm-form-grid">
+          <div class="crm-field">
+            <label for="admin-category">Category</label>
+            <select id="admin-category" name="category">
+              <option value="school">School</option>
+              <option value="ensemble">Choir / Ensemble</option>
+              <option value="worship">Worship Team</option>
+              <option value="private">Private Coaching</option>
+              <option value="general">General Inquiry</option>
+            </select>
+          </div>
+          <div class="crm-field">
+            <label for="admin-name">Name</label>
+            <input id="admin-name" name="name" required>
+          </div>
+          <div class="crm-field">
+            <label for="admin-email">Email</label>
+            <input id="admin-email" name="email" type="email" required>
+          </div>
+          <div class="crm-field">
+            <label for="admin-phone">Phone</label>
+            <input id="admin-phone" name="phone" required>
+          </div>
+          <div class="crm-field">
+            <label for="admin-organization">Organization</label>
+            <input id="admin-organization" name="organization">
+          </div>
+          <div class="crm-field">
+            <label for="admin-location">Location</label>
+            <input id="admin-location" name="location" placeholder="City, state">
+          </div>
+        </div>
+        <div class="crm-field">
+          <label for="admin-support">Support needed</label>
+          <textarea id="admin-support" name="supportNeeded" required></textarea>
+        </div>
+        <div class="dialog-actions">
+          <button class="mm-ghost-button" id="cancel-inquiry" type="button">Cancel</button>
+          <button class="mm-button" type="submit">Create lead</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <dialog class="admin-dialog" id="service-dialog">
+    <div class="dialog-card">
+      <h2>Edit service</h2>
+      <form id="service-form">
+        <div class="crm-field">
+          <label for="service-name">Service name</label>
+          <input id="service-name" required>
+        </div>
+        <div class="crm-form-grid">
+          <div class="crm-field">
+            <label for="service-price">Price</label>
+            <input id="service-price" required>
+          </div>
+          <div class="crm-field">
+            <label for="service-duration">Duration</label>
+            <input id="service-duration" required>
+          </div>
+        </div>
+        <div class="crm-field">
+          <label for="service-description">Description</label>
+          <textarea id="service-description" required></textarea>
+        </div>
+        <label class="crm-field">
+          <span>Bookable without custom proposal?</span>
+          <input id="service-bookable" type="checkbox">
+        </label>
+        <div class="dialog-actions">
+          <button class="mm-ghost-button" id="cancel-service" type="button">Cancel</button>
+          <button class="mm-button" type="submit">Save service</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <script src="assets/admin.js"></script>
+</body>
+
+</html>

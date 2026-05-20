@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Login - The Music Makeover</title>
+  <link rel="icon" href="media/Logo-black.png">
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/crm.css">
+</head>
+
+<body class="auth-body">
+  <main class="auth-shell">
+    <section class="auth-card" aria-labelledby="auth-heading">
+      <img class="auth-logo" src="media/MMO-Logo.png" alt="The Music Makeover">
+      <h1 id="auth-heading">The Music Makeover</h1>
+
+      <div class="auth-tabs" role="tablist" aria-label="Admin access">
+        <button type="button" id="login-tab" data-auth-mode="login" aria-selected="true">Sign in</button>
+        <button type="button" id="create-tab" data-auth-mode="create" aria-selected="false">Create an Account</button>
+      </div>
+
+      <div id="auth-status" class="status-message" role="status" aria-live="polite"></div>
+
+      <form id="admin-login-form" class="auth-form">
+        <div class="crm-field">
+          <label for="login-email">Email Address</label>
+          <input id="login-email" name="email" type="email" autocomplete="email" placeholder="Email Address" required>
+        </div>
+        <div class="crm-field">
+          <label for="login-password">Password</label>
+          <input id="login-password" name="password" type="password" autocomplete="current-password" placeholder="Password" required>
+        </div>
+        <div class="auth-check-row">
+          <label>
+            <input id="remember-admin" type="checkbox">
+            <span>Remember Me</span>
+          </label>
+          <button id="forgot-password-button" type="button">Forgot Password?</button>
+        </div>
+        <button class="auth-submit" type="submit">Log In</button>
+      </form>
+
+      <form id="admin-create-form" class="auth-form" hidden>
+        <div class="crm-field">
+          <label for="create-name">Admin Name</label>
+          <input id="create-name" name="name" autocomplete="name" placeholder="Admin Name" required>
+        </div>
+        <div class="crm-field">
+          <label for="create-email">Email Address</label>
+          <input id="create-email" name="email" type="email" autocomplete="email" placeholder="Email Address" required>
+        </div>
+        <div class="crm-field">
+          <label for="create-password">Password</label>
+          <input id="create-password" name="password" type="password" autocomplete="new-password" minlength="8" placeholder="Password" required>
+        </div>
+        <div class="crm-field">
+          <label for="setup-code">Admin Setup Code</label>
+          <input id="setup-code" name="setupCode" type="password" autocomplete="off" placeholder="Admin Setup Code" required>
+        </div>
+        <button class="auth-submit" type="submit">Create Admin Login</button>
+      </form>
+
+      <a class="auth-policy" href="booking.html">Back to booking</a>
+    </section>
+  </main>
+
+  <script src="assets/auth.js"></script>
+</body>
+
+</html>
