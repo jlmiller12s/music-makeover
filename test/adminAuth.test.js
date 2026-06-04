@@ -60,6 +60,25 @@ test('authenticates with the right password and verifies the issued session toke
   assert.equal(getPublicAdminProfile(verified).email, 'ashley@example.com');
 });
 
+test('verifies an issued session token without shared in-memory sessions', () => {
+  const created = createAdmin({ admins: [], sessions: [] }, {
+    email: 'ashley@example.com',
+    password: 'super-secret-123',
+    name: 'Ashley Miller',
+    setupCode: 'musicmakeover2026',
+  }, { setupCode: 'musicmakeover2026' });
+
+  const signedIn = authenticateAdmin(created.authState, 'ashley@example.com', 'super-secret-123', {
+    sessionSecret: 'shared-vercel-secret',
+  });
+  const verified = verifyAdminSession({ admins: [], sessions: [] }, signedIn.session.token, {
+    sessionSecret: 'shared-vercel-secret',
+  });
+
+  assert.equal(verified.email, 'ashley@example.com');
+  assert.equal(verified.name, 'Ashley Miller');
+});
+
 test('creates a password reset email without revealing whether the address exists', () => {
   const created = createAdmin({ admins: [], sessions: [] }, {
     email: 'ashley@example.com',
