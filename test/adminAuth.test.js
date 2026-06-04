@@ -79,6 +79,36 @@ test('verifies an issued session token without shared in-memory sessions', () =>
   assert.equal(verified.name, 'Ashley Miller');
 });
 
+test('authenticates an environment-backed admin after a cold start', () => {
+  const previousEmail = process.env.ADMIN_EMAIL;
+  const previousPassword = process.env.ADMIN_PASSWORD;
+  const previousPasswordHash = process.env.ADMIN_PASSWORD_HASH;
+  const previousName = process.env.ADMIN_NAME;
+
+  process.env.ADMIN_EMAIL = 'ashley@example.com';
+  process.env.ADMIN_PASSWORD = 'env-secret-123';
+  delete process.env.ADMIN_PASSWORD_HASH;
+  process.env.ADMIN_NAME = 'Ashley Env';
+
+  try {
+    const signedIn = authenticateAdmin({ admins: [], sessions: [] }, 'ashley@example.com', 'env-secret-123', {
+      sessionSecret: 'shared-vercel-secret',
+    });
+    const verified = verifyAdminSession({ admins: [], sessions: [] }, signedIn.session.token, {
+      sessionSecret: 'shared-vercel-secret',
+    });
+
+    assert.equal(signedIn.admin.email, 'ashley@example.com');
+    assert.equal(signedIn.admin.name, 'Ashley Env');
+    assert.equal(verified.email, 'ashley@example.com');
+  } finally {
+    restoreEnv('ADMIN_EMAIL', previousEmail);
+    restoreEnv('ADMIN_PASSWORD', previousPassword);
+    restoreEnv('ADMIN_PASSWORD_HASH', previousPasswordHash);
+    restoreEnv('ADMIN_NAME', previousName);
+  }
+});
+
 test('creates a password reset email without revealing whether the address exists', () => {
   const created = createAdmin({ admins: [], sessions: [] }, {
     email: 'ashley@example.com',
@@ -120,3 +150,8 @@ test('resets an admin password with a valid reset token', () => {
   const signedIn = authenticateAdmin(reset.authState, 'ashley@example.com', 'new-secret-123');
   assert.equal(signedIn.admin.email, 'ashley@example.com');
 });
+
+function restoreEnv(name, value) {
+  if (value === undefined) delete process.env[name];
+  else process.env[name] = value;
+}
