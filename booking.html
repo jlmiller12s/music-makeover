@@ -24,8 +24,8 @@
         <span></span>
       </button>
       <nav class="nav" aria-label="Primary">
-        <a href="index.html#about">ABOUT ME</a>
-        <a href="index.html#services">SERVICES</a>
+        <a href="about.html">ABOUT ME</a>
+        <a href="services.html">SERVICES</a>
         <a href="booking.html">BOOKING</a>
         <a href="testimonials.html">TESTIMONIALS</a>
         <a href="contact.html">CONTACT</a>
@@ -38,39 +38,51 @@
       <div>
         <p class="mm-kicker">Book / Contact</p>
         <h1 id="booking-heading">Let's find the right makeover for you.</h1>
-        <p>Whether you need private coaching, team development, choir support, or a full program intensive, share where you are and what you hope to improve. Ashley will review your inquiry and recommend the next best step.</p>
+        <p>Whether you are looking for private coaching, worship team support, choir development, or a full music program intensive, this is the place to start.</p>
+        <p>Share a little about where you are, what you need, and what you are hoping to improve. Ashley will review your inquiry and recommend the best next step based on your goals, timeline, and service needs.</p>
       </div>
       <aside class="booking-intro-panel" aria-label="How booking works">
         <strong>What happens next</strong>
         <ul>
-          <li>Your inquiry is routed by service interest and audience type.</li>
-          <li>Ashley reviews your goals, challenges, timeline, and preferred format.</li>
-          <li>Custom team, choir, and program work moves into consultation, proposal, and approved dates.</li>
+          <li>Ashley reviews your goals, challenges, timeline, location, and preferred format.</li>
+          <li>Your inquiry is matched to the best service path.</li>
+          <li>Private coaching inquiries receive next steps for scheduling.</li>
+          <li>Team, choir, school, church, and program requests may move into consultation, proposal, and approved dates.</li>
+          <li>Once details are confirmed, secure payment links or invoices will be sent through Stripe.</li>
         </ul>
       </aside>
     </section>
 
-    <section class="mm-page" aria-label="Choose a service lane">
+    <section class="mm-page booking-path-section" aria-labelledby="choose-path-heading">
+      <div class="section-heading">
+        <p class="mm-kicker">Choose your path</p>
+        <h2 id="choose-path-heading">Start with the lane that sounds closest.</h2>
+      </div>
       <div class="lane-tabs" role="tablist" aria-label="Inquiry categories">
-        <button class="lane-tab" type="button" role="tab" data-lane="school" aria-selected="true">
-          <span>Leaders & Programs</span>
-          <strong>Music Intensives</strong>
-        </button>
-        <button class="lane-tab" type="button" role="tab" data-lane="ensemble" aria-selected="false">
-          <span>Choirs & Schools</span>
-          <strong>Choir / Ensemble</strong>
+        <button class="lane-tab" type="button" role="tab" data-lane="private" aria-selected="false">
+          <span>Private Music Coaching</span>
+          <strong>Students, singers, musicians, and worship leaders seeking one-on-one support.</strong>
+          <em>Starting at $40</em>
         </button>
         <button class="lane-tab" type="button" role="tab" data-lane="worship" aria-selected="false">
-          <span>Churches & Teams</span>
-          <strong>Worship Team</strong>
+          <span>Churches & Worship Teams</span>
+          <strong>Stronger vocals, clearer structure, healthier team culture, and practical development.</strong>
+          <em>Starting at $500</em>
         </button>
-        <button class="lane-tab" type="button" role="tab" data-lane="private" aria-selected="false">
-          <span>Individuals</span>
-          <strong>Private Music Coaching</strong>
+        <button class="lane-tab" type="button" role="tab" data-lane="ensemble" aria-selected="false">
+          <span>Choirs & Ensembles</span>
+          <strong>Tone, blend, musicianship, confidence, and performance readiness.</strong>
+          <em>Starting at $350</em>
+        </button>
+        <button class="lane-tab" type="button" role="tab" data-lane="school" aria-selected="true">
+          <span>Leaders & Programs</span>
+          <strong>Stronger systems, clearer structure, and customized next steps.</strong>
+          <em>Starting at $1,250+</em>
         </button>
         <button class="lane-tab" type="button" role="tab" data-lane="general" aria-selected="false">
           <span>Not sure?</span>
-          <strong>General Inquiry</strong>
+          <strong>Share what you need and Ashley will help identify the next right step.</strong>
+          <em>General inquiry</em>
         </button>
       </div>
     </section>
@@ -91,6 +103,10 @@
 
         <form id="music-inquiry-form" class="crm-form">
           <input type="hidden" id="category" name="category" value="school">
+          <div class="form-section-label">
+            <span>Inquiry form</span>
+            <strong>Tell Ashley what kind of support you need.</strong>
+          </div>
           <div class="crm-form-grid" id="dynamic-fields"></div>
 
           <div class="crm-field">
@@ -104,21 +120,20 @@
           </label>
 
           <div class="booking-form-footer">
-            <p class="privacy-note">Payment details are never collected here. Invoices and online payments should be handled through Stripe or Square once the secure payment integration is connected.</p>
-            <button class="mm-button" type="submit">Send inquiry</button>
+            <p class="privacy-note">Payment details are not collected through this inquiry form. Once your service, scope, timeline, and dates are confirmed, invoices or secure payment links will be sent through Stripe.</p>
+            <button class="mm-button" type="submit">Find My Next Step</button>
           </div>
         </form>
       </div>
 
       <aside class="booking-side" aria-label="Booking details">
         <section class="booking-side-panel">
-          <h3>Appointment types</h3>
+          <h3>Program support options</h3>
           <ul class="side-list">
-            <li>Free 15-Minute Fit Call</li>
-            <li>60-Minute Quick Fix Assessment</li>
-            <li>Private coaching - 30, 45, or 60 minutes</li>
-            <li>Worship team, choir, or school consultation</li>
-            <li>Workshop, intensive, or full program request</li>
+            <li>Quick Fix Assessment - $350 - available after inquiry review.</li>
+            <li>Music Educator Makeover - $750 - scope and dates approved before booking.</li>
+            <li>Music Makeover Intensive - $1,250+ - consultation may be recommended.</li>
+            <li>Full Program Makeover - $3,000+ - custom proposal required.</li>
           </ul>
         </section>
 
@@ -126,7 +141,7 @@
           <h3>Service policies</h3>
           <ul class="side-list">
             <li>Team, choir, school, and program services are request-first and require approval.</li>
-            <li>Deposits, payment plans, invoices, and receipts are managed after proposal acceptance.</li>
+            <li>Deposits, payment plans, invoices, receipts, and manual payment tracking are managed after proposal acceptance.</li>
             <li>Media release permissions are tracked before any photos, videos, audio, names, or testimonials are used.</li>
           </ul>
         </section>

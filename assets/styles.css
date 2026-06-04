@@ -2137,7 +2137,7 @@ html {
 }
 
 .service-grid .bullet-dot {
-  background: #a6062a !important;
+  background: #9f7a64 !important;
 }
 
 .service-cta a {
@@ -2241,7 +2241,7 @@ html {
 }
 
 .footer-links a:hover {
-  color: #a6062a;
+  color: #9f7a64;
   text-decoration: underline;
 }
 
@@ -2310,4 +2310,468 @@ html {
 
 .signature-services .service-grid .service-card .service-badge {
   color: #a17c65 !important;
+}
+
+/* Standalone content pages */
+.content-page {
+  width: min(1200px, calc(100% - 48px));
+  max-width: none;
+  margin: 150px auto 72px;
+  padding: 0;
+}
+
+.page-hero {
+  display: grid;
+  gap: 22px;
+  justify-items: center;
+  text-align: center;
+  padding: 42px 0 34px;
+}
+
+.page-hero h1,
+.story-lead h2,
+.meet-section h2,
+.consultation-callout h2,
+.service-detail-card h2,
+.experience-section h2,
+.testimonial-form-section h2 {
+  font-size: clamp(34px, 5vw, 64px);
+  line-height: 1.02;
+  letter-spacing: 0;
+}
+
+.page-hero p {
+  max-width: 820px;
+  color: #4d5665;
+  font-size: 18px;
+  line-height: 1.72;
+}
+
+.eyebrow {
+  color: #9f7a64;
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.split-hero {
+  grid-template-columns: minmax(0, .9fr) minmax(340px, .8fr);
+  align-items: center;
+  justify-items: stretch;
+  text-align: left;
+}
+
+.split-hero .page-hero-copy {
+  display: grid;
+  gap: 18px;
+}
+
+.page-hero-image,
+.meet-image {
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 20px 54px rgba(17, 17, 17, .12);
+}
+
+.page-hero-image img,
+.meet-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 440px;
+  object-fit: cover;
+}
+
+.story-section,
+.meet-section,
+.experience-section,
+.testimonial-form-section,
+.consultation-callout {
+  display: grid;
+  grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr);
+  gap: 36px;
+  align-items: start;
+  margin: 58px 0;
+  padding: 36px;
+  border: 1px solid #e7e2df;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 12px 34px rgba(17, 17, 17, .05);
+}
+
+.story-copy,
+.meet-section > div:last-child,
+.service-detail-card,
+.testimonial-form-section ol {
+  color: #3d4451;
+  font-size: 16px;
+  line-height: 1.72;
+}
+
+.story-copy p + p,
+.meet-section p + p,
+.service-detail-card p + p {
+  margin-top: 14px;
+}
+
+.pull-quote {
+  margin-top: 20px;
+  padding: 18px 20px;
+  border-left: 5px solid #9f7a64;
+  border-radius: 0 8px 8px 0;
+  background: #f7f4f1;
+  color: #111;
+  font-weight: 760;
+}
+
+.page-support {
+  margin-top: 68px;
+}
+
+.serve-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.serve-grid article {
+  min-height: 270px;
+}
+
+.meet-section {
+  grid-template-columns: minmax(300px, .8fr) minmax(0, 1fr);
+  align-items: center;
+  background: #f7f4f1;
+}
+
+.meet-section .hero-cta,
+.consultation-callout .hero-cta {
+  margin-top: 22px;
+}
+
+.text-link {
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 18px;
+  color: #9f7a64;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.text-link:hover {
+  text-decoration: underline;
+}
+
+.consultation-callout {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  background: #f7f4f1;
+}
+
+.consultation-callout p {
+  max-width: 820px;
+  margin-top: 12px;
+  color: #3d4451;
+}
+
+.service-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin: 56px 0;
+}
+
+.service-detail-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 460px;
+  padding: 28px;
+  border: 1px solid #e7e2df;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 12px 34px rgba(17, 17, 17, .05);
+}
+
+.service-detail-card h2 {
+  font-size: clamp(26px, 3vw, 36px);
+  line-height: 1.1;
+}
+
+.service-detail-card span,
+.proof-grid span {
+  color: #9f7a64;
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.service-detail-card ul,
+.experience-list,
+.testimonial-form-section ol {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.service-detail-card li::marker,
+.experience-list li::marker {
+  color: #9f7a64;
+}
+
+.service-detail-card a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  margin-top: auto;
+  border-radius: 8px;
+  background: #111;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 850;
+}
+
+.service-why {
+  width: 100%;
+  margin: 56px 0;
+}
+
+.pricing-overview {
+  margin: 64px 0;
+}
+
+.pricing-table {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid #e7e2df;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 12px 34px rgba(17, 17, 17, .05);
+}
+
+.pricing-row {
+  display: grid;
+  grid-template-columns: minmax(180px, .9fr) minmax(180px, .8fr) minmax(220px, 1.3fr);
+  gap: 20px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e7e2df;
+  color: #3d4451;
+}
+
+.pricing-row:last-child {
+  border-bottom: 0;
+}
+
+.pricing-head {
+  background: #f7f4f1;
+  color: #111;
+  font-size: 13px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.service-cta-band {
+  margin: 64px 0 0;
+}
+
+.contact-page,
+.testimonials-page {
+  margin-top: 150px;
+}
+
+.contact-page-hero .centered-actions {
+  justify-content: center;
+}
+
+.response-note {
+  color: #9f7a64 !important;
+  font-size: 14px !important;
+  font-weight: 760;
+}
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 24px;
+  align-items: start;
+  margin-top: 28px;
+}
+
+.contact-detail-stack {
+  display: grid;
+  gap: 16px;
+}
+
+.contact-page .contact-form-card,
+.contact-page .contact-info-card {
+  border-radius: 8px;
+  border-color: #e7e2df;
+  box-shadow: 0 12px 34px rgba(17, 17, 17, .05);
+}
+
+.contact-page .contact-form-card > p,
+.contact-page .contact-info-card p {
+  color: #4d5665;
+}
+
+.social-text-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.social-text-links a,
+.social-text-links span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 11px;
+  border-radius: 999px;
+  background: #f7f4f1;
+  color: #3d4451;
+  font-size: 13px;
+  font-weight: 760;
+  text-decoration: none;
+}
+
+.social-text-links a:hover {
+  color: #9f7a64;
+}
+
+.quick-links-grid.four-links {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.testimonial-headline {
+  color: #111;
+  font-size: 18px;
+  font-weight: 850;
+  line-height: 1.3;
+}
+
+.featured-card {
+  border-radius: 8px;
+  border-color: #e7e2df;
+  box-shadow: 0 12px 34px rgba(17, 17, 17, .05);
+}
+
+.featured-quote-text {
+  margin-top: 14px;
+}
+
+.scan-grid {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.experience-section {
+  grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+  background: #111;
+  color: #fff;
+}
+
+.experience-section h2,
+.experience-section .eyebrow {
+  color: #fff;
+}
+
+.experience-list {
+  color: rgba(255, 255, 255, .86);
+}
+
+.proof-bank {
+  margin: 64px 0;
+}
+
+.proof-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.proof-grid article {
+  min-height: 150px;
+  padding: 20px;
+  border: 1px solid #e7e2df;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(17, 17, 17, .04);
+}
+
+.proof-grid p {
+  margin-top: 10px;
+  color: #4d5665;
+}
+
+.testimonial-form-section {
+  grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+  background: #f7f4f1;
+}
+
+@media (max-width: 1080px) {
+  .serve-grid,
+  .quick-links-grid.four-links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .content-page {
+    width: min(100% - 32px, 1200px);
+    margin-top: 126px;
+  }
+
+  .split-hero,
+  .story-section,
+  .meet-section,
+  .experience-section,
+  .testimonial-form-section,
+  .consultation-callout,
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .service-detail-grid,
+  .proof-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 640px) {
+  .content-page {
+    width: min(100% - 28px, 1200px);
+    margin-top: 116px;
+  }
+
+  .story-section,
+  .meet-section,
+  .experience-section,
+  .testimonial-form-section,
+  .consultation-callout {
+    padding: 24px;
+  }
+
+  .serve-grid,
+  .quick-links-grid.four-links {
+    grid-template-columns: 1fr;
+  }
+
+  .page-hero h1,
+  .story-lead h2,
+  .meet-section h2,
+  .consultation-callout h2,
+  .service-detail-card h2,
+  .experience-section h2,
+  .testimonial-form-section h2 {
+    font-size: clamp(30px, 10vw, 42px);
+  }
 }

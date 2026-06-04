@@ -189,8 +189,8 @@ body.admin-body {
 }
 
 .lane-tab {
-  min-height: 72px;
-  padding: 14px;
+  min-height: 154px;
+  padding: 16px;
   border: 1px solid var(--mm-line);
   border-radius: var(--mm-radius);
   background: #fff;
@@ -201,20 +201,58 @@ body.admin-body {
 
 .lane-tab span {
   display: block;
-  color: var(--mm-muted);
+  color: var(--mm-rose);
   font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
 }
 
 .lane-tab strong {
   display: block;
-  margin-top: 2px;
+  margin-top: 8px;
   font-size: 15px;
+  line-height: 1.35;
+}
+
+.lane-tab em {
+  display: block;
+  margin-top: 12px;
+  color: var(--mm-muted);
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 760;
 }
 
 .lane-tab[aria-selected="true"] {
   border-color: var(--mm-rose);
   background: var(--mm-rose-soft);
   box-shadow: inset 0 0 0 1px var(--mm-rose);
+}
+
+.booking-path-section .section-heading {
+  margin-bottom: 8px;
+}
+
+.booking-path-section .section-heading h2 {
+  font-size: clamp(26px, 3vw, 38px);
+  line-height: 1.1;
+}
+
+.form-section-label {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.form-section-label span {
+  color: var(--mm-rose);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.form-section-label strong {
+  font-size: 18px;
 }
 
 .booking-workspace {

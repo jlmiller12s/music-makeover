@@ -1,7 +1,7 @@
 (function () {
   const state = {
     crm: null,
-    category: new URLSearchParams(window.location.search).get('category') || 'school',
+    category: new URLSearchParams(window.location.search).get('category') || 'private',
   };
 
   const categoryCopy = {
@@ -28,7 +28,7 @@
     general: {
       label: 'General',
       title: 'General Consultation Form',
-      summary: 'For people who are not sure which lane fits yet. Ashley will help route your request.',
+      summary: 'Not sure which service fits best? Share what you need, and Ashley will help you identify the next right step.',
     },
   };
 
@@ -37,7 +37,7 @@
     supportNeeded: ['Private Music Coaching', 'Worship Team Makeover', 'Choir & Ensemble Coaching', 'Music Makeover Intensive', 'Not sure yet'],
     audienceType: ['Child/student', 'Teen singer', 'Adult singer', 'Worship leader', 'Worship team', 'Choir', 'School program', 'Church music ministry', 'Organization'],
     coachingCadence: ['One-time support', 'Ongoing coaching', 'Not sure yet'],
-    preferredFormat: ['In-person', 'Virtual', 'Either'],
+    preferredFormat: ['In-person', 'Virtual', 'Hybrid', 'Not sure yet'],
     experienceLevel: ['Beginner', 'Intermediate', 'Advanced', 'Professional / leader'],
     preferredLessonType: ['Private Music Coaching - 30 minutes', 'Private Music Coaching - 45 minutes', 'Private Music Coaching - 60 minutes', 'Monthly 4-Pack - 45 minutes', 'Monthly 4-Pack - 60 minutes', 'Audition prep', 'Virtual coaching'],
   };
@@ -174,7 +174,7 @@
       showMessage('error', `${error.message}. If this keeps happening, email themusicmakeover@gmail.com and include your service lane and preferred timeline.`);
     } finally {
       button.disabled = false;
-      button.textContent = 'Send inquiry';
+      button.textContent = 'Find My Next Step';
     }
   }
 
