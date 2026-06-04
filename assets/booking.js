@@ -60,7 +60,7 @@
       if (!payload.ok) throw new Error(payload.error || 'Unable to load CRM');
       state.crm = payload.state;
     } catch (error) {
-      showMessage('error', 'The booking system could not load the service catalog. You can still email davis.ashley2@gmail.com directly.');
+      showMessage('error', 'The booking system could not load the service catalog. You can still email themusicmakeover@gmail.com directly.');
     }
   }
 
@@ -68,6 +68,8 @@
     const button = document.querySelector('.hamburger');
     const nav = document.querySelector('.nav');
     if (!button || !nav) return;
+    if (button.dataset.navReady === 'true') return;
+    button.dataset.navReady = 'true';
     button.addEventListener('click', () => {
       const open = button.getAttribute('aria-expanded') === 'true';
       button.setAttribute('aria-expanded', String(!open));
@@ -169,7 +171,7 @@
       });
       window.location.href = `thank-you.html?${query.toString()}`;
     } catch (error) {
-      showMessage('error', `${error.message}. If this keeps happening, email davis.ashley2@gmail.com and include your service lane and preferred timeline.`);
+      showMessage('error', `${error.message}. If this keeps happening, email themusicmakeover@gmail.com and include your service lane and preferred timeline.`);
     } finally {
       button.disabled = false;
       button.textContent = 'Send inquiry';

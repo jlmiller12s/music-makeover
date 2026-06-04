@@ -7,6 +7,7 @@
   <title>Contact - The Music Makeover</title>
   <link rel="icon" href="media/Logo-black.png">
   <link rel="stylesheet" href="assets/styles.css">
+  <script defer src="assets/site.js"></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
 
@@ -16,6 +17,11 @@
       <div class="logo">
         <a href="index.html"><img src="media/MMO-Logo.png" alt="The Music Makeover"></a>
       </div>
+      <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
       <nav class="nav" aria-label="Primary">
         <a href="index.html#about">ABOUT ME</a>
         <a href="index.html#services">SERVICES</a>
@@ -42,7 +48,7 @@
 
           <div id="contact-success" class="success-msg" style="display:none">
             Thank you for reaching out! Your message is ready in your mail client. If nothing opened, email us directly
-            at davis.ashley2@gmail.com.
+            at themusicmakeover@gmail.com.
           </div>
 
           <form id="contact-form" class="contact-form">
@@ -89,7 +95,7 @@
         <div class="contact-info-cards">
           <div class="contact-info-card">
             <h3>Email</h3>
-            <p><a href="mailto:davis.ashley2@gmail.com">davis.ashley2@gmail.com</a></p>
+            <p><a href="mailto:themusicmakeover@gmail.com">themusicmakeover@gmail.com</a></p>
           </div>
           <div class="contact-info-card">
             <h3>Based in</h3>
@@ -293,7 +299,7 @@
           `${data.message}`,
         ].join('\n');
 
-        const mailto = `mailto:davis.ashley2@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        const mailto = `mailto:themusicmakeover@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         window.location.href = mailto;
 
         contactForm.style.display = 'none';

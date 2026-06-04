@@ -7,6 +7,7 @@
   <title>The Music Makeover</title>
   <link rel="icon" href="media/Logo-black.png">
   <link rel="stylesheet" href="assets/styles.css">
+  <script defer src="assets/site.js"></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
 
@@ -239,26 +240,6 @@
     </div>
   </footer>
 
-  <script>
-    (function () {
-      const hamburger = document.querySelector('.hamburger');
-      const nav = document.querySelector('.nav');
-      if (!hamburger || !nav) return;
-      hamburger.addEventListener('click', function () {
-        nav.classList.toggle('active');
-        const isExpanded = nav.classList.contains('active');
-        hamburger.setAttribute('aria-expanded', String(isExpanded));
-        hamburger.classList.toggle('active', isExpanded);
-      });
-      nav.querySelectorAll('a').forEach((link) => {
-        link.addEventListener('click', () => {
-          nav.classList.remove('active');
-          hamburger.classList.remove('active');
-          hamburger.setAttribute('aria-expanded', 'false');
-        });
-      });
-    }());
-  </script>
   <script src="assets/gsap-lite.js"></script>
   <script>
     const header = document.querySelector('.header');

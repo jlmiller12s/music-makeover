@@ -97,7 +97,7 @@ test('updates service catalog values without replacing the full service list', (
   assert.notEqual(updated, state);
 });
 
-test('records an inquiry confirmation email when requested', () => {
+test('records a business notification and inquiry confirmation email when requested', () => {
   const state = createDefaultState('2026-05-14T18:00:00.000Z');
   const result = recordInquiry(state, {
     category: 'school',
@@ -114,9 +114,12 @@ test('records an inquiry confirmation email when requested', () => {
   }, '2026-05-14T18:00:00.000Z');
 
   assert.equal(result.inquiry.confirmationEmailRequested, true);
-  assert.equal(result.state.inquiryEmailOutbox.length, 1);
-  assert.equal(result.state.inquiryEmailOutbox[0].to, 'jordan@example.com');
-  assert.match(result.state.inquiryEmailOutbox[0].subject, /Music Makeover inquiry/i);
+  assert.equal(result.state.inquiryEmailOutbox.length, 2);
+  assert.equal(result.state.inquiryEmailOutbox[0].to, 'themusicmakeover@gmail.com');
+  assert.equal(result.state.inquiryEmailOutbox[0].replyTo, 'jordan@example.com');
+  assert.match(result.state.inquiryEmailOutbox[0].subject, /New School \/ Music Educator Support inquiry/i);
+  assert.equal(result.state.inquiryEmailOutbox[1].to, 'jordan@example.com');
+  assert.match(result.state.inquiryEmailOutbox[1].subject, /Music Makeover inquiry/i);
 });
 
 test('saves consultation notes with upload metadata for AI review', () => {

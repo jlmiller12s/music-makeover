@@ -33,12 +33,13 @@ body.admin-body {
 
 .booking-crm .header-inner,
 .portal-body .header-inner {
+  min-height: 96px;
   padding: 12px 24px;
 }
 
 .booking-crm .logo img,
 .portal-body .logo img {
-  height: 76px;
+  height: 72px;
 }
 
 .booking-crm .nav a,
