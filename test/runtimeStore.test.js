@@ -17,7 +17,7 @@ test('remote Postgres pool options allow hosted self-signed certificates', () =>
   assert.deepEqual(
     createPostgresPoolOptions('postgres://user:pass@example.supabase.co:5432/postgres?sslmode=require'),
     {
-      connectionString: 'postgres://user:pass@example.supabase.co:5432/postgres?sslmode=require',
+      connectionString: 'postgres://user:pass@example.supabase.co:5432/postgres?sslmode=no-verify',
       ssl: { rejectUnauthorized: false },
     },
   );
