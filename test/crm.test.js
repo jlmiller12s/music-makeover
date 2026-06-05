@@ -6,6 +6,7 @@ const {
   createDefaultState,
   generateServiceRecommendations,
   normalizeInquiry,
+  recordTestimonial,
   recordInquiry,
   saveConsultationNotes,
   updateServiceCatalog,
@@ -120,6 +121,31 @@ test('records a business notification and inquiry confirmation email when reques
   assert.match(result.state.inquiryEmailOutbox[0].subject, /New School \/ Music Educator Support inquiry/i);
   assert.equal(result.state.inquiryEmailOutbox[1].to, 'jordan@example.com');
   assert.match(result.state.inquiryEmailOutbox[1].subject, /Music Makeover inquiry/i);
+});
+
+test('records a public testimonial submission and notifies the business', () => {
+  const state = createDefaultState('2026-05-14T18:00:00.000Z');
+  const result = recordTestimonial(state, {
+    name: 'Jordan Lee',
+    email: 'jordan@example.com',
+    serviceType: 'Choir & Ensemble Coaching',
+    challengeGoal: 'Our choir needed stronger blend and confidence before contest.',
+    standout: 'Ashley made the feedback practical and encouraging.',
+    changedImproved: 'Students understood vowel shape and tone faster.',
+    considerationQuote: 'The Music Makeover helped us sound better and feel braver.',
+    sharePermission: 'yes',
+    nameDisplay: 'First name only',
+  }, '2026-05-14T19:00:00.000Z');
+
+  assert.equal(result.testimonial.status, 'submitted');
+  assert.equal(result.testimonial.clientName, 'Jordan Lee');
+  assert.equal(result.testimonial.approvedForWebsite, true);
+  assert.equal(result.testimonial.nameDisplay, 'First name only');
+  assert.equal(result.state.testimonials[0].id, result.testimonial.id);
+  assert.equal(result.state.testimonialEmailOutbox.length, 1);
+  assert.equal(result.state.testimonialEmailOutbox[0].to, 'themusicmakeover@gmail.com');
+  assert.equal(result.state.testimonialEmailOutbox[0].replyTo, 'jordan@example.com');
+  assert.match(result.state.testimonialEmailOutbox[0].subject, /New testimonial/i);
 });
 
 test('saves consultation notes with upload metadata for AI review', () => {

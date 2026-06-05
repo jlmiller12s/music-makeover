@@ -8,6 +8,7 @@
   <link rel="icon" href="media/music-makeover-logo.png" type="image/png">
   <link rel="stylesheet" href="assets/styles.css">
   <script defer src="assets/site.js"></script>
+  <script defer src="assets/testimonials.js"></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
 
@@ -102,20 +103,87 @@
       </div>
     </section>
 
-    <section class="testimonial-form-section" aria-labelledby="testimonial-form-heading">
+    <section class="testimonial-form-section leave-testimonial-section" aria-labelledby="leave-testimonial-heading">
       <div>
-        <p class="eyebrow">Testimonial form questions</p>
-        <h2 id="testimonial-form-heading">Helpful prompts for future client stories.</h2>
+        <p class="eyebrow">Share your story</p>
+        <h2 id="leave-testimonial-heading">Leave a Testimonial</h2>
+        <p class="testimonial-form-intro">Your words help future students, families, worship teams, choirs, and music leaders understand what is possible through The Music Makeover.</p>
       </div>
-      <ol>
-        <li>What type of service did you receive?</li>
-        <li>What challenge or goal brought you to The Music Makeover?</li>
-        <li>What stood out most about working with Ashley?</li>
-        <li>What changed, improved, or became clearer after the session or workshop?</li>
-        <li>What would you say to someone considering working with The Music Makeover?</li>
-        <li>May your words be shared on the website or social media?</li>
-        <li>How would you like your name displayed: full name, first name only, initials only, or anonymous?</li>
-      </ol>
+      <form id="testimonial-form" class="testimonial-submission-form">
+        <div id="testimonial-status" class="status-message" role="status" aria-live="polite"></div>
+
+        <div class="form-grid-2">
+          <div class="form-field">
+            <label for="testimonial-name">Your name</label>
+            <input id="testimonial-name" name="name" autocomplete="name" required>
+          </div>
+          <div class="form-field">
+            <label for="testimonial-email">Email address</label>
+            <input id="testimonial-email" name="email" type="email" autocomplete="email" required>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="testimonial-service">What type of service did you receive?</label>
+          <select id="testimonial-service" name="serviceType" required>
+            <option value="">Select a service</option>
+            <option>Private Music Coaching</option>
+            <option>Worship Team Makeover</option>
+            <option>Choir & Ensemble Coaching</option>
+            <option>School / Music Educator Support</option>
+            <option>Music Makeover Intensive</option>
+            <option>Full Program Makeover</option>
+            <option>Consultation / Assessment</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="testimonial-challenge">What challenge or goal brought you to The Music Makeover?</label>
+          <textarea id="testimonial-challenge" name="challengeGoal" rows="3" required></textarea>
+        </div>
+
+        <div class="form-field">
+          <label for="testimonial-standout">What stood out most about working with Ashley?</label>
+          <textarea id="testimonial-standout" name="standout" rows="3" required></textarea>
+        </div>
+
+        <div class="form-field">
+          <label for="testimonial-change">What changed, improved, or became clearer after the session/workshop?</label>
+          <textarea id="testimonial-change" name="changedImproved" rows="3" required></textarea>
+        </div>
+
+        <div class="form-field">
+          <label for="testimonial-quote">What would you say to someone considering working with The Music Makeover?</label>
+          <textarea id="testimonial-quote" name="considerationQuote" rows="4" required></textarea>
+        </div>
+
+        <div class="form-field">
+          <label for="testimonial-share-permission">May your words be shared on the website or social media?</label>
+          <select id="testimonial-share-permission" name="sharePermission" required>
+            <option value="">Choose one</option>
+            <option value="yes">Yes, with my display preference below</option>
+            <option value="no">No, internal feedback only</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="testimonial-name-display">How would you like your name displayed?</label>
+          <select id="testimonial-name-display" name="nameDisplay" required>
+            <option value="">Choose one</option>
+            <option>Full name</option>
+            <option>First name only</option>
+            <option>Initials only</option>
+            <option>Anonymous</option>
+          </select>
+        </div>
+
+        <p class="testimonial-privacy-note">Submitted testimonials are reviewed before anything is published.</p>
+
+        <div class="form-submit">
+          <button type="submit">Submit Testimonial</button>
+        </div>
+      </form>
     </section>
 
     <section class="homepage-cta testimonials-cta" aria-labelledby="testimonial-cta-heading">

@@ -2340,6 +2340,21 @@ html {
   letter-spacing: 0;
 }
 
+.about-page .story-lead h2 {
+  font-size: clamp(32px, 3vw, 42px);
+  line-height: 1.08;
+}
+
+.about-page .page-hero h1 {
+  font-size: clamp(36px, 3.8vw, 48px);
+  line-height: 1.08;
+}
+
+.about-page .meet-section h2 {
+  font-size: clamp(30px, 3vw, 40px);
+  line-height: 1.12;
+}
+
 .page-hero p {
   max-width: 820px;
   color: #4d5665;
@@ -2407,6 +2422,11 @@ html {
   color: #3d4451;
   font-size: 16px;
   line-height: 1.72;
+}
+
+.leave-testimonial-section h2 {
+  font-size: clamp(30px, 3vw, 42px);
+  line-height: 1.1;
 }
 
 .story-copy p + p,
@@ -2512,6 +2532,107 @@ html {
   gap: 10px;
   margin: 0;
   padding-left: 20px;
+}
+
+.testimonial-display-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.testimonial-form-intro {
+  margin-top: 16px;
+  color: #4d5665;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.testimonial-submission-form {
+  display: grid;
+  gap: 18px;
+}
+
+.testimonial-choice-group {
+  display: grid;
+  gap: 10px;
+  border: 1px solid #e1d8d2;
+  border-radius: 8px;
+  padding: 16px;
+  background: #fff;
+}
+
+.testimonial-choice-group legend {
+  padding: 0 6px;
+  color: #111;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.testimonial-choice-group label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: #3d4451;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.testimonial-choice-group input {
+  margin-top: 3px;
+  accent-color: #9f7a64;
+}
+
+.testimonial-display-options label,
+.testimonial-display-options span {
+  border: 1px solid #e1d8d2;
+  border-radius: 999px;
+  background: #f7f4f1;
+  color: #9f7a64;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 6px 10px;
+}
+
+.testimonial-display-options label {
+  align-items: center;
+  cursor: pointer;
+}
+
+.testimonial-display-options label:has(input:checked) {
+  border-color: #9f7a64;
+  background: #efe5df;
+  color: #6f5142;
+}
+
+.testimonial-privacy-note {
+  color: #667085;
+  font-size: 13px;
+}
+
+.testimonials-page .status-message {
+  display: none;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.testimonials-page .status-message.is-visible {
+  display: block;
+}
+
+.testimonials-page .status-message.success {
+  border: 1px solid #b7e4cf;
+  background: #e7f8ee;
+  color: #116d3a;
+}
+
+.testimonials-page .status-message.error {
+  border: 1px solid #f1b8b8;
+  background: #fff1f1;
+  color: #8a1f1f;
 }
 
 .service-detail-card li::marker,
@@ -2773,5 +2894,21 @@ html {
   .experience-section h2,
   .testimonial-form-section h2 {
     font-size: clamp(30px, 10vw, 42px);
+  }
+
+  .about-page .story-lead h2 {
+    font-size: clamp(28px, 8vw, 36px);
+  }
+
+  .about-page .page-hero h1 {
+    font-size: clamp(32px, 9vw, 38px);
+  }
+
+  .about-page .meet-section h2 {
+    font-size: clamp(28px, 8vw, 36px);
+  }
+
+  .leave-testimonial-section h2 {
+    font-size: clamp(28px, 8vw, 34px);
   }
 }

@@ -5,6 +5,7 @@ const path = require('node:path');
 const crmHandler = require('../api/crm');
 const authHandler = require('../api/auth');
 const inquiriesHandler = require('../api/inquiries');
+const testimonialsHandler = require('../api/testimonials');
 const portalPreviewHandler = require('../api/portal-preview');
 const publicConfigHandler = require('../api/public-config');
 
@@ -33,6 +34,7 @@ const server = http.createServer(async (req, res) => {
     if (pathname === '/api/crm') return crmHandler(req, res);
     if (pathname === '/api/auth') return authHandler(req, res);
     if (pathname === '/api/inquiries') return inquiriesHandler(req, res);
+    if (pathname === '/api/testimonials') return testimonialsHandler(req, res);
     if (pathname === '/api/portal-preview') return portalPreviewHandler(req, res);
     if (pathname === '/api/public-config') return publicConfigHandler(req, res);
 
