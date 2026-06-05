@@ -1326,6 +1326,41 @@ body.admin-body {
   margin-top: 4px;
 }
 
+.site-content-form {
+  display: grid;
+  gap: 18px;
+}
+
+.cms-section {
+  border: 1px solid var(--mm-line);
+  border-radius: var(--mm-radius);
+  padding: 18px;
+  background: rgba(255, 255, 255, .72);
+  margin-top: 18px;
+}
+
+.cms-field-grid {
+  margin-top: 12px;
+}
+
+.cms-field.wide-field {
+  grid-column: 1 / -1;
+}
+
+.cms-save-status {
+  min-height: 1.2em;
+  color: var(--mm-muted);
+  font-size: .9rem;
+}
+
+.sticky-actions {
+  align-items: center;
+  border-top: 1px solid var(--mm-line);
+  gap: 14px;
+  justify-content: flex-end;
+  padding-top: 14px;
+}
+
 .consultation-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 330px;

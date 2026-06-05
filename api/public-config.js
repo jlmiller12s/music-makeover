@@ -20,6 +20,7 @@ module.exports = async function handler(req, res) {
       services: state.services,
       appointmentTypes: state.appointmentTypes,
       adminContent: state.adminContent,
+      siteContent: state.siteContent,
     },
   });
 };

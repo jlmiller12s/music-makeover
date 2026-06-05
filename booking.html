@@ -36,14 +36,14 @@
   <main class="booking-shell">
     <section class="mm-page booking-intro" aria-labelledby="booking-heading">
       <div>
-        <p class="mm-kicker">Book / Contact</p>
-        <h1 id="booking-heading">Let's find the right makeover for you.</h1>
-        <p>Whether you are looking for private coaching, worship team support, choir development, or a full music program intensive, this is the place to start.</p>
-        <p>Share a little about where you are, what you need, and what you are hoping to improve. Ashley will review your inquiry and recommend the best next step based on your goals, timeline, and service needs.</p>
+        <p class="mm-kicker" data-content="booking.heroKicker">Book / Contact</p>
+        <h1 id="booking-heading" data-content="booking.heroHeadline">Let's find the right makeover for you.</h1>
+        <p data-content="booking.introLine1">Whether you are looking for private coaching, worship team support, choir development, or a full music program intensive, this is the place to start.</p>
+        <p data-content="booking.introLine2">Share a little about where you are, what you need, and what you are hoping to improve. Ashley will review your inquiry and recommend the best next step based on your goals, timeline, and service needs.</p>
       </div>
       <aside class="booking-intro-panel" aria-label="How booking works">
-        <strong>What happens next</strong>
-        <ul>
+        <strong data-content="booking.nextStepsHeading">What happens next</strong>
+        <ul data-content-lines="booking.nextSteps">
           <li>Ashley reviews your goals, challenges, timeline, location, and preferred format.</li>
           <li>Your inquiry is matched to the best service path.</li>
           <li>Private coaching inquiries receive next steps for scheduling.</li>
@@ -55,8 +55,8 @@
 
     <section class="mm-page booking-path-section" aria-labelledby="choose-path-heading">
       <div class="section-heading">
-        <p class="mm-kicker">Choose your path</p>
-        <h2 id="choose-path-heading">Start with the lane that sounds closest.</h2>
+        <p class="mm-kicker" data-content="booking.choosePathKicker">Choose your path</p>
+        <h2 id="choose-path-heading" data-content="booking.choosePathHeadline">Start with the lane that sounds closest.</h2>
       </div>
       <div class="lane-tabs" role="tablist" aria-label="Inquiry categories">
         <button class="lane-tab" type="button" role="tab" data-lane="private" aria-selected="false">
@@ -104,8 +104,8 @@
         <form id="music-inquiry-form" class="crm-form">
           <input type="hidden" id="category" name="category" value="school">
           <div class="form-section-label">
-            <span>Inquiry form</span>
-            <strong>Tell Ashley what kind of support you need.</strong>
+            <span data-content="booking.inquirySectionLabel">Inquiry form</span>
+            <strong data-content="booking.inquirySectionHelper">Tell Ashley what kind of support you need.</strong>
           </div>
           <div class="crm-form-grid" id="dynamic-fields"></div>
 
@@ -120,8 +120,8 @@
           </label>
 
           <div class="booking-form-footer">
-            <p class="privacy-note">Payment details are not collected through this inquiry form. Once your service, scope, timeline, and dates are confirmed, invoices or secure payment links will be sent through Stripe.</p>
-            <button class="mm-button" type="submit">Find My Next Step</button>
+            <p class="privacy-note" data-content="booking.privacyNote">Payment details are not collected through this inquiry form. Once your service, scope, timeline, and dates are confirmed, invoices or secure payment links will be sent through Stripe.</p>
+            <button class="mm-button" type="submit" data-content="booking.submitLabel">Find My Next Step</button>
           </div>
         </form>
       </div>
@@ -147,8 +147,8 @@
         </section>
 
         <section class="booking-side-panel">
-          <h3>Need help now?</h3>
-          <p>Email <a href="mailto:themusicmakeover@gmail.com">themusicmakeover@gmail.com</a> with your preferred timeline and service lane.</p>
+          <h3 data-content="booking.helpHeading">Need help now?</h3>
+          <p data-content="booking.helpBody">Email themusicmakeover@gmail.com with your preferred timeline and service lane.</p>
         </section>
       </aside>
     </section>

@@ -5,10 +5,12 @@ const {
   buildDashboardSummary,
   createDefaultState,
   generateServiceRecommendations,
+  normalizeCrmState,
   normalizeInquiry,
   recordTestimonial,
   recordInquiry,
   saveConsultationNotes,
+  updateSiteContent,
   updateServiceCatalog,
 } = require('../lib/musicMakeoverCrm');
 
@@ -96,6 +98,60 @@ test('updates service catalog values without replacing the full service list', (
   assert.equal(worship.bookable, false);
   assert.equal(quickFix.priceLabel, '$350');
   assert.notEqual(updated, state);
+});
+
+test('creates default editable site content for public pages', () => {
+  const state = createDefaultState('2026-05-14T18:00:00.000Z');
+
+  assert.equal(state.siteContent.home.heroHeadline, 'Music coaching for confident singers, stronger teams, and thriving programs.');
+  assert.equal(state.siteContent.services.heroEyebrow, 'Services');
+  assert.equal(state.siteContent.about.heroHeadline, 'Growth that goes deeper than technique.');
+  assert.equal(state.siteContent.contact.email, 'themusicmakeover@gmail.com');
+  assert.equal(state.siteContent.testimonials.heroHeadline, "Voices we've helped");
+  assert.equal(state.siteContent.booking.heroHeadline, "Let's find the right makeover for you.");
+});
+
+test('updates editable site content while ignoring unknown fields', () => {
+  const state = createDefaultState('2026-05-14T18:00:00.000Z');
+  const updated = updateSiteContent(state, {
+    home: {
+      heroHeadline: 'Updated homepage headline',
+      unsupportedField: 'Do not save this',
+    },
+    contact: {
+      email: 'hello@example.com',
+      instagramUrl: 'https://instagram.com/example',
+    },
+    unsupportedSection: {
+      heroHeadline: 'Do not save this either',
+    },
+  }, '2026-05-14T19:00:00.000Z');
+
+  assert.equal(updated.state.siteContent.home.heroHeadline, 'Updated homepage headline');
+  assert.equal(updated.state.siteContent.home.unsupportedField, undefined);
+  assert.equal(updated.state.siteContent.contact.email, 'hello@example.com');
+  assert.equal(updated.state.siteContent.contact.instagramUrl, 'https://instagram.com/example');
+  assert.equal(updated.state.siteContent.unsupportedSection, undefined);
+  assert.equal(updated.state.siteContent.updatedAt, '2026-05-14T19:00:00.000Z');
+  assert.notEqual(updated.state, state);
+});
+
+test('normalizes older persisted CRM state with new site content defaults', () => {
+  const state = createDefaultState('2026-05-14T18:00:00.000Z');
+  const olderPersistedState = {
+    ...state,
+    siteContent: undefined,
+    services: state.services.map((service) => (
+      service.id === 'svc_private_30' ? { ...service, priceLabel: '$45' } : service
+    )),
+  };
+
+  const normalized = normalizeCrmState(olderPersistedState, '2026-05-14T20:00:00.000Z');
+  const privateService = normalized.services.find((service) => service.id === 'svc_private_30');
+
+  assert.equal(privateService.priceLabel, '$45');
+  assert.equal(normalized.siteContent.home.heroHeadline, 'Music coaching for confident singers, stronger teams, and thriving programs.');
+  assert.equal(normalized.siteContent.updatedAt, '2026-05-14T20:00:00.000Z');
 });
 
 test('records a business notification and inquiry confirmation email when requested', () => {

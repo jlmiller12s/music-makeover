@@ -6,6 +6,7 @@ const {
   moveInquiryStage,
   recordInquiry,
   saveConsultationNotes,
+  updateSiteContent,
   updateServiceCatalog,
   updateTemplate,
 } = require('../lib/musicMakeoverCrm');
@@ -62,6 +63,8 @@ function applyAction(state, payload) {
       return moveInquiryStage(state, payload.inquiryId, payload.stage);
     case 'service:update':
       return updateServiceCatalog(state, payload.serviceId, payload.patch || {});
+    case 'content:update':
+      return updateSiteContent(state, payload.siteContent || payload.patch || {});
     case 'consultation:create':
       return saveConsultationNotes(state, payload.consultation || payload.payload || {});
     case 'recommendation:generate':

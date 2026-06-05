@@ -16,6 +16,7 @@
     "tailwindcss": "^4.1.14"
   },
   "dependencies": {
-    "@vercel/analytics": "^1.6.1"
+    "@vercel/analytics": "^1.6.1",
+    "pg": "^8.21.0"
   }
 }

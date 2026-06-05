@@ -34,14 +34,14 @@
 
   <main class="content-page contact-page">
     <section class="page-hero contact-page-hero" aria-labelledby="contact-heading">
-      <p class="eyebrow">Contact</p>
-      <h1 id="contact-heading">Let's talk about your next Music Makeover.</h1>
-      <p>Have a question about private coaching, worship team support, choir development, workshops, or program consulting? Send a message and Ashley will follow up with the next best step.</p>
-      <p>For service requests, custom workshops, team support, or program intensives, you can also begin through the booking inquiry form.</p>
+      <p class="eyebrow" data-content="contact.heroEyebrow">Contact</p>
+      <h1 id="contact-heading" data-content="contact.heroHeadline">Let's talk about your next Music Makeover.</h1>
+      <p data-content="contact.heroBody">Have a question about private coaching, worship team support, choir development, workshops, or program consulting? Send a message and Ashley will follow up with the next best step.</p>
+      <p data-content="contact.heroSupportBody">For service requests, custom workshops, team support, or program intensives, you can also begin through the booking inquiry form.</p>
       <div class="hero-actions centered-actions">
-        <a class="hero-cta" href="booking.html">Start a Booking Inquiry</a>
+        <a class="hero-cta" href="booking.html" data-content="contact.primaryCtaLabel" data-content-href="contact.primaryCtaHref">Start a Booking Inquiry</a>
       </div>
-      <p class="response-note">Ashley typically responds within 1-2 business days.</p>
+      <p class="response-note" data-content="contact.responseNote">Ashley typically responds within 1-2 business days.</p>
     </section>
 
     <section class="contact-layout" aria-label="Contact form and details">
@@ -99,24 +99,24 @@
       <aside class="contact-detail-stack">
         <section class="contact-info-card">
           <h3>Email</h3>
-          <p><a href="mailto:themusicmakeover@gmail.com">themusicmakeover@gmail.com</a></p>
-          <p>For the fastest response, please include your service interest, location, and ideal timeline.</p>
+          <p><a href="mailto:themusicmakeover@gmail.com" data-contact-email>themusicmakeover@gmail.com</a></p>
+          <p data-content="contact.emailNote">For the fastest response, please include your service interest, location, and ideal timeline.</p>
         </section>
 
         <section class="contact-info-card">
           <h3>Based In</h3>
-          <p>Missouri, USA</p>
-          <p>Available for select in-person and virtual coaching, workshops, and consulting.</p>
+          <p data-content="contact.location">Missouri, USA</p>
+          <p data-content="contact.locationNote">Available for select in-person and virtual coaching, workshops, and consulting.</p>
         </section>
 
         <section class="contact-info-card">
           <h3>Follow Along</h3>
-          <p>Follow The Music Makeover for coaching tips, vocal encouragement, behind-the-scenes updates, and music leadership support.</p>
+          <p data-content="contact.socialIntro">Follow The Music Makeover for coaching tips, vocal encouragement, behind-the-scenes updates, and music leadership support.</p>
           <div class="social-text-links">
-            <a href="https://www.instagram.com/lambchop0328/" target="_blank" rel="noopener">Instagram</a>
-            <a href="https://www.facebook.com/profile.php?id=48004649" target="_blank" rel="noopener">Facebook</a>
-            <a href="https://www.tiktok.com/@shleymillz?lang=en" target="_blank" rel="noopener">TikTok</a>
-            <a href="https://www.linkedin.com/in/ashley-miller-89201938/" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://www.instagram.com/lambchop0328/" target="_blank" rel="noopener" data-content-href="contact.instagramUrl">Instagram</a>
+            <a href="https://www.facebook.com/profile.php?id=48004649" target="_blank" rel="noopener" data-content-href="contact.facebookUrl">Facebook</a>
+            <a href="https://www.tiktok.com/@shleymillz?lang=en" target="_blank" rel="noopener" data-content-href="contact.tiktokUrl">TikTok</a>
+            <a href="https://www.linkedin.com/in/ashley-miller-89201938/" target="_blank" rel="noopener" data-content-href="contact.linkedinUrl">LinkedIn</a>
             <span>YouTube coming soon</span>
           </div>
         </section>
@@ -183,7 +183,8 @@
         data.message,
       ].join('\n');
 
-      window.location.href = `mailto:themusicmakeover@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const recipient = document.documentElement.dataset.contactRecipient || 'themusicmakeover@gmail.com';
+      window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       contactForm.style.display = 'none';
       successMsg.style.display = 'block';
     });

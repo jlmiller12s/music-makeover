@@ -29,6 +29,7 @@
         <button type="button" data-panel-target="pipeline">Pipeline</button>
         <button type="button" data-panel-target="calendar">Calendar</button>
         <button type="button" data-panel-target="services">Services</button>
+        <button type="button" data-panel-target="website-copy">Website Copy</button>
         <button type="button" data-panel-target="consultations">Consultation Notes</button>
         <button type="button" data-panel-target="recommendations">AI Recommendations</button>
         <button type="button" data-panel-target="files">Files</button>
@@ -118,10 +119,27 @@
           <div class="panel-header">
             <div>
               <h2>Services & Pricing</h2>
-              <p>Edit service names, prices, descriptions, duration, and whether a service is bookable.</p>
+              <p>Edit service names, prices, descriptions, duration, delivery notes, inclusions, and whether a service is bookable.</p>
             </div>
           </div>
           <div id="service-list"></div>
+        </section>
+
+        <section class="admin-panel" data-panel="website-copy" hidden>
+          <div class="panel-header">
+            <div>
+              <h2>Website Copy</h2>
+              <p>Simple text fields for homepage, services, about, contact, testimonials, booking, and CTA copy.</p>
+            </div>
+            <span class="pill teal">Immediate save</span>
+          </div>
+          <form class="site-content-form" id="site-content-form">
+            <div id="site-content-fields"></div>
+            <div class="dialog-actions sticky-actions">
+              <span class="cms-save-status" id="site-content-status" role="status" aria-live="polite"></span>
+              <button class="mm-button" type="submit">Save website copy</button>
+            </div>
+          </form>
         </section>
 
         <section class="admin-panel" data-panel="consultations" hidden>
@@ -378,6 +396,14 @@
         <div class="crm-field">
           <label for="service-description">Description</label>
           <textarea id="service-description" required></textarea>
+        </div>
+        <div class="crm-field">
+          <label for="service-delivery">Delivery note</label>
+          <input id="service-delivery" placeholder="Virtual, on-site, workshop, proposal, etc.">
+        </div>
+        <div class="crm-field">
+          <label for="service-inclusions">Inclusions</label>
+          <textarea id="service-inclusions" placeholder="One inclusion per line"></textarea>
         </div>
         <label class="crm-field">
           <span>Bookable without custom proposal?</span>

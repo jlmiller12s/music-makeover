@@ -7,6 +7,123 @@
     selectedConsultationId: null,
   };
 
+  const siteContentSections = [
+    {
+      key: 'home',
+      title: 'Homepage',
+      fields: [
+        ['heroHeadline', 'Hero headline', 'textarea'],
+        ['heroBody', 'Hero supporting copy', 'textarea'],
+        ['primaryCtaLabel', 'Primary CTA label', 'text'],
+        ['primaryCtaHref', 'Primary CTA link', 'text'],
+        ['secondaryCtaLabel', 'Secondary CTA label', 'text'],
+        ['secondaryCtaHref', 'Secondary CTA link', 'text'],
+        ['servicesHeadline', 'Services section headline', 'textarea'],
+        ['servicesBody', 'Services section copy', 'textarea'],
+        ['finalCtaHeadline', 'Bottom CTA headline', 'textarea'],
+        ['finalCtaBody', 'Bottom CTA copy', 'textarea'],
+        ['finalCtaLabel', 'Bottom CTA label', 'text'],
+        ['finalCtaHref', 'Bottom CTA link', 'text'],
+      ],
+    },
+    {
+      key: 'services',
+      title: 'Services Page',
+      fields: [
+        ['heroEyebrow', 'Hero eyebrow', 'text'],
+        ['heroHeadline', 'Hero headline', 'textarea'],
+        ['heroBody', 'Hero supporting copy', 'textarea'],
+        ['consultationEyebrow', 'Consultation eyebrow', 'text'],
+        ['consultationHeadline', 'Consultation headline', 'text'],
+        ['consultationBody', 'Consultation copy', 'textarea'],
+        ['consultationBestFor', 'Best-for line', 'textarea'],
+        ['consultationCtaLabel', 'Consultation CTA label', 'text'],
+        ['consultationCtaHref', 'Consultation CTA link', 'text'],
+        ['ctaHeadline', 'Bottom CTA headline', 'textarea'],
+        ['ctaBody', 'Bottom CTA copy', 'textarea'],
+        ['ctaLabel', 'Bottom CTA label', 'text'],
+        ['ctaHref', 'Bottom CTA link', 'text'],
+      ],
+    },
+    {
+      key: 'about',
+      title: 'About Page',
+      fields: [
+        ['heroEyebrow', 'Hero eyebrow', 'text'],
+        ['heroHeadline', 'Hero headline', 'textarea'],
+        ['heroBody', 'Hero supporting copy', 'textarea'],
+        ['storyHeadline', 'Story headline', 'textarea'],
+        ['storyParagraph1', 'Story paragraph 1', 'textarea'],
+        ['storyParagraph2', 'Story paragraph 2', 'textarea'],
+        ['storyParagraph3', 'Story paragraph 3', 'textarea'],
+        ['pullQuote', 'Pull quote', 'textarea'],
+        ['meetEyebrow', 'Meet section eyebrow', 'text'],
+        ['meetHeadline', 'Meet section headline', 'textarea'],
+        ['meetParagraph1', 'Meet paragraph 1', 'textarea'],
+        ['meetParagraph2', 'Meet paragraph 2', 'textarea'],
+        ['meetParagraph3', 'Meet paragraph 3', 'textarea'],
+        ['ctaLabel', 'CTA label', 'text'],
+        ['ctaHref', 'CTA link', 'text'],
+      ],
+    },
+    {
+      key: 'contact',
+      title: 'Contact Page',
+      fields: [
+        ['heroEyebrow', 'Hero eyebrow', 'text'],
+        ['heroHeadline', 'Hero headline', 'textarea'],
+        ['heroBody', 'Hero supporting copy', 'textarea'],
+        ['heroSupportBody', 'Second hero paragraph', 'textarea'],
+        ['primaryCtaLabel', 'Primary CTA label', 'text'],
+        ['primaryCtaHref', 'Primary CTA link', 'text'],
+        ['responseNote', 'Response note', 'text'],
+        ['email', 'Contact email', 'email'],
+        ['emailNote', 'Email note', 'textarea'],
+        ['location', 'Location', 'text'],
+        ['locationNote', 'Location note', 'textarea'],
+        ['socialIntro', 'Social intro', 'textarea'],
+        ['instagramUrl', 'Instagram URL', 'text'],
+        ['facebookUrl', 'Facebook URL', 'text'],
+        ['tiktokUrl', 'TikTok URL', 'text'],
+        ['linkedinUrl', 'LinkedIn URL', 'text'],
+      ],
+    },
+    {
+      key: 'testimonials',
+      title: 'Testimonials Page',
+      fields: [
+        ['heroEyebrow', 'Hero eyebrow', 'text'],
+        ['heroHeadline', 'Hero headline', 'text'],
+        ['heroBody', 'Hero supporting copy', 'textarea'],
+        ['formIntro', 'Form intro copy', 'textarea'],
+        ['ctaHeadline', 'Bottom CTA headline', 'textarea'],
+        ['ctaBody', 'Bottom CTA copy', 'textarea'],
+        ['ctaLabel', 'Bottom CTA label', 'text'],
+        ['ctaHref', 'Bottom CTA link', 'text'],
+      ],
+    },
+    {
+      key: 'booking',
+      title: 'Booking Page',
+      fields: [
+        ['heroKicker', 'Hero kicker', 'text'],
+        ['heroHeadline', 'Hero headline', 'textarea'],
+        ['introLine1', 'Intro paragraph 1', 'textarea'],
+        ['introLine2', 'Intro paragraph 2', 'textarea'],
+        ['nextStepsHeading', 'Next steps heading', 'text'],
+        ['nextSteps', 'Next steps list', 'textarea'],
+        ['choosePathKicker', 'Choose path kicker', 'text'],
+        ['choosePathHeadline', 'Choose path headline', 'textarea'],
+        ['inquirySectionLabel', 'Inquiry section label', 'text'],
+        ['inquirySectionHelper', 'Inquiry section helper', 'text'],
+        ['privacyNote', 'Privacy/payment note', 'textarea'],
+        ['submitLabel', 'Submit button label', 'text'],
+        ['helpHeading', 'Help box heading', 'text'],
+        ['helpBody', 'Help box body', 'textarea'],
+      ],
+    },
+  ];
+
   document.addEventListener('DOMContentLoaded', init);
 
   async function init() {
@@ -59,6 +176,7 @@
 
     document.getElementById('new-inquiry-form').addEventListener('submit', submitNewInquiry);
     document.getElementById('service-form').addEventListener('submit', submitServiceUpdate);
+    document.getElementById('site-content-form').addEventListener('submit', submitSiteContent);
     document.getElementById('consultation-form').addEventListener('submit', submitConsultationNotes);
     document.getElementById('consult-files').addEventListener('change', updateFileSummary);
     document.getElementById('recommendation-consultation').addEventListener('change', (event) => {
@@ -74,6 +192,7 @@
     renderHomeSidebars();
     renderCalendar();
     renderServices();
+    renderSiteContent();
     renderConsultations();
     renderRecommendations();
     renderFiles();
@@ -159,6 +278,7 @@
           <p>${escapeHtml(service.description)}</p>
           <span class="pill ${service.bookable ? 'teal' : 'gold'}">${service.bookable ? 'Bookable' : 'Inquiry-only'}</span>
           <span class="pill">${escapeHtml(service.duration)}</span>
+          ${service.delivery ? `<span class="pill">${escapeHtml(service.delivery)}</span>` : ''}
         </div>
         <div>
           <strong>${escapeHtml(service.priceLabel)}</strong>
@@ -170,6 +290,47 @@
     document.querySelectorAll('[data-edit-service]').forEach((button) => {
       button.addEventListener('click', () => openServiceDialog(button.dataset.editService));
     });
+  }
+
+  function renderSiteContent() {
+    const content = app.state.siteContent || {};
+    document.getElementById('site-content-fields').innerHTML = siteContentSections.map((section) => {
+      const sectionContent = content[section.key] || {};
+      return `
+        <section class="cms-section">
+          <div class="panel-header compact-header">
+            <div>
+              <h3>${escapeHtml(section.title)}</h3>
+              <p>${section.fields.length} editable fields</p>
+            </div>
+          </div>
+          <div class="crm-form-grid cms-field-grid">
+            ${section.fields.map((field) => renderSiteContentField(section.key, sectionContent, field)).join('')}
+          </div>
+        </section>
+      `;
+    }).join('');
+  }
+
+  function renderSiteContentField(sectionKey, sectionContent, field) {
+    const [fieldKey, label, type] = field;
+    const value = sectionContent[fieldKey] || '';
+    const common = `data-site-section="${escapeHtml(sectionKey)}" data-site-field="${escapeHtml(fieldKey)}"`;
+    if (type === 'textarea') {
+      return `
+        <div class="crm-field cms-field wide-field">
+          <label for="cms-${sectionKey}-${fieldKey}">${escapeHtml(label)}</label>
+          <textarea id="cms-${sectionKey}-${fieldKey}" ${common}>${escapeHtml(value)}</textarea>
+        </div>
+      `;
+    }
+
+    return `
+      <div class="crm-field cms-field">
+        <label for="cms-${sectionKey}-${fieldKey}">${escapeHtml(label)}</label>
+        <input id="cms-${sectionKey}-${fieldKey}" type="${escapeHtml(type)}" value="${escapeHtml(value)}" ${common}>
+      </div>
+    `;
   }
 
   function renderConsultations() {
@@ -320,6 +481,8 @@
     document.getElementById('service-price').value = app.selectedService.priceLabel;
     document.getElementById('service-duration').value = app.selectedService.duration;
     document.getElementById('service-description').value = app.selectedService.description;
+    document.getElementById('service-delivery').value = app.selectedService.delivery || '';
+    document.getElementById('service-inclusions').value = (app.selectedService.inclusions || []).join('\n');
     document.getElementById('service-bookable').checked = Boolean(app.selectedService.bookable);
     document.getElementById('service-dialog').showModal();
   }
@@ -331,10 +494,26 @@
       priceLabel: document.getElementById('service-price').value,
       duration: document.getElementById('service-duration').value,
       description: document.getElementById('service-description').value,
+      delivery: document.getElementById('service-delivery').value,
+      inclusions: document.getElementById('service-inclusions').value.split('\n').map((item) => item.trim()).filter(Boolean),
       bookable: document.getElementById('service-bookable').checked,
     };
     await postAction({ action: 'service:update', serviceId: app.selectedService.id, patch });
     document.getElementById('service-dialog').close();
+  }
+
+  async function submitSiteContent(event) {
+    event.preventDefault();
+    const patch = {};
+    event.currentTarget.querySelectorAll('[data-site-section][data-site-field]').forEach((input) => {
+      if (!patch[input.dataset.siteSection]) patch[input.dataset.siteSection] = {};
+      patch[input.dataset.siteSection][input.dataset.siteField] = input.value;
+    });
+
+    const status = document.getElementById('site-content-status');
+    status.textContent = 'Saving...';
+    await postAction({ action: 'content:update', siteContent: patch });
+    status.textContent = 'Saved';
   }
 
   async function submitNewInquiry(event) {
