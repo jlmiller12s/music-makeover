@@ -2,6 +2,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 
 const {
+  createPostgresPoolOptions,
   createPostgresJsonStateStore,
   getPostgresConnectionString,
 } = require('../lib/crmRuntimeStore');
@@ -10,6 +11,19 @@ test('resolves Supabase/Vercel Postgres connection string from environment', () 
   assert.equal(getPostgresConnectionString({ POSTGRES_URL: 'postgres://primary' }), 'postgres://primary');
   assert.equal(getPostgresConnectionString({ DATABASE_URL: 'postgres://fallback' }), 'postgres://fallback');
   assert.equal(getPostgresConnectionString({}), '');
+});
+
+test('remote Postgres pool options allow hosted self-signed certificates', () => {
+  assert.deepEqual(
+    createPostgresPoolOptions('postgres://user:pass@example.supabase.co:5432/postgres?sslmode=require'),
+    {
+      connectionString: 'postgres://user:pass@example.supabase.co:5432/postgres?sslmode=require',
+      ssl: { rejectUnauthorized: false },
+    },
+  );
+  assert.deepEqual(createPostgresPoolOptions('postgres://localhost:5432/postgres'), {
+    connectionString: 'postgres://localhost:5432/postgres',
+  });
 });
 
 test('Postgres JSON state store initializes table and falls back to defaults when empty', async () => {
