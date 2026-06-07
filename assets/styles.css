@@ -320,7 +320,8 @@ body {
   letter-spacing: .05em;
   color: transparent;
   -webkit-text-stroke: 2px #fff;
-  text-stroke: 2px #fff
+  text-stroke: 2px #fff;
+  white-space: nowrap
 }
 
 @keyframes ticker-scroll {
