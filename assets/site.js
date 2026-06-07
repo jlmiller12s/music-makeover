@@ -71,7 +71,7 @@
   function applyTextContent(siteContent) {
     document.querySelectorAll('[data-content]').forEach((element) => {
       const value = valueAtPath(siteContent, element.dataset.content);
-      if (hasValue(value)) element.textContent = value;
+      if (hasValue(value)) element.innerHTML = formatCmsText(value);
     });
   }
 
@@ -87,7 +87,7 @@
       const value = valueAtPath(siteContent, element.dataset.contentLines);
       const lines = splitLines(value);
       if (!lines.length) return;
-      element.innerHTML = lines.map((line) => `<li>${escapeHtml(line)}</li>`).join('');
+      element.innerHTML = lines.map((line) => `<li>${formatCmsText(line)}</li>`).join('');
     });
   }
 
@@ -202,5 +202,11 @@
       '"': '&quot;',
       "'": '&#039;',
     }[char]));
+  }
+
+  function formatCmsText(value) {
+    return escapeHtml(value)
+      .replace(/&lt;br\s*\/?&gt;/gi, '<br>')
+      .replace(/&amp;nbsp;/gi, '&nbsp;');
   }
 }());

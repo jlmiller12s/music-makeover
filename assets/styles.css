@@ -17,6 +17,10 @@ body {
   line-height: 1.6
 }
 
+[data-content] {
+  white-space: pre-line;
+}
+
 /* Header */
 .header {
   position: fixed;
@@ -353,29 +357,48 @@ body {
 }
 
 .logos-band .inner {
-  max-width: 1200px;
+  max-width: 980px;
   margin: 0 auto;
-  padding: 88px 24px 78px;
+  padding: clamp(48px, 5vw, 64px) 24px clamp(44px, 4.5vw, 58px);
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 48px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(32px, 7vw, 72px);
   align-items: center;
   justify-items: center;
+  transform: skewY(2deg);
 }
 
 .logos-band img {
-  width: min(100%, 280px);
-  height: auto;
-  max-width: 280px;
-  max-height: 160px;
+  width: auto;
+  height: clamp(64px, 7vw, 96px);
+  max-width: clamp(150px, 18vw, 240px);
+  display: block;
   object-fit: contain
 }
 
 @media (max-width:900px) {
   .logos-band .inner {
+    max-width: 720px;
+    gap: clamp(20px, 5vw, 40px);
+    padding: 52px 22px 48px
+  }
+
+  .logos-band img {
+    height: 74px;
+    max-width: clamp(120px, 20vw, 170px)
+  }
+}
+
+@media (max-width:640px) {
+  .logos-band .inner {
     grid-template-columns: 1fr;
-    gap: 40px;
-    padding: 88px 24px 78px
+    gap: 24px;
+    padding: 44px 20px 42px
+  }
+
+  .logos-band img {
+    height: 70px;
+    max-width: min(62vw, 180px)
   }
 }
 

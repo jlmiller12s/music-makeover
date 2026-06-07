@@ -27,6 +27,13 @@
       ],
     },
     {
+      key: 'home',
+      title: 'Ticker Banner',
+      fields: [
+        ['tickerText', 'Ticker text', 'text'],
+      ],
+    },
+    {
       key: 'services',
       title: 'Services Page',
       fields: [

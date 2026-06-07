@@ -103,12 +103,13 @@ test('updates service catalog values without replacing the full service list', (
 test('creates default editable site content for public pages', () => {
   const state = createDefaultState('2026-05-14T18:00:00.000Z');
 
-  assert.equal(state.siteContent.home.heroHeadline, 'Music coaching for confident singers, stronger teams, and thriving programs.');
+  assert.equal(state.siteContent.home.heroHeadline, 'Music Coaching for: \nStronger Teams\nThriving Programs\nConfident Singers');
+  assert.equal(state.siteContent.home.tickerText, 'YOU CAN SING!!!');
   assert.equal(state.siteContent.services.heroEyebrow, 'Services');
-  assert.equal(state.siteContent.about.heroHeadline, 'Growth that goes deeper than technique.');
+  assert.equal(state.siteContent.about.heroHeadline, 'Growth That Goes Deeper Than Technique.');
   assert.equal(state.siteContent.contact.email, 'themusicmakeover@gmail.com');
-  assert.equal(state.siteContent.testimonials.heroHeadline, "Voices we've helped");
-  assert.equal(state.siteContent.booking.heroHeadline, "Let's find the right makeover for you.");
+  assert.equal(state.siteContent.testimonials.heroHeadline, 'Real Voices. Real Growth.');
+  assert.equal(state.siteContent.booking.heroHeadline, "Let's Find the Right Makeover For You.");
 });
 
 test('updates editable site content while ignoring unknown fields', () => {
@@ -116,6 +117,7 @@ test('updates editable site content while ignoring unknown fields', () => {
   const updated = updateSiteContent(state, {
     home: {
       heroHeadline: 'Updated homepage headline',
+      tickerText: 'KEEP SINGING!!!',
       unsupportedField: 'Do not save this',
     },
     contact: {
@@ -128,6 +130,7 @@ test('updates editable site content while ignoring unknown fields', () => {
   }, '2026-05-14T19:00:00.000Z');
 
   assert.equal(updated.state.siteContent.home.heroHeadline, 'Updated homepage headline');
+  assert.equal(updated.state.siteContent.home.tickerText, 'KEEP SINGING!!!');
   assert.equal(updated.state.siteContent.home.unsupportedField, undefined);
   assert.equal(updated.state.siteContent.contact.email, 'hello@example.com');
   assert.equal(updated.state.siteContent.contact.instagramUrl, 'https://instagram.com/example');
@@ -150,7 +153,7 @@ test('normalizes older persisted CRM state with new site content defaults', () =
   const privateService = normalized.services.find((service) => service.id === 'svc_private_30');
 
   assert.equal(privateService.priceLabel, '$45');
-  assert.equal(normalized.siteContent.home.heroHeadline, 'Music coaching for confident singers, stronger teams, and thriving programs.');
+  assert.equal(normalized.siteContent.home.heroHeadline, 'Music Coaching for: \nStronger Teams\nThriving Programs\nConfident Singers');
   assert.equal(normalized.siteContent.updatedAt, '2026-05-14T20:00:00.000Z');
 });
 
