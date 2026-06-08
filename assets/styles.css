@@ -298,7 +298,7 @@ body {
   border-top: 6px solid #a17c65;
   border-bottom: 6px solid #a17c65;
   transform: skewY(-2deg);
-  top: -6vh;
+  top: -5vh;
 }
 
 .ticker-inner {
@@ -315,7 +315,7 @@ body {
 }
 
 .ticker-text {
-  font-size: 6rem;
+  font-size: 2rem;
   font-weight: 900;
   letter-spacing: .05em;
   color: transparent;
@@ -350,56 +350,50 @@ body {
 
 /* Logos band */
 .logos-band {
-  position: relative;
   background: #111;
   color: #fff;
-  transform: skewY(-2deg);
-  top: -7vh;
 }
 
 .logos-band .inner {
-  max-width: 980px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: clamp(48px, 5vw, 64px) 24px clamp(44px, 4.5vw, 58px);
+  padding: 18px 24px;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(32px, 7vw, 72px);
+  gap: clamp(28px, 8vw, 96px);
   align-items: center;
   justify-items: center;
-  transform: skewY(2deg);
 }
 
 .logos-band img {
   width: auto;
-  height: clamp(64px, 7vw, 96px);
-  max-width: clamp(150px, 18vw, 240px);
+  height: clamp(34px, 4vw, 48px);
+  max-width: clamp(90px, 14vw, 170px);
   display: block;
   object-fit: contain
 }
 
 @media (max-width:900px) {
   .logos-band .inner {
-    max-width: 720px;
-    gap: clamp(20px, 5vw, 40px);
-    padding: 52px 22px 48px
+    gap: clamp(18px, 5vw, 44px);
+    padding: 16px 22px
   }
 
   .logos-band img {
-    height: 74px;
-    max-width: clamp(120px, 20vw, 170px)
+    height: 38px;
+    max-width: clamp(76px, 20vw, 130px)
   }
 }
 
 @media (max-width:640px) {
   .logos-band .inner {
-    grid-template-columns: 1fr;
-    gap: 24px;
-    padding: 44px 20px 42px
+    gap: 14px;
+    padding: 14px 18px
   }
 
   .logos-band img {
-    height: 70px;
-    max-width: min(62vw, 180px)
+    height: 30px;
+    max-width: min(28vw, 94px)
   }
 }
 
@@ -1892,7 +1886,7 @@ html {
 
 /* Music Makeover content refresh */
 .makeover-hero {
-  min-height: 96vh;
+  min-height: 88vh;
   align-items: center;
   justify-content: flex-start;
   isolation: isolate;
@@ -2142,7 +2136,7 @@ html {
   display: none;
 }
 
-.service-grid .service-card > * {
+.service-grid .service-card>* {
   position: static !important;
   z-index: auto !important;
 }
@@ -2270,6 +2264,7 @@ html {
 }
 
 @media (max-width: 980px) {
+
   .intro-section,
   .why-section {
     grid-template-columns: 1fr;
@@ -2440,7 +2435,7 @@ html {
 }
 
 .story-copy,
-.meet-section > div:last-child,
+.meet-section>div:last-child,
 .service-detail-card,
 .testimonial-form-section ol {
   color: #3d4451;
@@ -2453,9 +2448,9 @@ html {
   line-height: 1.1;
 }
 
-.story-copy p + p,
-.meet-section p + p,
-.service-detail-card p + p {
+.story-copy p+p,
+.meet-section p+p,
+.service-detail-card p+p {
   margin-top: 14px;
 }
 
@@ -2755,7 +2750,7 @@ html {
   box-shadow: 0 12px 34px rgba(17, 17, 17, .05);
 }
 
-.contact-page .contact-form-card > p,
+.contact-page .contact-form-card>p,
 .contact-page .contact-info-card p {
   color: #4d5665;
 }
@@ -2858,6 +2853,7 @@ html {
 }
 
 @media (max-width: 1080px) {
+
   .serve-grid,
   .quick-links-grid.four-links {
     grid-template-columns: repeat(2, minmax(0, 1fr));
