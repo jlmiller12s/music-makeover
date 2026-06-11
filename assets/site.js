@@ -2,6 +2,8 @@
   document.addEventListener('DOMContentLoaded', () => {
     wireNavigation();
     markCurrentNav();
+    wireMatchmakerQuiz();
+    wireGsapAnimations();
     hydratePublicContent();
   });
 
@@ -45,6 +47,152 @@
   function normalizePath(path) {
     if (!path || path === '/') return '/index.html';
     return path.endsWith('/') ? `${path}index.html` : path;
+  }
+
+  function wireMatchmakerQuiz() {
+    const quiz = document.querySelector('[data-matchmaker-quiz]');
+    if (!quiz) return;
+
+    const resultMap = {
+      sound: {
+        stage: 'Strengthening',
+        meter: 'strengthening',
+        title: 'The Sound Refiner',
+        body: 'Your group has a foundation, but the sound needs more polish, unity, and intentional development. You may be noticing issues with tone, blend, articulation, dynamics, or overall confidence.',
+        step: 'Choir & Ensemble Coaching',
+        href: 'booking.html?category=ensemble',
+        cta: 'Request Choir Coaching',
+      },
+      team: {
+        stage: 'Developing',
+        meter: 'developing',
+        title: 'The Team Reset',
+        body: 'Your team has heart, but may need clearer structure, stronger preparation, and more unified sound. This is common for volunteer-based worship teams carrying a lot with limited rehearsal time.',
+        step: 'Worship Team Makeover',
+        href: 'booking.html?category=worship',
+        cta: 'Request Worship Support',
+      },
+      program: {
+        stage: 'Unclear',
+        meter: 'unclear',
+        title: 'The Program Rebuilder',
+        body: 'Your needs go beyond one workshop. You may need systems, leadership support, curriculum direction, rehearsal structure, and a customized growth plan.',
+        step: 'Music Makeover Intensive',
+        href: 'booking.html?category=school',
+        cta: 'Plan an Intensive',
+      },
+      private: {
+        stage: 'Flourishing',
+        meter: 'flourishing',
+        title: 'The Confidence Builder',
+        body: 'You are ready for personal guidance that strengthens your voice, musicianship, confidence, and consistency with practical coaching you can keep using.',
+        step: 'Private Coaching',
+        href: 'booking.html?category=private',
+        cta: 'Book Private Coaching',
+      },
+    };
+
+    const buttons = Array.from(quiz.querySelectorAll('[data-matchmaker-option]'));
+    const stage = quiz.querySelector('[data-result-stage]');
+    const title = quiz.querySelector('[data-result-title]');
+    const body = quiz.querySelector('[data-result-body]');
+    const step = quiz.querySelector('[data-result-step]');
+    const link = quiz.querySelector('[data-result-link]');
+    const meterStages = Array.from(quiz.querySelectorAll('[data-meter-stage]'));
+
+    const renderResult = (key) => {
+      const result = resultMap[key] || resultMap.sound;
+      if (stage) stage.textContent = result.stage;
+      if (title) title.textContent = result.title;
+      if (body) body.textContent = result.body;
+      if (step) step.textContent = result.step;
+      if (link) {
+        link.textContent = result.cta;
+        link.setAttribute('href', result.href);
+      }
+      buttons.forEach((button) => {
+        button.setAttribute('aria-pressed', String(button.dataset.matchmakerOption === key));
+      });
+      meterStages.forEach((item) => {
+        item.classList.toggle('is-active', item.dataset.meterStage === result.meter);
+      });
+    };
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => renderResult(button.dataset.matchmakerOption));
+    });
+  }
+
+  function wireGsapAnimations() {
+    const reduceMotion = window.matchMedia
+      && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion || !window.gsap || typeof window.gsap.fromTo !== 'function') return;
+
+    const revealGroup = (targets, options = {}) => {
+      const elements = Array.from(targets).filter((element) => (
+        element && element.nodeType === 1 && element.dataset.gsapAnimated !== 'true'
+      ));
+      if (!elements.length) return;
+
+      // Set initial styles immediately to prevent flashing/glitchiness on scroll
+      if (!options.immediate) {
+        elements.forEach((element) => {
+          element.style.opacity = '0';
+          const yVal = options.y ?? 22;
+          element.style.transform = `translate3d(0, ${yVal}px, 0)`;
+        });
+      }
+
+      elements.forEach((element) => {
+        element.dataset.gsapAnimated = 'true';
+      });
+
+      const play = () => {
+        window.gsap.fromTo(elements, {
+          opacity: 0,
+          y: options.y ?? 22,
+        }, {
+          opacity: 1,
+          y: 0,
+          delay: options.delay ?? 0,
+          duration: options.duration ?? 0.95,
+          ease: 'power2.out',
+          stagger: options.stagger ?? 0.08,
+          clearProps: 'transform',
+        });
+      };
+
+      if (options.immediate || !('IntersectionObserver' in window)) {
+        play();
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          play();
+          observer.disconnect();
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.02 });
+
+      observer.observe(options.anchor || elements[0]);
+    };
+
+    revealGroup(document.querySelectorAll('[data-gsap="hero"] > *'), {
+      delay: 0.12,
+      duration: 0.95,
+      immediate: true,
+      stagger: 0.1,
+      y: 18,
+    });
+
+    document.querySelectorAll('[data-gsap-section]').forEach((section) => {
+      revealGroup([section], { anchor: section, stagger: 0, y: 26 });
+    });
+
+    document.querySelectorAll('[data-gsap-stagger]').forEach((group) => {
+      revealGroup(group.children, { anchor: group, stagger: 0.08, y: 22 });
+    });
   }
 
   async function hydratePublicContent() {

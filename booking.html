@@ -26,7 +26,7 @@
       <nav class="nav" aria-label="Primary">
         <a href="about.html">ABOUT ME</a>
         <a href="services.html">SERVICES</a>
-        <a href="booking.html">BOOKING</a>
+        <a href="booking.html" aria-current="page" class="is-current">BOOKING</a>
         <a href="testimonials.html">TESTIMONIALS</a>
         <a href="contact.html">CONTACT</a>
       </nav>
@@ -34,125 +34,676 @@
   </header>
 
   <main class="booking-shell">
-    <section class="mm-page booking-intro" aria-labelledby="booking-heading">
-      <div>
-        <p class="mm-kicker" data-content="booking.heroKicker">Book / Contact</p>
-        <h1 id="booking-heading" data-content="booking.heroHeadline">Let's Find the Right Makeover For You.</h1>
-        <p data-content="booking.introLine1">Whether you are looking for worship team support, choir development, a full music program intensive, or private coaching, this is the place to start.</p>
-        <p data-content="booking.introLine2">Share a little about where you are, what you need, and what you are hoping to improve. Ashley will review your inquiry and recommend the best next step based on your goals, timeline, and service needs.</p>
-      </div>
-      <aside class="booking-intro-panel" aria-label="How booking works">
-        <strong data-content="booking.nextStepsHeading">What Happens Next?</strong>
-        <ul data-content-lines="booking.nextSteps">
-          <li>Ashley reviews your goals, challenges, timeline, location, and preferred format.</li>
-          <li>Your inquiry is matched to the best service path.</li>
-          <li>Private coaching inquiries receive next steps for scheduling.</li>
-          <li>Team, choir, school, church, and program requests may move into consultation, proposal, and approved dates.</li>
-          <li>Once details are confirmed, secure payment links or invoices will be sent through Stripe.</li>
-        </ul>
-      </aside>
-    </section>
-
-    <section class="mm-page booking-path-section" aria-labelledby="choose-path-heading">
-      <div class="section-heading">
-        <p class="mm-kicker" data-content="booking.choosePathKicker">Choose Your Path</p>
-        <h2 id="choose-path-heading" data-content="booking.choosePathHeadline">Start With the Lane That Sounds Closest.</h2>
-      </div>
-      <div class="lane-tabs" role="tablist" aria-label="Inquiry categories">
-        <button class="lane-tab" type="button" role="tab" data-lane="private" aria-selected="false">
-          <span>Private Music Coaching</span>
-          <strong>Students, singers, musicians, and worship leaders seeking one-on-one support.</strong>
-          <em>Starting at $40</em>
-        </button>
-        <button class="lane-tab" type="button" role="tab" data-lane="worship" aria-selected="false">
-          <span>Churches & Worship Teams</span>
-          <strong>Stronger vocals, clearer structure, healthier team culture, and practical development.</strong>
-          <em>Starting at $500</em>
-        </button>
-        <button class="lane-tab" type="button" role="tab" data-lane="ensemble" aria-selected="false">
-          <span>Choirs & Ensembles</span>
-          <strong>Tone, blend, musicianship, confidence, and performance readiness.</strong>
-          <em>Starting at $350</em>
-        </button>
-        <button class="lane-tab" type="button" role="tab" data-lane="school" aria-selected="true">
-          <span>Leaders & Programs</span>
-          <strong>Stronger systems, clearer structure, and customized next steps.</strong>
-          <em>Starting at $1,250+</em>
-        </button>
-        <button class="lane-tab" type="button" role="tab" data-lane="general" aria-selected="false">
-          <span>Not sure?</span>
-          <strong>Share what you need and Ashley will help identify the next right step.</strong>
-          <em>General inquiry</em>
-        </button>
-      </div>
-    </section>
-
-    <section class="mm-page booking-workspace">
-      <div class="booking-panel">
-        <div class="booking-panel-header">
-          <div>
-            <h2 id="lane-title">School / Music Educator Inquiry</h2>
-            <p id="lane-summary">For classroom programs, choir directors, contest preparation, rehearsal systems, and educator support.</p>
+    
+    <!-- Section 1: Booking Hero -->
+    <section class="booking-hero" aria-labelledby="booking-heading">
+      <div class="mm-page hero-grid">
+        <div class="hero-text-container">
+          <p class="mm-kicker" data-content="booking.heroKicker">Book / Contact</p>
+          <h1 id="booking-heading" data-content="booking.heroHeadline">Let’s Find the Right Music Makeover for You</h1>
+          <p class="hero-subheading">Whether you need private coaching, worship team development, choir support, or a full program intensive, this is the place to start.</p>
+          <p class="hero-copy">Share where you are, what you hope to improve, and the kind of support you need. Ashley will review your inquiry and recommend the best next step based on your goals, timeline, location, and service needs.</p>
+          <div class="hero-buttons">
+            <a href="#choose-path" class="mm-button">Start My Inquiry</a>
+            <a href="index.html#makeover-matchmaker" class="mm-ghost-button">Take the Growth Style Quiz</a>
           </div>
-          <a class="mm-ghost-button" href="client-portal.html">Client portal preview</a>
+        </div>
+        <div class="hero-visual-container" aria-hidden="true">
+          <div class="visual-card">
+            <div class="visual-icon gold">
+              <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+                <path d="M8 14h.01"></path>
+                <path d="M12 14h.01"></path>
+                <path d="M16 14h.01"></path>
+                <path d="M8 18h.01"></path>
+                <path d="M12 18h.01"></path>
+                <path d="M16 18h.01"></path>
+              </svg>
+            </div>
+            <span>Listening First</span>
+          </div>
+          <div class="visual-card offset">
+            <div class="visual-icon teal">
+              <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M9 18V5l12-2v13"></path>
+                <circle cx="6" cy="18" r="3"></circle>
+                <circle cx="18" cy="16" r="3"></circle>
+              </svg>
+            </div>
+            <span>Vocal Polish</span>
+          </div>
+          <div class="visual-card-deco"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Choose Your Starting Point -->
+    <section class="booking-starting-point mm-page" id="choose-path" aria-labelledby="choose-path-heading">
+      <div class="section-heading text-center">
+        <p class="mm-kicker" data-content="booking.choosePathKicker">Choose Your Starting Point</p>
+        <h2 id="choose-path-heading" data-content="booking.choosePathHeadline">Select the Option That Best Describes What You Need</h2>
+        <p class="section-desc">If you are not sure, choose General Inquiry and Ashley will help you find the best next step.</p>
+      </div>
+      <div class="starting-grid">
+        
+        <!-- Card 1: Private Music Coaching -->
+        <div class="starting-card" data-lane="private" tabindex="0" role="button">
+          <div class="card-icon microphone">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <line x1="12" y1="19" x2="12" y2="22"></line>
+            </svg>
+          </div>
+          <div class="card-category">Individuals</div>
+          <h3>Private Music Coaching</h3>
+          <p class="card-desc">Students, singers, musicians, worship leaders</p>
+          <span class="card-action">Inquire About Coaching &rarr;</span>
         </div>
 
-        <div class="service-strip" id="service-strip" aria-label="Relevant services"></div>
+        <!-- Card 2: Worship Team Support -->
+        <div class="starting-card" data-lane="worship" tabindex="0" role="button">
+          <div class="card-icon waves">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <div class="card-category">Churches & Worship Teams</div>
+          <h3>Worship Team Support</h3>
+          <p class="card-desc">Praise teams, vocalists, volunteer musicians, worship leaders</p>
+          <span class="card-action">Request Worship Support &rarr;</span>
+        </div>
+
+        <!-- Card 3: Choir & Ensemble Coaching -->
+        <div class="starting-card" data-lane="ensemble" tabindex="0" role="button">
+          <div class="card-icon folder">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+              <path d="M6 14h12"></path>
+              <path d="M6 10h12"></path>
+            </svg>
+          </div>
+          <div class="card-category">Choirs & Ensembles</div>
+          <h3>Choir & Ensemble Coaching</h3>
+          <p class="card-desc">School choirs, church choirs, ensembles, vocal groups</p>
+          <span class="card-action">Request Choir Coaching &rarr;</span>
+        </div>
+
+        <!-- Card 4: Program Intensives -->
+        <div class="starting-card" data-lane="school" tabindex="0" role="button">
+          <div class="card-icon compass">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+            </svg>
+          </div>
+          <div class="card-category">Leaders & Programs</div>
+          <h3>Music Makeover Intensives</h3>
+          <p class="card-desc">Schools, churches, organizations, music leaders</p>
+          <span class="card-action">Request an Intensive &rarr;</span>
+        </div>
+
+        <!-- Card 5: General Inquiry -->
+        <div class="starting-card" data-lane="general" tabindex="0" role="button">
+          <div class="card-icon question">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+          </div>
+          <div class="card-category">Not Sure?</div>
+          <h3>General Inquiry</h3>
+          <p class="card-desc">Anyone needing help choosing the right path</p>
+          <span class="card-action">Ask Ashley &rarr;</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: What Happens Next? -->
+    <section class="booking-what-next" aria-labelledby="what-next-heading">
+      <div class="mm-page">
+        <div class="section-heading text-center">
+          <p class="mm-kicker" data-content="booking.nextStepsHeading">What Happens Next?</p>
+          <h2 id="what-next-heading">Simple Steps to Finding the Right Fit</h2>
+          <p class="section-desc">After you submit your inquiry, Ashley will review your details and determine the best next step based on your goals, timeline, and location.</p>
+        </div>
+        <div class="steps-flow">
+          <div class="step-card">
+            <div class="step-icon">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+            </div>
+            <span class="step-num">Step 1</span>
+            <h3>Submit Your Inquiry</h3>
+            <p>Share your service interest, goals, timeline, and current challenges.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-icon">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </div>
+            <span class="step-num">Step 2</span>
+            <h3>Ashley Reviews Your Request</h3>
+            <p>Your inquiry is reviewed based on service type, audience, scope, location, and preferred format.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-icon">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+              </svg>
+            </div>
+            <span class="step-num">Step 3</span>
+            <h3>Receive Your Recommended Next Step</h3>
+            <p>Private coaching requests may move into scheduling. Team, choir, church, school, and program requests may move into consultation, proposal, and approved dates.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-icon">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+                <path d="M9 16l2 2 4-4"></path>
+              </svg>
+            </div>
+            <span class="step-num">Step 4</span>
+            <h3>Confirm Details</h3>
+            <p>Once the service path, scope, and timeline are clear, Ashley will send next steps, scheduling information, invoice, or secure payment link.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Program Support Options -->
+    <section class="booking-program-options mm-page" aria-labelledby="program-support-heading">
+      <div class="section-heading text-center">
+        <p class="mm-kicker">Program Support Options</p>
+        <h2 id="program-support-heading">Request-First Program Support</h2>
+        <p class="section-desc">Some services require review before booking because every school, church, team, and program has different needs. Ashley reviews your inquiry before confirming the best service option, scope, timeline, pricing, and next steps.</p>
+      </div>
+
+      <!-- Desktop View Table -->
+      <div class="desktop-only pricing-table-wrapper">
+        <table class="program-table">
+          <thead>
+            <tr>
+              <th>Service</th>
+              <th>Starting Investment</th>
+              <th>Best For</th>
+              <th>Booking Process</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Quick Fix Assessment</strong></td>
+              <td><span class="table-price">$350</span></td>
+              <td>Targeted feedback and clarity</td>
+              <td>Available after review</td>
+            </tr>
+            <tr>
+              <td><strong>Music Educator Makeover</strong></td>
+              <td><span class="table-price">$750</span></td>
+              <td>Music educators needing support and strategy</td>
+              <td>Scope and dates approved before booking</td>
+            </tr>
+            <tr>
+              <td><strong>Music Makeover Intensive</strong></td>
+              <td><span class="table-price">$1,250+</span></td>
+              <td>Deeper strategy, systems, and leadership support</td>
+              <td>Consultation may be recommended</td>
+            </tr>
+            <tr>
+              <td><strong>Full Program Makeover</strong></td>
+              <td><span class="table-price">$3,000+</span></td>
+              <td>Full-scale program development</td>
+              <td>Custom proposal required</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile Accordion View -->
+      <div class="mobile-only pricing-accordion">
+        <div class="accordion-item">
+          <button class="accordion-trigger" type="button" aria-expanded="false">
+            <span class="svc-name">Quick Fix Assessment</span>
+            <span class="svc-price">$350</span>
+          </button>
+          <div class="accordion-panel" hidden>
+            <div class="panel-inner">
+              <p><strong>Best For:</strong> Targeted feedback and clarity</p>
+              <p><strong>Booking Process:</strong> Available after review</p>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-trigger" type="button" aria-expanded="false">
+            <span class="svc-name">Music Educator Makeover</span>
+            <span class="svc-price">$750</span>
+          </button>
+          <div class="accordion-panel" hidden>
+            <div class="panel-inner">
+              <p><strong>Best For:</strong> Music educators needing support and strategy</p>
+              <p><strong>Booking Process:</strong> Scope and dates approved before booking</p>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-trigger" type="button" aria-expanded="false">
+            <span class="svc-name">Music Makeover Intensive</span>
+            <span class="svc-price">$1,250+</span>
+          </button>
+          <div class="accordion-panel" hidden>
+            <div class="panel-inner">
+              <p><strong>Best For:</strong> Deeper strategy, systems, and leadership support</p>
+              <p><strong>Booking Process:</strong> Consultation may be recommended</p>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-trigger" type="button" aria-expanded="false">
+            <span class="svc-name">Full Program Makeover</span>
+            <span class="svc-price">$3,000+</span>
+          </button>
+          <div class="accordion-panel" hidden>
+            <div class="panel-inner">
+              <p><strong>Best For:</strong> Full-scale program development</p>
+              <p><strong>Booking Process:</strong> Custom proposal required</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Inquiry Form & Payment Note -->
+    <section class="booking-form-section mm-page" id="booking-form-anchor" aria-labelledby="form-heading">
+      <div class="booking-panel">
+        
+        <!-- Client Portal Preview Link (Retained from original design) -->
+        <div class="booking-panel-header">
+          <div>
+            <h2 id="form-heading" data-content="booking.inquirySectionHelper">Tell Ashley What Kind of Support You Need</h2>
+            <p class="form-intro-desc">Complete the form below with as much detail as you can. You do not have to have everything figured out yet- this inquiry helps Ashley understand where you are and recommend the best next step.</p>
+          </div>
+          <a class="mm-ghost-button portal-preview-btn" href="client-portal.html">Client Portal Preview</a>
+        </div>
 
         <div id="booking-status" class="status-message" role="status" aria-live="polite"></div>
 
-        <form id="music-inquiry-form" class="crm-form">
-          <input type="hidden" id="category" name="category" value="school">
-          <div class="form-section-label">
-            <span data-content="booking.inquirySectionLabel">Inquiry Form</span>
-            <strong data-content="booking.inquirySectionHelper">Tell Ashley What Kind of Support You Need.</strong>
+        <!-- The main form -->
+        <form id="music-inquiry-form" class="crm-form" novalidate>
+          <input type="hidden" id="category" name="category" value="general">
+
+          <!-- Form Group 1: Contact Information -->
+          <fieldset class="form-group-fieldset">
+            <legend class="group-legend">Contact Information</legend>
+            <div class="crm-form-grid">
+              <div class="crm-field">
+                <label for="name">Name <span class="required-indicator">*</span></label>
+                <input id="name" name="name" type="text" placeholder="Your full name" required>
+              </div>
+              <div class="crm-field">
+                <label for="email">Email Address <span class="required-indicator">*</span></label>
+                <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+              </div>
+              <div class="crm-field">
+                <label for="phone">Phone Number <span class="required-indicator">*</span></label>
+                <input id="phone" name="phone" type="tel" placeholder="(123) 456-7890" required>
+              </div>
+              <div class="crm-field">
+                <label for="location">Location <span class="required-indicator">*</span></label>
+                <input id="location" name="location" type="text" placeholder="City, State (e.g. St. Louis, MO)" required>
+              </div>
+              <div class="crm-field">
+                <label for="organization">School / Church / Organization <span class="optional-label">(optional)</span></label>
+                <input id="organization" name="organization" type="text" placeholder="Name of organization">
+              </div>
+              <div class="crm-field">
+                <label for="role">Role / Title <span class="optional-label">(optional)</span></label>
+                <input id="role" name="role" type="text" placeholder="e.g. Parent, Choir Director, Singer">
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Form Group 2: Service Interest -->
+          <fieldset class="form-group-fieldset">
+            <legend class="group-legend">Service Interest</legend>
+            <div class="crm-form-grid single-col">
+              <div class="crm-field">
+                <label for="supportNeeded">Which Service Are You Interested In? <span class="required-indicator">*</span></label>
+                <select id="supportNeeded" name="supportNeeded" required>
+                  <option value="" disabled selected>Select an option...</option>
+                  <option value="Private Music Coaching">Private Music Coaching</option>
+                  <option value="Audition / Performance Prep">Audition / Performance Prep</option>
+                  <option value="Worship Team Support">Worship Team Support</option>
+                  <option value="Choir & Ensemble Coaching">Choir & Ensemble Coaching</option>
+                  <option value="Quick Fix Assessment">Quick Fix Assessment</option>
+                  <option value="Music Educator Makeover">Music Educator Makeover</option>
+                  <option value="Music Makeover Intensive">Music Makeover Intensive</option>
+                  <option value="Full Program Makeover">Full Program Makeover</option>
+                  <option value="Speaking / Workshop Request">Speaking / Workshop Request</option>
+                  <option value="General Inquiry / Not Sure Yet">General Inquiry / Not Sure Yet</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Form Group 3: Audience Type -->
+          <fieldset class="form-group-fieldset">
+            <legend class="group-legend">Audience Type</legend>
+            <div class="crm-form-grid single-col">
+              <div class="crm-field">
+                <label for="audienceType">Who is this Support For? <span class="required-indicator">*</span></label>
+                <select id="audienceType" name="audienceType" required>
+                  <option value="" disabled selected>Select who this is for...</option>
+                  <option value="Myself">Myself</option>
+                  <option value="My child">My child</option>
+                  <option value="A student">A student</option>
+                  <option value="A choir">A choir</option>
+                  <option value="A worship Team">A worship Team</option>
+                  <option value="A school music program">A school music program</option>
+                  <option value="A church music ministry">A church music ministry</option>
+                  <option value="An organization">An organization</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- DYNAMIC CONDITIONAL FIELDS CONTAINER -->
+          <div id="dynamic-conditional-fields-container" class="conditional-wrapper">
+            
+            <!-- Conditional Block 1: Private Music Coaching -->
+            <div id="cond-private" class="conditional-block" hidden>
+              <fieldset class="form-group-fieldset conditional-fieldset">
+                <legend class="group-legend inline">Coaching Specifics</legend>
+                <div class="crm-form-grid">
+                  <div class="crm-field">
+                    <label for="studentAge">Student Age / Grade Level <span class="required-indicator">*</span></label>
+                    <input id="studentAge" name="studentAge" type="text" placeholder="e.g. 14 years old / 9th grade">
+                  </div>
+                  <div class="crm-field">
+                    <label for="experienceLevel">Experience Level <span class="required-indicator">*</span></label>
+                    <select id="experienceLevel" name="experienceLevel">
+                      <option value="" disabled selected>Select level...</option>
+                      <option value="Beginner">Beginner</option>
+                      <option value="Intermediate">Intermediate</option>
+                      <option value="Advanced">Advanced</option>
+                      <option value="Professional / leader">Professional / leader</option>
+                    </select>
+                  </div>
+                  <div class="crm-field">
+                    <label for="preferredLessonType">Coaching Cadence <span class="required-indicator">*</span></label>
+                    <select id="preferredLessonType" name="preferredLessonType">
+                      <option value="" disabled selected>Select weekly, monthly or one-time...</option>
+                      <option value="One-time support">One-time support</option>
+                      <option value="Ongoing coaching">Ongoing coaching</option>
+                      <option value="Monthly 4-Pack">Monthly 4-Pack</option>
+                      <option value="Not sure yet">Not sure yet</option>
+                    </select>
+                  </div>
+                  <div class="crm-field">
+                    <label for="voiceInstrumentFocus">Voice / Instrument Focus <span class="required-indicator">*</span></label>
+                    <input id="voiceInstrumentFocus" name="voiceInstrumentFocus" type="text" placeholder="e.g. Voice, Piano, Worship Leading">
+                  </div>
+                  <div class="crm-field full-width">
+                    <label for="preferredAvailability">Preferred Availability <span class="required-indicator">*</span></label>
+                    <textarea id="preferredAvailability" name="preferredAvailability" placeholder="Tell Ashley your preferred lesson days and times (e.g. Tuesdays/Thursdays after 4 PM)"></textarea>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+
+            <!-- Conditional Block 2: Worship Team Support -->
+            <div id="cond-worship" class="conditional-block" hidden>
+              <fieldset class="form-group-fieldset conditional-fieldset">
+                <legend class="group-legend inline">Worship Team Details</legend>
+                <div class="crm-form-grid">
+                  <div class="crm-field">
+                    <label for="teamSize">Team Size <span class="required-indicator">*</span></label>
+                    <input id="teamSize" name="teamSize" type="number" min="1" placeholder="Total members">
+                  </div>
+                  <div class="crm-field">
+                    <label for="vocalistCount">Number of Vocalists <span class="optional-label">(optional)</span></label>
+                    <input id="vocalistCount" name="vocalistCount" type="number" min="0" placeholder="Number of vocalists">
+                  </div>
+                  <div class="crm-field full-width">
+                    <label for="rehearsalSchedule">Rehearsal Schedule <span class="optional-label">(optional)</span></label>
+                    <input id="rehearsalSchedule" name="rehearsalSchedule" type="text" placeholder="e.g. Wednesday nights 7:00-8:30 PM">
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+
+            <!-- Conditional Block 3: Choir & Ensemble Coaching -->
+            <div id="cond-ensemble" class="conditional-block" hidden>
+              <fieldset class="form-group-fieldset conditional-fieldset">
+                <legend class="group-legend inline">Choir & Ensemble Details</legend>
+                <div class="crm-form-grid">
+                  <div class="crm-field">
+                    <label for="choirType">Choir / Group Type <span class="optional-label">(optional)</span></label>
+                    <input id="choirType" name="choirType" type="text" placeholder="e.g. Chamber Choir, Church Choir, Vocal Jazz">
+                  </div>
+                  <div class="crm-field">
+                    <label for="ensembleSize">Approximate Number of Singers <span class="required-indicator">*</span></label>
+                    <input id="ensembleSize" name="ensembleSize" type="number" min="1" placeholder="e.g. 24">
+                  </div>
+                  <div class="crm-field">
+                    <label for="ensembleGradeLevel">Age / Grade Level <span class="optional-label">(optional)</span></label>
+                    <input id="ensembleGradeLevel" name="ensembleGradeLevel" type="text" placeholder="e.g. High School (9-12), Adult Community">
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+
+            <!-- Conditional Block 4: Program Intensives -->
+            <div id="cond-school" class="conditional-block" hidden>
+              <fieldset class="form-group-fieldset conditional-fieldset">
+                <legend class="group-legend inline">Program Details</legend>
+                <div class="crm-form-grid">
+                  <div class="crm-field">
+                    <label for="programType">Program Type <span class="optional-label">(optional)</span></label>
+                    <input id="programType" name="programType" type="text" placeholder="e.g. Middle School Band, Church Music Dept">
+                  </div>
+                  <div class="crm-field">
+                    <label for="participantsCount">Number of Participants <span class="optional-label">(optional)</span></label>
+                    <input id="participantsCount" name="participantsCount" type="number" min="1" placeholder="Estimated total">
+                  </div>
+                  <div class="crm-field full-width">
+                    <label for="leadershipStructure">Current Leadership Structure <span class="optional-label">(optional)</span></label>
+                    <input id="leadershipStructure" name="leadershipStructure" type="text" placeholder="e.g. 1 Director, 2 Student Leads">
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+
+            <!-- Conditional Block 5: General Inquiry -->
+            <div id="cond-general" class="conditional-block" hidden>
+              <!-- Uses general inquiry structure -->
+            </div>
           </div>
-          <div class="crm-form-grid" id="dynamic-fields"></div>
 
-          <div class="crm-field">
-            <label for="attachments">Upload files, videos, repertoire lists, plans, or notes</label>
-            <input id="attachments" name="attachments" type="file" multiple>
-          </div>
+          <!-- Form Group 4: Goals & Challenges -->
+          <fieldset class="form-group-fieldset">
+            <legend class="group-legend">Goals & Challenges</legend>
+            <div class="crm-form-grid single-col">
+              <div class="crm-field">
+                <label for="currentChallenges">What Are Your Current Goals or Challenges? <span class="required-indicator">*</span></label>
+                <textarea id="currentChallenges" name="currentChallenges" placeholder="Tell Ashley what feels unclear, what needs support, or what you are hoping to strengthen. If Private Coaching, tell us about your personal music goals."></textarea>
+              </div>
+              <div class="crm-field">
+                <label for="preparingFor">Are You Preparing For Something Specific?</label>
+                <select id="preparingFor" name="preparingFor">
+                  <option value="Not preparing for a specific event">Not preparing for a specific event</option>
+                  <option value="Audition">Audition</option>
+                  <option value="Concert">Concert</option>
+                  <option value="Worship Service">Worship Service</option>
+                  <option value="Special Event">Special Event</option>
+                  <option value="Festival / contest">Festival / contest</option>
+                  <option value="School year / semester">School year / semester</option>
+                  <option value="New season or program launch">New season or program launch</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="crm-field" id="specific-date-field-container" hidden>
+                <label for="upcomingDates">Date of Event / Target Deadline</label>
+                <input id="upcomingDates" name="upcomingDates" type="date">
+              </div>
+              <div class="crm-field">
+                <label for="preferredTimeline">What Timeline Are You Hoping For? <span class="required-indicator">*</span></label>
+                <select id="preferredTimeline" name="preferredTimeline" required>
+                  <option value="" disabled selected>Select timeline...</option>
+                  <option value="As soon as possible">As soon as possible</option>
+                  <option value="Within the next 2-4 weeks">Within the next 2-4 weeks</option>
+                  <option value="Within the next 1-3 months">Within the next 1-3 months</option>
+                  <option value="This semester / season">This semester / season</option>
+                  <option value="Before a specific date">Before a specific date</option>
+                  <option value="I’m exploring options">I’m exploring options</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
 
-          <label class="confirmation-check" for="send-confirmation-email">
-            <input id="send-confirmation-email" name="sendConfirmationEmail" type="checkbox" checked>
-            <span>Send me an email confirmation of this inquiry submission</span>
-          </label>
+          <!-- Form Group 5: Format & Budget -->
+          <fieldset class="form-group-fieldset">
+            <legend class="group-legend">Format & Budget</legend>
+            <div class="crm-form-grid">
+              <div class="crm-field">
+                <label for="preferredFormat">Preferred Format <span class="required-indicator">*</span></label>
+                <select id="preferredFormat" name="preferredFormat" required>
+                  <option value="" disabled selected>Select format...</option>
+                  <option value="In-person">In-person</option>
+                  <option value="Virtual">Virtual</option>
+                  <option value="Hybrid">Hybrid</option>
+                  <option value="Not sure yet">Not sure yet</option>
+                </select>
+              </div>
+              <div class="crm-field">
+                <label for="budgetRange">Budget Range <span class="required-indicator">*</span></label>
+                <select id="budgetRange" name="budgetRange" required>
+                  <option value="" disabled selected>Select range...</option>
+                  <option value="Under $100">Under $100</option>
+                  <option value="$100-$350">$100-$350</option>
+                  <option value="$350-750">$350-$750</option>
+                  <option value="$750-$1,250">$750-$1,250</option>
+                  <option value="$1,250-$3,000">$1,250-$3,000</option>
+                  <option value="$3,000+">$3,000+</option>
+                  <option value="Not sure yet">Not sure yet</option>
+                </select>
+                <small class="field-helper-text">Budget range helps Ashley recommend an option that fits your current needs and scope.</small>
+              </div>
+            </div>
+          </fieldset>
 
+          <!-- Form Group 6: Optional Details -->
+          <fieldset class="form-group-fieldset">
+            <legend class="group-legend">Optional Details</legend>
+            <div class="crm-form-grid single-col">
+              <div class="crm-field">
+                <label for="leadSource">How Did You Hear About The Music Makeover?</label>
+                <select id="leadSource" name="leadSource">
+                  <option value="" selected>Select option...</option>
+                  <option value="Social Media">Social Media</option>
+                  <option value="Friend / referral">Friend / referral</option>
+                  <option value="Church">Church</option>
+                  <option value="School">School</option>
+                  <option value="Event / workshop">Event / workshop</option>
+                  <option value="Search engine">Search engine</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="crm-field">
+                <label for="notes">Anything Else Ashley Should Know? <span class="optional-label">(optional)</span></label>
+                <textarea id="notes" name="notes" placeholder="Share any details that may help Ashley better understand your goals, group, timeline, or current needs."></textarea>
+              </div>
+              <div class="crm-field file-upload-field">
+                <label for="attachments" class="file-upload-label">
+                  <strong>Upload files, videos, repertoire lists, schedules, plans, or notes</strong>
+                  <span>Optional. Allowed: PDF, DOC, DOCX, MP4, MOV, JPG, PNG.</span>
+                </label>
+                <input id="attachments" name="attachments" type="file" multiple>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Form Group 7: Confirmation -->
+          <fieldset class="form-group-fieldset no-border">
+            <div class="crm-form-grid single-col">
+              <label class="confirmation-check" for="send-confirmation-email">
+                <input id="send-confirmation-email" name="sendConfirmationEmail" type="checkbox" checked>
+                <span>Send me an email confirmation of this inquiry submission.</span>
+              </label>
+              <label class="confirmation-check" for="request-follow-up">
+                <input id="request-follow-up" name="requestFollowUp" type="checkbox" checked>
+                <span>I would like Ashley to follow up with a recommended next step.</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- Submit section & Section 6: Payment Note -->
           <div class="booking-form-footer">
-            <p class="privacy-note" data-content="booking.privacyNote">Payment details are not collected through this inquiry form. Once your service, scope, timeline, and dates are confirmed, invoices or secure payment links will be sent through Stripe.</p>
-            <button class="mm-button" type="submit" data-content="booking.submitLabel">Find My Next Step</button>
+            <p class="privacy-note font-sm">
+              <strong>Payment Information</strong><br>
+              Payment details are not collected through this inquiry form. Once your service path, scope, timeline, and dates are confirmed, invoices or secure payment links will be sent through Stripe.
+            </p>
+            <button class="mm-button btn-large" type="submit">Find My Next Step</button>
           </div>
         </form>
+
+        <!-- Inline Success View (replacing form content on success) -->
+        <div id="booking-success-view" class="success-panel" hidden>
+          <div class="success-icon-ring" aria-hidden="true">
+            <svg viewBox="0 0 80 80" width="80" height="80">
+              <circle cx="40" cy="40" r="35" fill="none" stroke="currentColor" stroke-width="4"></circle>
+              <path d="M24 41.5 35.5 53 58 28" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </div>
+          <h2 id="success-heading">Thank You - Your Inquiry Has Been Sent</h2>
+          <p class="success-intro">Thank you for reaching out to The Music Makeover. Ashley will review your inquiry and recommend the next best step based on your goals, timeline, and service needs.</p>
+          <p class="success-email-notice">Please check your email for confirmation and any follow-up instructions.</p>
+          <div class="success-extra">
+            <span>In the meantime:</span>
+            <p>You can explore services, read testimonials, or take the Growth Style Quiz.</p>
+            <div class="success-actions">
+              <a href="services.html" class="mm-button">View Services</a>
+              <a href="index.html#makeover-matchmaker" class="mm-ghost-button">Take the Quiz</a>
+            </div>
+          </div>
+        </div>
+
       </div>
-
-      <aside class="booking-side" aria-label="Booking details">
-        <section class="booking-side-panel">
-          <h3>Program support options</h3>
-          <ul class="side-list">
-            <li>Quick Fix Assessment - $350 - available after inquiry review.</li>
-            <li>Music Educator Makeover - $750 - scope and dates approved before booking.</li>
-            <li>Music Makeover Intensive - $1,250+ - consultation may be recommended.</li>
-            <li>Full Program Makeover - $3,000+ - custom proposal required.</li>
-          </ul>
-        </section>
-
-        <section class="booking-side-panel">
-          <h3>Service policies</h3>
-          <ul class="side-list">
-            <li>Team, choir, school, and program services are request-first and require approval.</li>
-            <li>Deposits, payment plans, invoices, receipts, and manual payment tracking are managed after proposal acceptance.</li>
-            <li>Media release permissions are tracked before any photos, videos, audio, names, or testimonials are used.</li>
-          </ul>
-        </section>
-
-        <section class="booking-side-panel">
-          <h3 data-content="booking.helpHeading">Need Help Now?</h3>
-          <p data-content="booking.helpBody">Email the musicmakeover@gmail.com with your preferred timeline and service lane.</p>
-        </section>
-      </aside>
     </section>
 
+    <!-- Section 7: Final Reassurance / CTA -->
+    <section class="booking-reassurance" aria-labelledby="reassurance-heading">
+      <div class="mm-page reassurance-inner text-center">
+        <h2 id="reassurance-heading">You Do Not Have to Know Exactly Where to Start</h2>
+        <p class="reassurance-body">Not every music need fits neatly into a box. That is why The Music Makeover begins with listening first.</p>
+        <p class="reassurance-copy">Share what you are working through, and Ashley will help you identify the next right step for your voice, team, choir, or program.</p>
+        <div class="reassurance-buttons">
+          <a href="#choose-path" class="mm-button">Submit an Inquiry</a>
+          <a href="index.html#makeover-matchmaker" class="mm-ghost-button">Take the Growth Style Quiz</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Admin Mini Links (Retained) -->
     <section class="mm-page admin-mini-links" aria-label="Admin access">
       <a href="admin-login.html">Admin Login</a>
       <span aria-hidden="true">|</span>
@@ -162,7 +713,9 @@
 
   <footer class="footer">
     <div class="inner">
-      <p>&copy; 2026 The Music Makeover. All rights reserved.</p>
+      <div class="footer-row">
+        <p>&copy; 2026 The Music Makeover. All rights reserved.</p>
+      </div>
     </div>
   </footer>
 
