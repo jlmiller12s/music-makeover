@@ -115,19 +115,15 @@
 
     <section class="journey-section quiz-section" id="makeover-matchmaker" aria-labelledby="quiz-heading"
       data-matchmaker-quiz data-gsap-section>
-      <div class="quiz-container">
-        
-        <!-- Step 0: Intro -->
-        <div class="quiz-step active" data-quiz-step="0">
-          <h2 id="quiz-heading" class="text-center">What Kind of Music Makeover Do You Need?</h2>
-          <p class="quiz-subheading text-center">Growth is not just about sounding better. It’s about knowing what needs to change and having a clear plan to move forward.</p>
-          <div class="quiz-start-box text-center">
-            <button type="button" class="mm-button btn-large" data-quiz-next>Start the Quiz</button>
-          </div>
-        </div>
+      <div class="quiz-copy" data-gsap-section>
+        <h2 id="quiz-heading">Not sure where to start?</h2>
+        <p>Take the Music Makeover Matchmaker quiz and discover the support path that fits your current needs.</p>
+        <a class="hero-cta" href="#matchmaker-options" data-quiz-start-btn>Take the Quiz</a>
+      </div>
+      <div class="quiz-panel" id="matchmaker-options" data-gsap-section>
         
         <!-- Step 1: Seek support for -->
-        <div class="quiz-step" data-quiz-step="1" style="display: none;">
+        <div class="quiz-step active" data-quiz-step="1">
           <div class="quiz-progress-bar"><span style="width: 14.3%"></span></div>
           <p class="quiz-progress-text">Question 1 of 7</p>
           <h3 class="quiz-question">Who are you seeking support for?</h3>
@@ -138,11 +134,8 @@
             <button type="button" class="quiz-opt" data-option="d" data-points="program">A school/church music program</button>
             <button type="button" class="quiz-opt" data-option="e" data-points="purpose">I’m not totally sure yet</button>
           </div>
-          <div class="quiz-nav">
-            <button type="button" class="mm-ghost-button" data-quiz-prev>Back</button>
-          </div>
         </div>
-
+        
         <!-- Step 2: Biggest challenge -->
         <div class="quiz-step" data-quiz-step="2" style="display: none;">
           <div class="quiz-progress-bar"><span style="width: 28.6%"></span></div>

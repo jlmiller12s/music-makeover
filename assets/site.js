@@ -108,10 +108,24 @@
         });
       };
 
-      const startBtn = quiz.querySelector('[data-quiz-next]');
+      // Wire up Take the Quiz button (on the left side)
+      const startBtn = quiz.querySelector('[data-quiz-start-btn]');
       if (startBtn) {
-        startBtn.addEventListener('click', () => {
+        startBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          // Clear selections
+          optionButtons.forEach((opt) => {
+            opt.classList.remove('selected');
+            opt.setAttribute('aria-pressed', 'false');
+          });
+          for (let k in answers) delete answers[k];
           showStep(1);
+
+          // Smooth scroll to the options panel
+          const target = quiz.querySelector('#matchmaker-options');
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
         });
       }
 
@@ -128,8 +142,12 @@
 
           // Highlight selected option
           const siblingOpts = stepDiv.querySelectorAll('.quiz-opt');
-          siblingOpts.forEach((opt) => opt.classList.remove('selected'));
+          siblingOpts.forEach((opt) => {
+            opt.classList.remove('selected');
+            opt.setAttribute('aria-pressed', 'false');
+          });
           btn.classList.add('selected');
+          btn.setAttribute('aria-pressed', 'true');
 
           // Auto-advance
           if (stepNum < 7) {
@@ -154,8 +172,6 @@
           const stepNum = parseInt(stepDiv.dataset.quizStep, 10);
           if (stepNum > 1) {
             showStep(stepNum - 1);
-          } else if (stepNum === 1) {
-            showStep(0);
           }
         });
       });
@@ -165,9 +181,12 @@
       restartBtns.forEach((btn) => {
         btn.addEventListener('click', () => {
           // Clear selections
-          optionButtons.forEach((opt) => opt.classList.remove('selected'));
+          optionButtons.forEach((opt) => {
+            opt.classList.remove('selected');
+            opt.setAttribute('aria-pressed', 'false');
+          });
           for (let k in answers) delete answers[k];
-          showStep(0);
+          showStep(1);
         });
       });
 
