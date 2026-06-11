@@ -2074,7 +2074,10 @@ html {
 
 .section-heading {
   max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 28px;
+  text-align: center;
 }
 
 .section-heading p {
