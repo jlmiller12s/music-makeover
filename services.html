@@ -7,7 +7,8 @@
   <title>Services - The Music Makeover</title>
   <link rel="icon" href="media/music-makeover-logo.png" type="image/png">
   <link rel="stylesheet" href="assets/styles.css">
-  <script defer src="assets/site.js"></script>
+  <script src="assets/gsap-lite.js?v=homepage-animations"></script>
+  <script defer src="assets/site.js?v=homepage-animations"></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
 
@@ -15,7 +16,9 @@
   <header class="header">
     <div class="header-inner">
       <div class="logo">
-        <a href="index.html"><img src="media/music-makeover-logo.png" alt="The Music Makeover"></a>
+        <a href="index.html">
+          <img src="media/music-makeover-logo.png" alt="The Music Makeover">
+        </a>
       </div>
       <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
         <span></span>
@@ -32,140 +35,373 @@
     </div>
   </header>
 
-  <main class="content-page services-page">
-    <section class="page-hero" aria-labelledby="services-page-heading">
-      <p class="eyebrow" data-content="services.heroEyebrow">Services</p>
-      <h1 id="services-page-heading" data-content="services.heroHeadline">Coaching, Workshops, and Strategy Designed To Meet You Where You Are.</h1>
-      <p data-content="services.heroBody">Every singer, team, choir, and music program has different needs, and growth should never feel one-size-fits-all. The Music Makeover offers customized coaching, workshops, and consulting support for individuals, families, churches, schools, and organizations ready to grow with skill, confidence, structure, and purpose.</p>
-    </section>
-
-    <section class="consultation-callout" aria-labelledby="consult-heading">
-      <div>
-        <p class="eyebrow" data-content="services.consultationEyebrow">Start Here</p>
-        <h2 id="consult-heading" data-content="services.consultationHeadline">Music Makeover Consultation</h2>
-        <p data-content="services.consultationBody">For churches, schools, leaders, and individuals who need clarity before choosing a package. We will discuss your current needs, goals, challenges, and the best next step for meaningful growth.</p>
-        <p><strong>Best for:</strong> <span data-content="services.consultationBestFor">Parents, Singers, Worship Leaders, Choir Directors, Pastors, School Leaders, and Program Directors.</span></p>
+  <main class="content-page services-page-container">
+    <!-- Section 1: Services Hero -->
+    <section class="services-hero" aria-labelledby="services-hero-heading" data-gsap-section>
+      <div class="services-hero-copy" data-gsap="hero">
+        <span class="eyebrow">Services</span>
+        <h1 id="services-hero-heading">Services Designed to Meet You Where You Are</h1>
+        <p class="subheading">Coaching workshops and strategy for singers, students, worship teams, choirs, and music programs ready to grow with clarity, confidence, and purpose.</p>
+        <p class="supporting-copy">Every singer, team, choir, and music program has different needs—and growth should never feel one-size-fits-all. The Music Makeover offers customized support for individuals, families, churches, schools, and organizations seeking meaningful musical growth.</p>
+        <div class="hero-actions" style="margin-top: 24px;">
+          <a class="hero-cta" href="booking.html?category=general">Find My Next Step</a>
+          <a class="hero-cta secondary" href="#makeover-paths">Take the Growth Style Quiz</a>
+        </div>
       </div>
-      <a class="hero-cta" href="booking.html?category=general" data-content="services.consultationCtaLabel" data-content-href="services.consultationCtaHref">Schedule a Consultation</a>
-    </section>
-
-    <section class="service-detail-grid" aria-label="Service options" data-service-detail-grid>
-      <article class="service-detail-card">
-        <span>For students, singers, musicians, and worship leaders</span>
-        <h2>Private Music Coaching</h2>
-        <p>Personalized one-on-one coaching designed to strengthen musical skill, vocal confidence, performance readiness, musicianship, and overall understanding.</p>
-        <p>This is ideal for students, beginner musicians, singers preparing for auditions or performances, worship leaders wanting stronger vocal support, or anyone ready for consistent, intentional growth.</p>
-        <ul>
-          <li>Starting at $40</li>
-          <li>Best for auditions, beginners, vocal confidence, performance prep, worship leading, and weekly growth.</li>
-        </ul>
-        <a href="booking.html?category=private">Book Private Coaching</a>
-      </article>
-      <article class="service-detail-card">
-        <span>For churches and worship teams</span>
-        <h2>Worship Team Makeover</h2>
-        <p>Customized coaching for worship teams, praise teams, vocalists, and volunteer musicians who need practical support, stronger vocals, better rehearsal flow, clearer expectations, healthier team culture, and greater confidence.</p>
-        <p>This support can include vocal coaching, team workshops, rehearsal observation, blend and harmony development, leadership support, and customized next steps based on your team's current needs.</p>
-        <ul>
-          <li>Starting at $500</li>
-          <li>Best for worship teams, praise teams, church vocalists, volunteer musicians, and worship leaders needing structure and support.</li>
-        </ul>
-        <a href="booking.html?category=worship">Request Worship Support</a>
-      </article>
-      <article class="service-detail-card">
-        <span>For choirs and vocal groups</span>
-        <h2>Choir & Ensemble Coaching</h2>
-        <p>Interactive workshops and clinics designed to help choirs, ensembles, and vocal groups improve tone, blend, articulation, dynamics, musicianship, confidence, and overall presentation.</p>
-        <p>Sessions may be customized for school choirs, church choirs, youth ensembles, adult vocal groups, praise teams, or special event preparation.</p>
-        <ul>
-          <li>Starting at $350</li>
-          <li>Best for school choirs, church choirs, vocal ensembles, praise teams, and performance groups.</li>
-        </ul>
-        <a href="booking.html?category=ensemble">Request Choir Coaching</a>
-      </article>
-      <article class="service-detail-card">
-        <span>For leaders and programs</span>
-        <h2>Music Makeover Intensives</h2>
-        <p>Strategic coaching and consulting for churches, schools, and organizations that need more than a single session. Music Makeover intensives help leaders assess what is working, identify what needs strengthening, and create clear next steps for healthier systems and stronger outcomes.</p>
-        <p>This is ideal for programs that need a reset, rebuild, leadership support, team development, rehearsal structure, curriculum direction, worship ministry organization, or a full program makeover.</p>
-        <ul>
-          <li>Starting at $1,250</li>
-          <li>Best for program resets, leadership support, ministry development, school music programs, church music departments, and multi-step growth plans.</li>
-        </ul>
-        <a href="booking.html?category=school">Plan an Intensive</a>
-      </article>
-    </section>
-
-    <section class="why-section service-why" aria-labelledby="services-why-heading">
-      <div>
-        <h2 id="services-why-heading">Because growth should be excellent, intentional, and personal.</h2>
-        <p>At The Music Makeover, the goal is not just to improve sound. The goal is to strengthen people, support leaders, develop confidence, and build healthier music experiences that last.</p>
+      <div class="services-hero-image" data-gsap="hero">
+        <img src="media/_MG_0431.JPG" alt="Ashley Miller coaching a music group">
+        <div class="hero-image-overlay"></div>
       </div>
-      <ul class="why-list">
-        <li>High standards without intimidation</li>
-        <li>Personalized, practical coaching</li>
-        <li>Strong musical and leadership insight</li>
-        <li>Support rooted in confidence and purpose</li>
-        <li>A developmental approach that creates lasting growth</li>
-        <li>Flexible coaching and consulting packages</li>
-      </ul>
     </section>
 
-    <section class="pricing-overview" aria-labelledby="pricing-heading">
+    <!-- Section 2: Start Here / Find Your Fit -->
+    <section class="journey-section" id="makeover-paths" aria-labelledby="paths-heading">
       <div class="section-heading">
-        <h2 id="pricing-heading">Pricing overview</h2>
-        <p>Pricing may vary depending on session length, location, preparation needs, travel, program scope, and level of customization.</p>
+        <h2 id="paths-heading">Choose Your Music Makeover Path</h2>
+        <p>Not every music need fits into the same box. Start with the path that best describes where you are then explore the service options designed to help you move forward.</p>
       </div>
-      <div class="pricing-table" role="table" aria-label="Music Makeover pricing overview" data-service-pricing-table>
-        <div class="pricing-row pricing-head" role="row">
-          <span role="columnheader">Service type</span>
-          <span role="columnheader">Starting investment</span>
-          <span role="columnheader">Best for</span>
+      <div class="fit-grid" data-gsap-stagger>
+        <a class="fit-card" href="#private-coaching">
+          <div class="fit-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48"><path d="M24 10a8 8 0 1 0 0 16 8 8 0 0 0 0-16zM10 38c0-8 6-12 14-12s14 4 14 12"/></svg>
+          </div>
+          <h3>Private Coaching</h3>
+          <p>Students, singers, musicians, and worship leaders</p>
+          <span class="fit-action-btn">Explore Coaching &rarr;</span>
+        </a>
+        <a class="fit-card" href="#worship-team">
+          <div class="fit-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48"><path d="M16 34c5-7 19-7 24 0M22 20a6 6 0 1 0 12 0"/></svg>
+          </div>
+          <h3>Worship Team Makeover</h3>
+          <p>Churches, praise teams, vocal teams, and volunteer musicians</p>
+          <span class="fit-action-btn">Explore Worship Support &rarr;</span>
+        </a>
+        <a class="fit-card" href="#choir-coaching">
+          <div class="fit-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48"><path d="M10 14h28v24H10zM16 14V9h18v5"/></svg>
+          </div>
+          <h3>Choir & Ensemble Coaching</h3>
+          <p>School choirs, church choirs, ensembles, and vocal groups</p>
+          <span class="fit-action-btn">Explore Choir Coaching &rarr;</span>
+        </a>
+        <a class="fit-card" href="#intensives">
+          <div class="fit-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="16"/><path d="m18 30 4-10 8-4-4 10-8 4z"/></svg>
+          </div>
+          <h3>Music Makeover Intensives</h3>
+          <p>Leaders, schools, churches, organizations, and developing programs</p>
+          <span class="fit-action-btn">Explore Intensives &rarr;</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Section 3: Private Music Coaching -->
+    <section class="service-detail-section" id="private-coaching" aria-labelledby="private-heading" data-gsap-section>
+      <div class="service-media">
+        <img src="media/_MG_9919.JPG" alt="One-on-one private vocal coaching with Ashley Miller">
+        <div class="service-graphic-badge">
+          <!-- Microphone / Note Icon SVG -->
+          <svg viewBox="0 0 24 24" width="36" height="36" fill="currentColor">
+            <path d="M12 2c-1.66 0-3 1.34-3 3v6c0 1.66 1.34 3 3 3s3-1.34 3-3V5c0-1.66-1.34-3-3-3zm7 9c0 3.53-2.61 6.43-6 6.92V21h-2v-3.08c-3.39-.49-6-3.39-6-6.92h2c0 3.31 2.69 6 6 6s6-2.69 6-6h2z"/>
+          </svg>
+          <span>One-on-One Support</span>
         </div>
-        <div class="pricing-row" role="row">
-          <span role="cell">Private Coaching</span>
-          <span role="cell">Starts at $40</span>
-          <span role="cell">Students, singers, musicians, worship leaders</span>
-        </div>
-        <div class="pricing-row" role="row">
-          <span role="cell">Monthly Private Coaching</span>
-          <span role="cell">Custom package options available</span>
-          <span role="cell">Consistent weekly growth</span>
-        </div>
-        <div class="pricing-row" role="row">
-          <span role="cell">Choir & Ensemble Workshops</span>
-          <span role="cell">Starts at $350</span>
-          <span role="cell">Choirs, ensembles, and vocal groups</span>
-        </div>
-        <div class="pricing-row" role="row">
-          <span role="cell">Worship Team Makeover</span>
-          <span role="cell">Starts at $500</span>
-          <span role="cell">Churches, worship teams, praise teams</span>
-        </div>
-        <div class="pricing-row" role="row">
-          <span role="cell">Quick Fix Assessment</span>
-          <span role="cell">Starts at $350</span>
-          <span role="cell">Leaders needing strategy and structure</span>
-        </div>
-        <div class="pricing-row" role="row">
-          <span role="cell">Music Makeover Intensive</span>
-          <span role="cell">Starts at $1,250</span>
-          <span role="cell">Programs needing strategy and structure</span>
-        </div>
-        <div class="pricing-row" role="row">
-          <span role="cell">Full Program Makeover</span>
-          <span role="cell">Starts at $3,000</span>
-          <span role="cell">Schools, churches, and organizations needing deeper transformation</span>
+      </div>
+      <div class="service-info-panel">
+        <span class="service-label">Individual Coaching</span>
+        <h2 id="private-heading">Private Music Coaching</h2>
+        <p class="service-tagline">Personalized coaching for singers, students, musicians, and worship leaders ready to grow with confidence.</p>
+        <p class="service-description">Private music coaching provides one-on-one support for individuals who want to strengthen their voice, build musical understanding, prepare for performances, or grow with consistent, intentional guidance.</p>
+        <p class="service-description">Sessions are customized based on the student’s age, experience level, goals, and current needs. Coaching may include vocal technique, musicianship, ear training, audition preparation, performance confidence, worship leading support, or foundational music skills.</p>
+        
+        <div class="service-meta-lists">
+          <div class="meta-list-block">
+            <h3>Best For</h3>
+            <ul class="best-for-list">
+              <li>Beginner students</li>
+              <li>Developing singers</li>
+              <li>Audition preparation</li>
+              <li>Performance preparation</li>
+              <li>Worship leaders</li>
+              <li>Confidence-building</li>
+              <li>Weekly or monthly musical growth</li>
+            </ul>
+          </div>
+          <div class="pricing-card-accent">
+            <span class="investment-label">Starting Investment</span>
+            <span class="investment-price">$40</span>
+            <p class="investment-note">Monthly coaching packages may be available for students or singers seeking consistent growth.</p>
+            <div class="service-ctas">
+              <a class="hero-cta" href="booking.html?category=private">Book Private Coaching</a>
+              <a class="secondary-link" href="contact.html">Ask a Question &rarr;</a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="homepage-cta service-cta-band" aria-labelledby="service-cta-heading">
-      <div>
-        <h2 id="service-cta-heading" data-content="services.ctaHeadline">Your Next Level Does Not Have to Feel Unclear.</h2>
-        <p data-content="services.ctaBody">Whether you are building confidence as a singer, supporting your child's musical growth, strengthening a worship team, preparing a choir, or rebuilding an entire program, The Music Makeover can help you move forward with clarity and purpose.</p>
+    <!-- Section 4: Worship Team Makeover -->
+    <section class="service-detail-section alt-layout" id="worship-team" aria-labelledby="worship-heading" data-gsap-section>
+      <div class="service-info-panel">
+        <span class="service-label">Churches & Teams</span>
+        <h2 id="worship-heading">Worship Team Makeover</h2>
+        <p class="service-tagline">Support for worship teams ready to strengthen their sound, structure, confidence, and culture.</p>
+        <p class="service-description">The Worship Team Makeover is designed for churches, worship teams, praise teams, vocalists, and volunteer musicians who need practical support and intentional development.</p>
+        <p class="service-description">This service helps teams strengthen vocals, improve blend, clarify expectations, support rehearsal flow, build confidence, and create a healthier team experience. Coaching may include vocal workshops, rehearsal observation, team training, harmony development, worship leading support, and customized next steps.</p>
+        
+        <div class="service-meta-lists">
+          <div class="meta-list-block">
+            <h3>Best For</h3>
+            <ul class="best-for-list">
+              <li>Worship teams & praise teams</li>
+              <li>Church vocalists & volunteer musicians</li>
+              <li>Worship leaders needing structural flow</li>
+              <li>Churches needing stronger rehearsal structure</li>
+              <li>Teams needing confidence, blend, or unity</li>
+            </ul>
+          </div>
+          <div class="pricing-card-accent">
+            <span class="investment-label">Starting Investment</span>
+            <span class="investment-price">$500</span>
+            <p class="investment-note">Includes custom vocal team coaching, harmony development, rehearsal flow support, and culture consulting.</p>
+            <div class="service-ctas">
+              <a class="hero-cta" href="booking.html?category=worship">Request Worship Support</a>
+              <a class="secondary-link" href="index.html#makeover-matchmaker">Take the Growth Style Quiz &rarr;</a>
+            </div>
+          </div>
+        </div>
       </div>
-      <a class="hero-cta" href="booking.html?category=general" data-content="services.ctaLabel" data-content-href="services.ctaHref">Schedule a Consultation</a>
+      <div class="service-media">
+        <img src="media/_MG_0434.jpg" alt="Ashley Miller working with a worship team">
+        <div class="service-graphic-badge">
+          <!-- Sound wave / Team SVG -->
+          <svg viewBox="0 0 24 24" width="36" height="36" fill="currentColor">
+            <path d="M12 3v18c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 2c3.87 0 7 3.13 7 7s-3.13 7-7 7V5zM4 9h2v6H4V9zm3-2h2v10H7V7z"/>
+          </svg>
+          <span>Team Development</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Choir & Ensemble Coaching -->
+    <section class="service-detail-section" id="choir-coaching" aria-labelledby="choir-heading" data-gsap-section>
+      <div class="service-media">
+        <img src="media/_MG_9770.JPG" alt="Choir conducting and ensemble training session">
+        <!-- Optional Mini Testimonial Sidebar -->
+        <blockquote class="mini-testimonial-sidebar">
+          <p>“This training has been by far the most useful, amazing, and detailed training I’ve ever had.”</p>
+          <cite>— Workshop Participant, <span>Choir Member</span></cite>
+        </blockquote>
+      </div>
+      <div class="service-info-panel">
+        <span class="service-label">Choirs & Ensembles</span>
+        <h2 id="choir-heading">Choir & Ensemble Coaching</h2>
+        <p class="service-tagline">Interactive coaching for choirs and vocal groups ready to improve sound, unity, and performance readiness.</p>
+        <p class="service-description">Choir & Ensemble Coaching provides practical, engaging workshops and clinics for school choirs, church choirs, ensembles, praise teams, and vocal groups.</p>
+        <p class="service-description">Sessions are designed to help groups improve tone, blend, articulation, dynamics, musicianship, confidence, and overall performance readiness. Coaching is customized based on the ensemble’s current level, repertoire, goals, and upcoming events.</p>
+        
+        <div class="service-meta-lists">
+          <div class="meta-list-block">
+            <h3>Best For</h3>
+            <ul class="best-for-list">
+              <li>School & church choirs</li>
+              <li>Vocal ensembles & small groups</li>
+              <li>Concert & festival preparation</li>
+              <li>Tone, blend, and articulation development</li>
+            </ul>
+          </div>
+          <div class="pricing-card-accent">
+            <span class="investment-label">Starting Investment</span>
+            <span class="investment-price">$350</span>
+            <p class="investment-note">Includes tone/blend clinics, vowel shaping, diction support, and performance-ready exercises.</p>
+            <div class="service-ctas">
+              <a class="hero-cta" href="booking.html?category=ensemble">Request Choir Coaching</a>
+              <a class="secondary-link" href="testimonials.html">View Testimonials &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: Music Makeover Intensives -->
+    <section class="service-detail-section alt-layout" id="intensives" aria-labelledby="intensives-heading" data-gsap-section>
+      <div class="service-info-panel">
+        <span class="service-label">Programs & Leaders</span>
+        <h2 id="intensives-heading">Music Makeover Intensives</h2>
+        <p class="service-tagline">Strategic coaching and consulting for leaders and programs ready for deeper growth.</p>
+        <p class="service-description">Music Makeover Intensives are designed for schools, churches, organizations, music leaders, worship pastors, choir directors, and developing programs that need more than a single coaching session.</p>
+        <p class="service-description">These intensives help leaders assess what is working, identify what needs support, and create a customized growth plan. Depending on the need, support may include program assessment, rehearsal systems, curriculum direction, leadership coaching, team development, communication structure, and long-term strategy.</p>
+        
+        <div class="service-meta-lists">
+          <div class="meta-list-block">
+            <h3>Best For</h3>
+            <ul class="best-for-list">
+              <li>Program resets & custom consulting</li>
+              <li>Leadership support & worship ministry resets</li>
+              <li>Developing school/church music departments</li>
+              <li>Rehearsal systems & multi-step growth plans</li>
+            </ul>
+          </div>
+          <div class="pricing-card-accent">
+            <span class="investment-label">Starting Investment</span>
+            <span class="investment-price">$1,250</span>
+            <p class="investment-note">Includes intake, observation, custom strategy plan, written recommendations, and follow-up support.</p>
+            <div class="service-ctas">
+              <a class="hero-cta" href="booking.html?category=school">Plan an Intensive</a>
+              <a class="secondary-link" href="booking.html?category=school">Start with a Quick Fix Assessment &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="service-media">
+        <img src="media/_MG_0429.JPG" alt="Ashley Miller consulting with a music leader">
+        <div class="service-graphic-badge">
+          <!-- Compass / Blueprint SVG -->
+          <svg viewBox="0 0 24 24" width="36" height="36" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+          </svg>
+          <span>Strategic Consulting</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 7: Program Support Options -->
+    <section class="journey-section support-options-section" aria-labelledby="options-heading">
+      <div class="section-heading">
+        <h2 id="options-heading">Programs Support Options</h2>
+        <p>These request-first services are designed for leaders, schools, churches, and organizations that need customized support. Ashley reviews each inquiry before confirming the best service option, scope, timeline, and next steps.</p>
+      </div>
+      <div class="support-options-grid" data-gsap-stagger>
+        <article class="support-option-card">
+          <div class="card-header">
+            <h3>Quick Fix Assessment</h3>
+            <span class="option-price">$350</span>
+          </div>
+          <p class="option-best"><strong>Best For:</strong> Leaders needing targeted feedback and clarity.</p>
+          <p class="option-process"><strong>Process:</strong> Available after inquiry review.</p>
+        </article>
+        <article class="support-option-card">
+          <div class="card-header">
+            <h3>Music Educator Makeover</h3>
+            <span class="option-price">$750</span>
+          </div>
+          <p class="option-best"><strong>Best For:</strong> Music educators needing support, strategy, or planning help.</p>
+          <p class="option-process"><strong>Process:</strong> Scope and dates approved before booking.</p>
+        </article>
+        <article class="support-option-card featured">
+          <div class="card-header">
+            <h3>Music Makeover Intensive</h3>
+            <span class="option-price">$1,250+</span>
+          </div>
+          <p class="option-best"><strong>Best For:</strong> Programs needing deeper strategy, systems, and support.</p>
+          <p class="option-process"><strong>Process:</strong> Consultation may be recommended.</p>
+        </article>
+        <article class="support-option-card">
+          <div class="card-header">
+            <h3>Full Program Makeover</h3>
+            <span class="option-price">$3,000+</span>
+          </div>
+          <p class="option-best"><strong>Best For:</strong> Schools, churches, and organizations needing full-scale support.</p>
+          <p class="option-process"><strong>Process:</strong> Custom proposal required.</p>
+        </article>
+      </div>
+      <p class="pricing-disclaimer-note">*Pricing may vary depending on session length, location, preparation needs, travel, program scope, and level of customization.</p>
+    </section>
+
+    <!-- Section 8: Why The Music Makeover? -->
+    <section class="journey-section why-makeover-feature" aria-labelledby="why-makeover-heading" data-gsap-section>
+      <div class="why-makeover-content">
+        <h2 id="why-makeover-heading">Why The Music Makeover?</h2>
+        <p class="intro-description">The goal is not just to improve sound. The goal is to strengthen people, support leaders, build confidence, and create healthier music experiences that last.</p>
+        
+        <ul class="why-checklist" data-gsap-stagger>
+          <li>High standards without intimidation</li>
+          <li>Personalized, practical coaching</li>
+          <li>Strong musical and leadership insight</li>
+          <li>Support rooted in confidence and purpose</li>
+          <li>A developmental approach that creates lasting growth</li>
+          <li>Flexible coaching and consulting packages</li>
+          <li>Strategy that supports both sound and structure</li>
+        </ul>
+      </div>
+      <div class="why-makeover-quote-block">
+        <blockquote class="pull-quote">
+          “Growth should be excellent, intentional, and personal.”
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- Section 9: Pricing Overview -->
+    <section class="journey-section pricing-overview-section" aria-labelledby="starting-investment-heading">
+      <div class="section-heading">
+        <h2 id="starting-investment-heading">Starting Investment</h2>
+        <p>Every service is customized based on the person, team, choir, or program being served. Below is a general starting point to help you choose the right path.</p>
+      </div>
+      
+      <div class="pricing-accordion-wrapper" role="table" aria-label="Music Makeover starting rates snapshot" data-service-pricing-table>
+        <div class="pricing-header-row" role="row">
+          <span role="columnheader">Service Type</span>
+          <span role="columnheader">Starting Investment</span>
+          <span role="columnheader">Best For</span>
+        </div>
+        <div class="pricing-item-row" role="row">
+          <span role="cell" data-label="Service">Private Music Coaching</span>
+          <span role="cell" data-label="Investment">Starts at $40</span>
+          <span role="cell" data-label="Best For">Students, singers, musicians, worship leaders</span>
+        </div>
+        <div class="pricing-item-row" role="row">
+          <span role="cell" data-label="Service">Monthly Private Coaching Packages</span>
+          <span role="cell" data-label="Investment">Custom package options available</span>
+          <span role="cell" data-label="Best For">Consistent weekly or monthly growth</span>
+        </div>
+        <div class="pricing-item-row" role="row">
+          <span role="cell" data-label="Service">Choir & Ensemble Workshops</span>
+          <span role="cell" data-label="Investment">Starts at $350</span>
+          <span role="cell" data-label="Best For">Choirs, ensembles, vocal groups</span>
+        </div>
+        <div class="pricing-item-row" role="row">
+          <span role="cell" data-label="Service">Quick Fix Assessment</span>
+          <span role="cell" data-label="Investment">Starts at $350</span>
+          <span role="cell" data-label="Best For">Leaders needing targeted feedback</span>
+        </div>
+        <div class="pricing-item-row" role="row">
+          <span role="cell" data-label="Service">Worship Team Makeover</span>
+          <span role="cell" data-label="Investment">Starts at $500</span>
+          <span role="cell" data-label="Best For">Churches, worship teams, praise teams</span>
+        </div>
+        <div class="pricing-item-row" role="row">
+          <span role="cell" data-label="Service">Music Educator Makeover</span>
+          <span role="cell" data-label="Investment">Starts at $750</span>
+          <span role="cell" data-label="Best For">Music educators needing support and strategy</span>
+        </div>
+        <div class="pricing-item-row" role="row">
+          <span role="cell" data-label="Service">Music Makeover Intensive</span>
+          <span role="cell" data-label="Investment">Starts at $1,250</span>
+          <span role="cell" data-label="Best For">Programs needing strategy and structure</span>
+        </div>
+        <div class="pricing-item-row" role="row">
+          <span role="cell" data-label="Service">Full Program Makeover</span>
+          <span role="cell" data-label="Investment">Starts at $3,000</span>
+          <span role="cell" data-label="Best For">Schools, churches, and organizations needing deeper transformation</span>
+        </div>
+      </div>
+      
+      <p class="pricing-fine-print">*Final pricing may vary depending on session length, location, preparation needs, travel, program size, materials, and level of customization.</p>
+    </section>
+
+    <!-- Section 10: Not Sure Where to Start? -->
+    <section class="journey-section not-sure-cta-section" aria-labelledby="not-sure-heading" data-gsap-section>
+      <div class="not-sure-cta-content">
+        <h2 id="not-sure-heading">Not Sure Which Service Fits?</h2>
+        <p>This is exactly what the inquiry process is for. If you know you need support but are not sure which service is the best fit, start with a general inquiry or take the Growth Style Quiz.</p>
+        <p>Ashley will review your goals, challenges, timeline, and service needs, then recommend the next best step.</p>
+        <div class="not-sure-buttons">
+          <a class="hero-cta" href="booking.html?category=general">Find My Next Step</a>
+          <a class="hero-cta secondary" href="index.html#makeover-matchmaker">Take the Growth Style Quiz</a>
+          <a class="hero-cta secondary" href="contact.html">Contact Ashley</a>
+        </div>
+      </div>
     </section>
   </main>
 
@@ -182,6 +418,21 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    const header = document.querySelector('.header');
+    const apply = () => {
+      if (window.scrollY > 10) header.classList.add('scrolled');
+      else header.classList.remove('scrolled');
+    };
+    if (window.gsap && window.ScrollTrigger) {
+      gsap.registerPlugin(ScrollTrigger);
+      ScrollTrigger.create({ start: 10, onEnter: () => header.classList.add('scrolled'), onLeaveBack: () => header.classList.remove('scrolled') });
+    } else {
+      window.addEventListener('scroll', apply, { passive: true });
+      apply();
+    }
+  </script>
 </body>
 
 </html>
