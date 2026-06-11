@@ -31,6 +31,7 @@
         <a href="booking.html">BOOKING</a>
         <a href="testimonials.html">TESTIMONIALS</a>
         <a href="contact.html">CONTACT</a>
+        <a href="#makeover-matchmaker" class="nav-quiz-btn">QUIZ</a>
       </nav>
     </div>
   </header>
@@ -114,33 +115,161 @@
 
     <section class="journey-section quiz-section" id="makeover-matchmaker" aria-labelledby="quiz-heading"
       data-matchmaker-quiz data-gsap-section>
-      <div class="quiz-copy" data-gsap-section>
-        <h2 id="quiz-heading">Not sure where to start?</h2>
-        <p>Take the Music Makeover Matchmaker quiz and discover the support path that fits your current needs.</p>
-        <a class="hero-cta" href="#matchmaker-options">Take the Quiz</a>
-      </div>
-      <div class="quiz-panel" id="matchmaker-options" data-gsap-section>
-        <p class="quiz-question">What feels most true right now?</p>
-        <div class="quiz-options" role="group" aria-label="Music Makeover Matchmaker options">
-          <button type="button" data-matchmaker-option="sound" aria-pressed="true">Our sound needs polish.</button>
-          <button type="button" data-matchmaker-option="team">Our team needs a reset.</button>
-          <button type="button" data-matchmaker-option="program">Our program needs structure.</button>
-          <button type="button" data-matchmaker-option="private">I need personal coaching.</button>
-        </div>
-        <article class="quiz-result" aria-live="polite">
-          <p class="result-stage-label">Your Music Makeover Stage: <strong data-result-stage>Strengthening</strong></p>
-          <div class="makeover-meter" aria-label="Makeover Meter">
-            <span data-meter-stage="unclear">Unclear</span>
-            <span data-meter-stage="developing">Developing</span>
-            <span data-meter-stage="strengthening" class="is-active">Strengthening</span>
-            <span data-meter-stage="flourishing">Flourishing</span>
+      <div class="quiz-container">
+        
+        <!-- Step 0: Intro -->
+        <div class="quiz-step active" data-quiz-step="0">
+          <h2 id="quiz-heading" class="text-center">What Kind of Music Makeover Do You Need?</h2>
+          <p class="quiz-subheading text-center">Growth is not just about sounding better. It’s about knowing what needs to change and having a clear plan to move forward.</p>
+          <div class="quiz-start-box text-center">
+            <button type="button" class="mm-button btn-large" data-quiz-next>Start the Quiz</button>
           </div>
-          <h3 data-result-title>The Sound Refiner</h3>
-          <p data-result-body>Your group has a foundation, but the sound needs more polish, unity, and intentional
-            development.</p>
-          <p><strong>Your best next step:</strong> <span data-result-step>Choir & Ensemble Coaching</span></p>
-          <a class="text-link" href="booking.html?category=ensemble" data-result-link>Request Choir Coaching</a>
-        </article>
+        </div>
+        
+        <!-- Step 1: Seek support for -->
+        <div class="quiz-step" data-quiz-step="1" style="display: none;">
+          <div class="quiz-progress-bar"><span style="width: 14.3%"></span></div>
+          <p class="quiz-progress-text">Question 1 of 7</p>
+          <h3 class="quiz-question">Who are you seeking support for?</h3>
+          <div class="quiz-options">
+            <button type="button" class="quiz-opt" data-option="a" data-points="confidence">Myself or my child</button>
+            <button type="button" class="quiz-opt" data-option="b" data-points="team">A worship team</button>
+            <button type="button" class="quiz-opt" data-option="c" data-points="sound">A choir or ensemble</button>
+            <button type="button" class="quiz-opt" data-option="d" data-points="program">A school/church music program</button>
+            <button type="button" class="quiz-opt" data-option="e" data-points="purpose">I’m not totally sure yet</button>
+          </div>
+          <div class="quiz-nav">
+            <button type="button" class="mm-ghost-button" data-quiz-prev>Back</button>
+          </div>
+        </div>
+
+        <!-- Step 2: Biggest challenge -->
+        <div class="quiz-step" data-quiz-step="2" style="display: none;">
+          <div class="quiz-progress-bar"><span style="width: 28.6%"></span></div>
+          <p class="quiz-progress-text">Question 2 of 7</p>
+          <h3 class="quiz-question">What feels like the biggest challenge right now?</h3>
+          <div class="quiz-options">
+            <button type="button" class="quiz-opt" data-option="a" data-points="confidence">Confidence</button>
+            <button type="button" class="quiz-opt" data-option="b" data-points="confidence">Vocal technique</button>
+            <button type="button" class="quiz-opt" data-option="c" data-points="sound">Blend or group sound</button>
+            <button type="button" class="quiz-opt" data-option="d" data-points="team">Rehearsal structure</button>
+            <button type="button" class="quiz-opt" data-option="e" data-points="program">Leadership/program direction</button>
+            <button type="button" class="quiz-opt" data-option="f" data-points="purpose">Motivation or engagement</button>
+          </div>
+          <div class="quiz-nav">
+            <button type="button" class="mm-ghost-button" data-quiz-prev>Back</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Wish felt stronger -->
+        <div class="quiz-step" data-quiz-step="3" style="display: none;">
+          <div class="quiz-progress-bar"><span style="width: 42.9%"></span></div>
+          <p class="quiz-progress-text">Question 3 of 7</p>
+          <h3 class="quiz-question">What do you wish felt stronger?</h3>
+          <div class="quiz-options">
+            <button type="button" class="quiz-opt" data-option="a" data-points="confidence">Individual skill</button>
+            <button type="button" class="quiz-opt" data-option="b" data-points="team">Team unity</button>
+            <button type="button" class="quiz-opt" data-option="c" data-points="sound">Musical excellence</button>
+            <button type="button" class="quiz-opt" data-option="d" data-points="team">Rehearsal flow</button>
+            <button type="button" class="quiz-opt" data-option="e" data-points="purpose">Purpose and direction</button>
+            <button type="button" class="quiz-opt" data-option="f" data-points="program">All of the above, honestly</button>
+          </div>
+          <div class="quiz-nav">
+            <button type="button" class="mm-ghost-button" data-quiz-prev>Back</button>
+          </div>
+        </div>
+
+        <!-- Step 4: Vibe description -->
+        <div class="quiz-step" data-quiz-step="4" style="display: none;">
+          <div class="quiz-progress-bar"><span style="width: 57.1%"></span></div>
+          <p class="quiz-progress-text">Question 4 of 7</p>
+          <h3 class="quiz-question">How would you describe the current vibe?</h3>
+          <div class="quiz-options">
+            <button type="button" class="quiz-opt" data-option="a" data-points="confidence">We have potential but need confidence</button>
+            <button type="button" class="quiz-opt" data-option="b" data-points="sound">We sound okay but need polish</button>
+            <button type="button" class="quiz-opt" data-option="c" data-points="team">We are faithful but scattered</button>
+            <button type="button" class="quiz-opt" data-option="d" data-points="program">We are overwhelmed and need structure</button>
+            <button type="button" class="quiz-opt" data-option="e" data-points="purpose">We need a full reset</button>
+          </div>
+          <div class="quiz-nav">
+            <button type="button" class="mm-ghost-button" data-quiz-prev>Back</button>
+          </div>
+        </div>
+
+        <!-- Step 5: Helpful support -->
+        <div class="quiz-step" data-quiz-step="5" style="display: none;">
+          <div class="quiz-progress-bar"><span style="width: 71.4%"></span></div>
+          <p class="quiz-progress-text">Question 5 of 7</p>
+          <h3 class="quiz-question">What kind of support sounds most helpful?</h3>
+          <div class="quiz-options">
+            <button type="button" class="quiz-opt" data-option="a" data-points="confidence">One-on-one coaching</button>
+            <button type="button" class="quiz-opt" data-option="b" data-points="sound">A workshop or clinic</button>
+            <button type="button" class="quiz-opt" data-option="c" data-points="team">A team training session</button>
+            <button type="button" class="quiz-opt" data-option="d" data-points="program">A strategy session</button>
+            <button type="button" class="quiz-opt" data-option="e" data-points="program">A full customized plan</button>
+          </div>
+          <div class="quiz-nav">
+            <button type="button" class="mm-ghost-button" data-quiz-prev>Back</button>
+          </div>
+        </div>
+
+        <!-- Step 6: How soon -->
+        <div class="quiz-step" data-quiz-step="6" style="display: none;">
+          <div class="quiz-progress-bar"><span style="width: 85.7%"></span></div>
+          <p class="quiz-progress-text">Question 6 of 7</p>
+          <h3 class="quiz-question">How soon do you need support?</h3>
+          <div class="quiz-options">
+            <button type="button" class="quiz-opt" data-option="a" data-points="program">ASAP</button>
+            <button type="button" class="quiz-opt" data-option="b" data-points="sound">Within the next month</button>
+            <button type="button" class="quiz-opt" data-option="c" data-points="confidence">This semester/season</button>
+            <button type="button" class="quiz-opt" data-option="d" data-points="team">Before a specific event</button>
+            <button type="button" class="quiz-opt" data-option="e" data-points="purpose">I’m exploring options</button>
+          </div>
+          <div class="quiz-nav">
+            <button type="button" class="mm-ghost-button" data-quiz-prev>Back</button>
+          </div>
+        </div>
+
+        <!-- Step 7: Win result -->
+        <div class="quiz-step" data-quiz-step="7" style="display: none;">
+          <div class="quiz-progress-bar"><span style="width: 100%"></span></div>
+          <p class="quiz-progress-text">Question 7 of 7</p>
+          <h3 class="quiz-question">What result would feel like a win?</h3>
+          <div class="quiz-options">
+            <button type="button" class="quiz-opt" data-option="a" data-points="confidence">More confidence</button>
+            <button type="button" class="quiz-opt" data-option="b" data-points="sound">Better sound</button>
+            <button type="button" class="quiz-opt" data-option="c" data-points="program">Stronger leadership</button>
+            <button type="button" class="quiz-opt" data-option="d" data-points="purpose">Clearer next steps</button>
+            <button type="button" class="quiz-opt" data-option="e" data-points="team">A healthier, more prepared music experience</button>
+          </div>
+          <div class="quiz-nav">
+            <button type="button" class="mm-ghost-button" data-quiz-prev>Back</button>
+          </div>
+        </div>
+
+        <!-- Step 8: Loading Screen -->
+        <div class="quiz-step quiz-loading-step" data-quiz-step="loading" style="display: none;">
+          <div class="quiz-spinner"></div>
+          <p>Analyzing your music needs...</p>
+        </div>
+
+        <!-- Step 9: Results Card -->
+        <div class="quiz-step quiz-result-step" data-quiz-step="result" style="display: none;">
+          <div class="quiz-result-card">
+            <span class="result-badge">Your Music Makeover Stage</span>
+            <h3 data-quiz-result-title>Result Title</h3>
+            <p data-quiz-result-summary>Result Summary</p>
+            <div class="result-next-step-box">
+              <strong>Recommended Next Step:</strong>
+              <span data-quiz-result-step>Recommended step</span>
+            </div>
+            <div class="result-actions">
+              <a href="#" class="mm-button" data-quiz-result-cta>Book Private Coaching</a>
+              <button type="button" class="mm-ghost-button" data-quiz-restart>Retake Quiz</button>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 

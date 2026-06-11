@@ -50,76 +50,186 @@
   }
 
   function wireMatchmakerQuiz() {
-    const quiz = document.querySelector('[data-matchmaker-quiz]');
-    if (!quiz) return;
+    const quizzes = document.querySelectorAll('[data-matchmaker-quiz]');
+    if (quizzes.length === 0) return;
 
     const resultMap = {
+      confidence: {
+        title: 'The Confidence Builder',
+        step: 'Private Music Coaching or Vocal Boost Session',
+        body: 'You or your singers may have the potential, but confidence, consistency, or foundational skill-building needs support. A Music Makeover here starts with strengthening the voice, the ear, the mindset, and the musical foundation.',
+        cta: 'Book Private Coaching',
+        href: 'booking.html?category=private'
+      },
       sound: {
-        stage: 'Strengthening',
-        meter: 'strengthening',
         title: 'The Sound Refiner',
-        body: 'Your group has a foundation, but the sound needs more polish, unity, and intentional development. You may be noticing issues with tone, blend, articulation, dynamics, or overall confidence.',
         step: 'Choir & Ensemble Coaching',
-        href: 'booking.html?category=ensemble',
+        body: 'Your group has musical ability, but the sound may need more unity, blend, tone, articulation, musicianship, or performance polish. This makeover focuses on helping the ensemble sound more connected, confident, and prepared.',
         cta: 'Request Choir Coaching',
+        href: 'booking.html?category=ensemble'
       },
       team: {
-        stage: 'Developing',
-        meter: 'developing',
         title: 'The Team Reset',
-        body: 'Your team has heart, but may need clearer structure, stronger preparation, and more unified sound. This is common for volunteer-based worship teams carrying a lot with limited rehearsal time.',
-        step: 'Worship Team Makeover',
-        href: 'booking.html?category=worship',
+        step: 'Worship Team Support',
+        body: 'Your team may be serving faithfully, but the structure, rehearsal flow, vocal confidence, or team culture needs intentional support. This makeover helps worship teams strengthen both sound and systems.',
         cta: 'Request Worship Support',
+        href: 'booking.html?category=worship'
       },
       program: {
-        stage: 'Unclear',
-        meter: 'unclear',
         title: 'The Program Rebuilder',
-        body: 'Your needs go beyond one workshop. You may need systems, leadership support, curriculum direction, rehearsal structure, and a customized growth plan.',
         step: 'Music Makeover Intensive',
-        href: 'booking.html?category=school',
+        body: 'You are not just dealing with one small issue. Your program may need clearer systems, stronger leadership support, better structure, curriculum direction, or a full growth plan. This makeover helps leaders identify what is working, what needs attention, and what comes next.',
         cta: 'Plan an Intensive',
+        href: 'booking.html?category=school'
       },
-      private: {
-        stage: 'Flourishing',
-        meter: 'flourishing',
-        title: 'The Confidence Builder',
-        body: 'You are ready for personal guidance that strengthens your voice, musicianship, confidence, and consistency with practical coaching you can keep using.',
-        step: 'Private Coaching',
-        href: 'booking.html?category=private',
-        cta: 'Book Private Coaching',
-      },
-    };
-
-    const buttons = Array.from(quiz.querySelectorAll('[data-matchmaker-option]'));
-    const stage = quiz.querySelector('[data-result-stage]');
-    const title = quiz.querySelector('[data-result-title]');
-    const body = quiz.querySelector('[data-result-body]');
-    const step = quiz.querySelector('[data-result-step]');
-    const link = quiz.querySelector('[data-result-link]');
-    const meterStages = Array.from(quiz.querySelectorAll('[data-meter-stage]'));
-
-    const renderResult = (key) => {
-      const result = resultMap[key] || resultMap.sound;
-      if (stage) stage.textContent = result.stage;
-      if (title) title.textContent = result.title;
-      if (body) body.textContent = result.body;
-      if (step) step.textContent = result.step;
-      if (link) {
-        link.textContent = result.cta;
-        link.setAttribute('href', result.href);
+      purpose: {
+        title: 'The Purpose Clarifier',
+        step: 'Consultation / Quick Fix Assessment',
+        body: 'You know something needs to shift, but you may not be sure where to begin. This path helps clarify your goals, identify the current barriers, and choose the best next step without overcommitting too soon.',
+        cta: 'Find My Next Step',
+        href: 'booking.html?category=general'
       }
-      buttons.forEach((button) => {
-        button.setAttribute('aria-pressed', String(button.dataset.matchmakerOption === key));
-      });
-      meterStages.forEach((item) => {
-        item.classList.toggle('is-active', item.dataset.meterStage === result.meter);
-      });
     };
 
-    buttons.forEach((button) => {
-      button.addEventListener('click', () => renderResult(button.dataset.matchmakerOption));
+    quizzes.forEach((quiz) => {
+      const steps = Array.from(quiz.querySelectorAll('[data-quiz-step]'));
+      const answers = {};
+
+      const showStep = (index) => {
+        steps.forEach((step) => {
+          const stepAttr = step.dataset.quizStep;
+          if (stepAttr === String(index)) {
+            step.style.display = 'block';
+            step.classList.add('active');
+          } else {
+            step.style.display = 'none';
+            step.classList.remove('active');
+          }
+        });
+      };
+
+      const startBtn = quiz.querySelector('[data-quiz-next]');
+      if (startBtn) {
+        startBtn.addEventListener('click', () => {
+          showStep(1);
+        });
+      }
+
+      // Wire up option selection
+      const optionButtons = quiz.querySelectorAll('.quiz-opt');
+      optionButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const stepDiv = btn.closest('[data-quiz-step]');
+          const stepNum = parseInt(stepDiv.dataset.quizStep, 10);
+          const pointsType = btn.dataset.points;
+          
+          // Save answer
+          answers[stepNum] = pointsType;
+
+          // Highlight selected option
+          const siblingOpts = stepDiv.querySelectorAll('.quiz-opt');
+          siblingOpts.forEach((opt) => opt.classList.remove('selected'));
+          btn.classList.add('selected');
+
+          // Auto-advance
+          if (stepNum < 7) {
+            setTimeout(() => {
+              showStep(stepNum + 1);
+            }, 220);
+          } else {
+            // Last question answered, calculate and show loading then result
+            showStep('loading');
+            setTimeout(() => {
+              calculateAndShowResult();
+            }, 800);
+          }
+        });
+      });
+
+      // Wire up Back buttons
+      const prevButtons = quiz.querySelectorAll('[data-quiz-prev]');
+      prevButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const stepDiv = btn.closest('[data-quiz-step]');
+          const stepNum = parseInt(stepDiv.dataset.quizStep, 10);
+          if (stepNum > 1) {
+            showStep(stepNum - 1);
+          } else if (stepNum === 1) {
+            showStep(0);
+          }
+        });
+      });
+
+      // Wire up Restart buttons
+      const restartBtns = quiz.querySelectorAll('[data-quiz-restart]');
+      restartBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          // Clear selections
+          optionButtons.forEach((opt) => opt.classList.remove('selected'));
+          for (let k in answers) delete answers[k];
+          showStep(0);
+        });
+      });
+
+      const calculateAndShowResult = () => {
+        const tallies = { confidence: 0, sound: 0, team: 0, program: 0, purpose: 0 };
+        for (let stepNum = 1; stepNum <= 7; stepNum++) {
+          const ans = answers[stepNum];
+          if (ans && tallies[ans] !== undefined) {
+            tallies[ans]++;
+          }
+        }
+
+        // Find highest score
+        let winner = 'purpose';
+        let maxScore = -1;
+        const candidates = [];
+
+        for (let cat in tallies) {
+          if (tallies[cat] > maxScore) {
+            maxScore = tallies[cat];
+            winner = cat;
+            candidates.length = 0; // clear tie candidates
+            candidates.push(cat);
+          } else if (tallies[cat] === maxScore) {
+            candidates.push(cat);
+          }
+        }
+
+        // Tie-breaker logic
+        if (candidates.length > 1) {
+          const q1Ans = answers[1]; // Q1 response
+          if (q1Ans && candidates.includes(q1Ans)) {
+            winner = q1Ans;
+          } else {
+            // Pick fallback order
+            const fallbackOrder = ['purpose', 'confidence', 'sound', 'team', 'program'];
+            for (let fb of fallbackOrder) {
+              if (candidates.includes(fb)) {
+                winner = fb;
+                break;
+              }
+            }
+          }
+        }
+
+        // Render result card
+        const result = resultMap[winner] || resultMap.purpose;
+        const resTitle = quiz.querySelector('[data-quiz-result-title]');
+        const resSummary = quiz.querySelector('[data-quiz-result-summary]');
+        const resStep = quiz.querySelector('[data-quiz-result-step]');
+        const resCta = quiz.querySelector('[data-quiz-result-cta]');
+
+        if (resTitle) resTitle.textContent = result.title;
+        if (resSummary) resSummary.textContent = result.body;
+        if (resStep) resStep.textContent = result.step;
+        if (resCta) {
+          resCta.textContent = result.cta;
+          resCta.setAttribute('href', result.href);
+        }
+
+        showStep('result');
+      };
     });
   }
 
