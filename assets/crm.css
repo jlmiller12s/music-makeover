@@ -2552,3 +2552,16 @@ body.admin-body {
     display: none !important;
   }
 }
+
+/* Support Option Card Hover Effects */
+.support-option-card {
+  transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.support-option-card:hover {
+  border: 2px solid var(--muted-rose-gold, #b88473);
+  background: var(--warm-ivory, #F4EFE8);
+  padding: 23px 19px; /* offset border-width increase to prevent layout jump */
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(184, 132, 115, 0.1);
+}
