@@ -1,158 +1,284 @@
 (function () {
   const state = {
-    crm: null,
-    category: new URLSearchParams(window.location.search).get('category') || 'private',
+    category: new URLSearchParams(window.location.search).get('category') || 'general',
   };
 
-  const categoryCopy = {
-    school: {
-      label: 'Programs',
-      title: 'Music Makeover Intensive Inquiry',
-      summary: 'For schools, churches, organizations, music leaders, worship pastors, choir directors, and developing programs that need stronger systems and clear next steps.',
-    },
-    ensemble: {
-      label: 'Choirs',
-      title: 'Choir & Ensemble Coaching Inquiry',
-      summary: 'For school choirs, church choirs, community choirs, small ensembles, vocal groups, clinics, blend, musicianship, and performance readiness.',
-    },
-    worship: {
-      label: 'Worship',
-      title: 'Worship Team Makeover Inquiry',
-      summary: 'For churches, worship leaders, praise teams, vocal teams, volunteer musicians, rehearsal flow, team culture, and service preparation.',
-    },
-    private: {
-      label: 'Private',
-      title: 'Private Music Coaching Inquiry',
-      summary: 'For students, singers, parents, adult clients, worship leaders, audition prep, beginner musicians, and private lessons.',
-    },
-    general: {
-      label: 'General',
-      title: 'General Consultation Form',
-      summary: 'Not sure which service fits best? Share what you need, and Ashley will help you identify the next right step.',
-    },
+  const serviceToCategoryMap = {
+    'Private Music Coaching': 'private',
+    'Audition / Performance Prep': 'private',
+    'Worship Team Support': 'worship',
+    'Choir & Ensemble Coaching': 'ensemble',
+    'Quick Fix Assessment': 'school',
+    'Music Educator Makeover': 'school',
+    'Music Makeover Intensive': 'school',
+    'Full Program Makeover': 'school',
+    'Speaking / Workshop Request': 'school',
+    'General Inquiry / Not Sure Yet': 'general'
   };
 
-  const selectOptions = {
-    budgetRange: ['Optional', 'Up to $500', '$500 to $1,000', '$1,000 to $2,500', '$2,500 to $5,000', '$5,000 and above'],
-    supportNeeded: ['Private Music Coaching', 'Worship Team Makeover', 'Choir & Ensemble Coaching', 'Music Makeover Intensive', 'Not sure yet'],
-    audienceType: ['Child/student', 'Teen singer', 'Adult singer', 'Worship leader', 'Worship team', 'Choir', 'School program', 'Church music ministry', 'Organization'],
-    coachingCadence: ['One-time support', 'Ongoing coaching', 'Not sure yet'],
-    preferredFormat: ['In-person', 'Virtual', 'Hybrid', 'Not sure yet'],
-    experienceLevel: ['Beginner', 'Intermediate', 'Advanced', 'Professional / leader'],
-    preferredLessonType: ['Private Music Coaching - 30 minutes', 'Private Music Coaching - 45 minutes', 'Private Music Coaching - 60 minutes', 'Monthly 4-Pack - 45 minutes', 'Monthly 4-Pack - 60 minutes', 'Audition prep', 'Virtual coaching'],
+  const startingPointToServiceMap = {
+    'private': 'Private Music Coaching',
+    'worship': 'Worship Team Support',
+    'ensemble': 'Choir & Ensemble Coaching',
+    'school': 'Music Makeover Intensive',
+    'general': 'General Inquiry / Not Sure Yet'
   };
 
   document.addEventListener('DOMContentLoaded', init);
 
-  async function init() {
-    wireHeaderMenu();
-    wireLaneTabs();
-    await loadCrm();
-    renderLane();
-    renderServices();
-    document.getElementById('music-inquiry-form').addEventListener('submit', submitInquiry);
-  }
-
-  async function loadCrm() {
-    try {
-      const response = await fetch('/api/public-config');
-      const payload = await response.json();
-      if (!payload.ok) throw new Error(payload.error || 'Unable to load CRM');
-      state.crm = payload.state;
-    } catch (error) {
-      showMessage('error', 'The booking system could not load the service catalog. You can still email themusicmakeover@gmail.com directly.');
+  function init() {
+    wireStartingPointCards();
+    wireServiceInterestDropdown();
+    wireTimelineDropdown();
+    wireMobileAccordion();
+    prefillFromUrl();
+    
+    const form = document.getElementById('music-inquiry-form');
+    if (form) {
+      form.addEventListener('submit', submitInquiry);
     }
   }
 
-  function wireHeaderMenu() {
-    const button = document.querySelector('.hamburger');
-    const nav = document.querySelector('.nav');
-    if (!button || !nav) return;
-    if (button.dataset.navReady === 'true') return;
-    button.dataset.navReady = 'true';
-    button.addEventListener('click', () => {
-      const open = button.getAttribute('aria-expanded') === 'true';
-      button.setAttribute('aria-expanded', String(!open));
-      button.classList.toggle('active', !open);
-      nav.classList.toggle('active', !open);
-    });
-  }
+  // Section 2 Card interactions
+  function wireStartingPointCards() {
+    const cards = document.querySelectorAll('.starting-card');
+    cards.forEach((card) => {
+      // Click handler
+      card.addEventListener('click', () => {
+        selectStartingPointCard(card);
+      });
 
-  function wireLaneTabs() {
-    document.querySelectorAll('[data-lane]').forEach((button) => {
-      button.addEventListener('click', () => {
-        state.category = button.dataset.lane;
-        renderLane();
-        renderServices();
+      // Keypress handler for accessibility (Enter/Space)
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          selectStartingPointCard(card);
+        }
       });
     });
   }
 
-  function renderLane() {
-    document.querySelectorAll('[data-lane]').forEach((button) => {
-      button.setAttribute('aria-selected', String(button.dataset.lane === state.category));
+  function selectStartingPointCard(card) {
+    const lane = card.dataset.lane;
+    state.category = lane;
+
+    // Highlight card
+    document.querySelectorAll('.starting-card').forEach((c) => {
+      c.classList.toggle('active', c === card);
     });
 
-    const copy = categoryCopy[state.category] || categoryCopy.general;
-    document.getElementById('lane-title').textContent = copy.title;
-    document.getElementById('lane-summary').textContent = copy.summary;
-    document.getElementById('category').value = state.category;
-
-    const fields = ((state.crm && state.crm.formFields && state.crm.formFields[state.category]) || []).filter(Boolean);
-    document.getElementById('dynamic-fields').innerHTML = fields.map(renderField).join('');
-  }
-
-  function renderField(field) {
-    const [name, label, type] = field;
-    const required = isRequired(name) ? ' required' : '';
-    const autocomplete = name === 'email' ? ' autocomplete="email"' : '';
-
-    if (type === 'textarea') {
-      return `<div class="crm-field"><label for="${name}">${label}</label><textarea id="${name}" name="${name}"${required}></textarea></div>`;
+    // Pre-select service in dropdown
+    const serviceSelect = document.getElementById('supportNeeded');
+    if (serviceSelect) {
+      const matchedService = startingPointToServiceMap[lane];
+      if (matchedService) {
+        serviceSelect.value = matchedService;
+        // Trigger change event to update conditional inputs
+        serviceSelect.dispatchEvent(new Event('change'));
+      }
     }
 
-    if (type === 'select') {
-      const options = selectOptions[name] || ['Optional', 'Yes', 'No'];
-      return `<div class="crm-field"><label for="${name}">${label}</label><select id="${name}" name="${name}"${required}>${options.map((option) => `<option>${option}</option>`).join('')}</select></div>`;
+    // Scroll smoothly to form
+    const formAnchor = document.getElementById('booking-form-anchor');
+    if (formAnchor) {
+      formAnchor.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  // Section 5: Form Conditional Logic on Service Interest Selection
+  function wireServiceInterestDropdown() {
+    const select = document.getElementById('supportNeeded');
+    if (!select) return;
+
+    select.addEventListener('change', () => {
+      const selectedValue = select.value;
+      const category = serviceToCategoryMap[selectedValue] || 'general';
+      state.category = category;
+      document.getElementById('category').value = category;
+
+      // Update card highlighting to match dropdown selection
+      document.querySelectorAll('.starting-card').forEach((card) => {
+        card.classList.toggle('active', card.dataset.lane === category);
+      });
+
+      // Toggle conditional fields
+      toggleConditionalFields(category);
+    });
+  }
+
+  function toggleConditionalFields(category) {
+    // Hide all conditional blocks first
+    document.querySelectorAll('.conditional-block').forEach((block) => {
+      block.hidden = true;
+      // Disable inputs so browser validation doesn't block submit on hidden elements
+      block.querySelectorAll('input, select, textarea').forEach((el) => {
+        el.disabled = true;
+        el.removeAttribute('required');
+      });
+    });
+
+    // Show matching block
+    let activeBlock = null;
+    if (category === 'private') {
+      activeBlock = document.getElementById('cond-private');
+    } else if (category === 'worship') {
+      activeBlock = document.getElementById('cond-worship');
+    } else if (category === 'ensemble') {
+      activeBlock = document.getElementById('cond-ensemble');
+    } else if (category === 'school') {
+      activeBlock = document.getElementById('cond-school');
     }
 
-    return `<div class="crm-field"><label for="${name}">${label}</label><input id="${name}" name="${name}" type="${type}"${required}${autocomplete}></div>`;
+    if (activeBlock) {
+      activeBlock.hidden = false;
+      activeBlock.querySelectorAll('input, select, textarea').forEach((el) => {
+        el.disabled = false;
+        // Make essential conditional inputs required
+        if (el.id === 'studentAge' || el.id === 'experienceLevel' || el.id === 'preferredLessonType' || el.id === 'voiceInstrumentFocus' || el.id === 'preferredAvailability') {
+          el.setAttribute('required', 'required');
+        } else if (el.id === 'teamSize') {
+          el.setAttribute('required', 'required');
+        } else if (el.id === 'ensembleSize') {
+          el.setAttribute('required', 'required');
+        }
+      });
+    }
   }
 
-  function isRequired(name) {
-    const required = state.crm && state.crm.categories && state.crm.categories[state.category] && state.crm.categories[state.category].required;
-    if (!required) return false;
-    if (name === 'studentName') return required.includes('name');
-    return required.includes(name);
+  // Handle "Before a specific date" option in Timeline
+  function wireTimelineDropdown() {
+    const timelineSelect = document.getElementById('preferredTimeline');
+    const specificDateContainer = document.getElementById('specific-date-field-container');
+    const upcomingDateInput = document.getElementById('upcomingDates');
+    if (!timelineSelect || !specificDateContainer) return;
+
+    timelineSelect.addEventListener('change', () => {
+      if (timelineSelect.value === 'Before a specific date') {
+        specificDateContainer.hidden = false;
+        if (upcomingDateInput) upcomingDateInput.setAttribute('required', 'required');
+      } else {
+        specificDateContainer.hidden = true;
+        if (upcomingDateInput) {
+          upcomingDateInput.removeAttribute('required');
+          upcomingDateInput.value = '';
+        }
+      }
+    });
   }
 
-  function renderServices() {
-    const services = ((state.crm && state.crm.services) || [])
-      .filter((service) => service.category === state.category || (state.category === 'general' && ['school', 'worship', 'private'].includes(service.category)))
-      .slice(0, 3);
+  // Section 4 Accordion Toggler on Mobile
+  function wireMobileAccordion() {
+    const triggers = document.querySelectorAll('.accordion-trigger');
+    triggers.forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const expanded = trigger.getAttribute('aria-expanded') === 'true';
+        const panel = trigger.nextElementSibling;
 
-    document.getElementById('service-strip').innerHTML = services.map((service) => `
-      <article class="mini-service">
-        <strong>${escapeHtml(service.name)}</strong>
-        <span>${escapeHtml(service.priceLabel)}</span>
-        <p>${escapeHtml(service.bookable ? 'Consultation or coaching can be booked after review.' : 'Request-first. Ashley approves scope and dates before booking.')}</p>
-      </article>
-    `).join('');
+        // Toggle state
+        trigger.setAttribute('aria-expanded', String(!expanded));
+        if (panel) {
+          panel.hidden = expanded;
+        }
+
+        // Close other panels
+        triggers.forEach((t) => {
+          if (t !== trigger) {
+            t.setAttribute('aria-expanded', 'false');
+            const p = t.nextElementSibling;
+            if (p) p.hidden = true;
+          }
+        });
+      });
+    });
   }
 
+  // Read URL query parameters to pre-fill the form
+  function prefillFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const categoryParam = params.get('category');
+    if (categoryParam) {
+      const card = document.querySelector(`.starting-card[data-lane="${categoryParam}"]`);
+      if (card) {
+        selectStartingPointCard(card);
+      }
+    }
+  }
+
+  // Submit Handler with Form Field mapping
   async function submitInquiry(event) {
     event.preventDefault();
     showMessage('', '');
 
     const form = event.currentTarget;
-    const data = Object.fromEntries(new FormData(form).entries());
-    data.attachments = Array.from(form.querySelector('[name="attachments"]').files || []).map((file) => ({
+    
+    // Custom Field Validation Check
+    const invalidFields = [];
+    const fieldsToValidate = form.querySelectorAll('input[required], select[required], textarea[required]');
+    
+    fieldsToValidate.forEach((field) => {
+      if (field.closest('[hidden]')) {
+        // Skip hidden conditional elements
+        field.classList.remove('input-error');
+        return;
+      }
+      if (!field.value || field.value.trim() === '') {
+        invalidFields.push(field);
+        field.classList.add('input-error');
+      } else {
+        field.classList.remove('input-error');
+      }
+    });
+
+    if (invalidFields.length > 0) {
+      showMessage('error', 'Please fill out all required fields marked with an asterisk (*).');
+      invalidFields[0].focus();
+      // Scroll to the invalid field
+      invalidFields[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    // Gather file upload metadata
+    const fileInput = form.querySelector('#attachments');
+    data.attachments = Array.from((fileInput && fileInput.files) || []).map((file) => ({
       name: file.name,
       size: file.size,
       type: file.type,
     }));
 
+    // Data Mapping to prevent backend validation errors
+    const category = state.category;
+    data.category = category;
+
+    if (category === 'private') {
+      data.studentName = data.name;
+      data.musicGoals = `Focus: ${data.voiceInstrumentFocus || ''}\nGoals/Challenges: ${data.currentChallenges || ''}`;
+      // experienceLevel, preferredLessonType, and preferredAvailability are mapped directly from form inputs
+    } else if (category === 'worship') {
+      data.organization = data.organization || 'N/A';
+      data.role = data.role || 'N/A';
+      data.teamSize = String(data.teamSize);
+      data.currentChallenges = data.currentChallenges || 'Not specified';
+      data.preferredTimeline = data.preferredTimeline || 'Not specified';
+    } else if (category === 'ensemble') {
+      data.organization = data.organization || 'N/A';
+      data.teamSize = String(data.ensembleSize); // Choir coaching matches ensemble size to teamSize on backend
+      data.currentChallenges = data.currentChallenges || 'Not specified';
+      data.preferredTimeline = data.preferredTimeline || 'Not specified';
+    } else if (category === 'school') {
+      data.organization = data.organization || 'N/A';
+      data.role = data.role || 'N/A';
+      data.currentChallenges = data.currentChallenges || 'Not specified';
+      data.preferredTimeline = data.preferredTimeline || 'Not specified';
+    } else {
+      // General Inquiry
+      data.supportNeeded = data.supportNeeded || 'General Inquiry / Not Sure Yet';
+    }
+
     const button = form.querySelector('button[type="submit"]');
+    const oldText = button.textContent;
     button.disabled = true;
     button.textContent = 'Sending...';
 
@@ -162,35 +288,40 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
+
       const payload = await response.json();
-      if (!payload.ok) throw new Error(payload.error || 'Inquiry was not submitted');
-      const query = new URLSearchParams({
-        name: payload.inquiry.name || 'there',
-        lane: payload.inquiry.clientType || 'Music Makeover',
-        email: payload.inquiry.confirmationEmailRequested ? '1' : '0',
-      });
-      window.location.href = `thank-you.html?${query.toString()}`;
+      if (!payload.ok) {
+        throw new Error(payload.error || 'Inquiry was not submitted');
+      }
+
+      // Success! Render success view inline instead of redirecting
+      renderSuccessView();
+
     } catch (error) {
       showMessage('error', `${error.message}. If this keeps happening, email themusicmakeover@gmail.com and include your service lane and preferred timeline.`);
-    } finally {
       button.disabled = false;
-      button.textContent = 'Find My Next Step';
+      button.textContent = oldText;
+    }
+  }
+
+  function renderSuccessView() {
+    const form = document.getElementById('music-inquiry-form');
+    const panelHeader = document.querySelector('.booking-panel-header');
+    const successView = document.getElementById('booking-success-view');
+
+    if (form) form.hidden = true;
+    if (panelHeader) panelHeader.hidden = true;
+    if (successView) {
+      successView.hidden = false;
+      // Scroll to the success panel
+      successView.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }
 
   function showMessage(type, message) {
     const box = document.getElementById('booking-status');
+    if (!box) return;
     box.className = `status-message ${type || ''}${message ? ' is-visible' : ''}`;
     box.textContent = message;
-  }
-
-  function escapeHtml(value) {
-    return String(value || '').replace(/[&<>"']/g, (char) => ({
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#039;',
-    }[char]));
   }
 }());
