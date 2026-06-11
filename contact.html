@@ -15,7 +15,9 @@
   <header class="header">
     <div class="header-inner">
       <div class="logo">
-        <a href="index.html"><img src="media/music-makeover-logo.png" alt="The Music Makeover"></a>
+        <a href="index.html">
+          <img src="media/music-makeover-logo.png" alt="The Music Makeover">
+        </a>
       </div>
       <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
         <span></span>
@@ -34,99 +36,178 @@
   </header>
 
   <main class="content-page contact-page">
+    <!-- SECTION 1: CONTACT HERO -->
     <section class="page-hero contact-page-hero" aria-labelledby="contact-heading">
       <p class="eyebrow" data-content="contact.heroEyebrow">Contact</p>
-      <h1 id="contact-heading" data-content="contact.heroHeadline">Let's Talk About Your Next Music Makeover.</h1>
-      <p data-content="contact.heroBody">Have a question about worship team support, choir development, workshops, program consulting, or private coaching,? Send a message and Ashley will follow up with the next best step.</p>
-      <p data-content="contact.heroSupportBody">For service requests, custom workshops, team support, or program intensives, you can also begin through the booking inquiry form.</p>
+      <h1 id="contact-heading" data-content="contact.heroHeadline">Let’s Talk About Your Next Music Makeover</h1>
+      
+      <p class="hero-body-paragraph" data-content="contact.heroBody">Have a question about private coaching, worship team support, choir development, workshops, or program consulting? Send a message and Ashley will follow up with the next best step.</p>
+      
+      <p class="hero-support-paragraph" data-content="contact.heroSupportBody">For service requests, custom workshops, team support, or program intensives, please start with the booking inquiry form so Ashley can review your goals, timeline, and service needs.</p>
+      
       <div class="hero-actions centered-actions">
-        <a class="hero-cta" href="booking.html" data-content="contact.primaryCtaLabel" data-content-href="contact.primaryCtaHref">Start a Booking Inquiry</a>
+        <a class="hero-cta" href="booking.html" data-content="contact.primaryCtaLabel">Start a Booking Inquiry</a>
+        <a class="hero-cta secondary" href="#contact-form-section">Send a Message</a>
       </div>
-      <p class="response-note" data-content="contact.responseNote">Ashley typically responds within 1-2 business days.</p>
     </section>
 
-    <section class="contact-layout" aria-label="Contact form and details">
-      <div class="contact-form-card">
-        <h2>Send a message</h2>
+    <!-- SECTION 2: SEND A MESSAGE FORM & SECTION 3: CONTACT DETAILS -->
+    <section id="contact-form-section" class="contact-form-section" aria-labelledby="send-message-heading">
+      <div class="contact-form-container">
+        
+        <div class="contact-form-card">
+          <h2 id="send-message-heading">Send a Message</h2>
+          
+          <div id="contact-success" class="success-msg" style="display:none">
+            Thank you for reaching out. Ashley will review your message and follow up with the next best step.
+          </div>
+          
+          <form id="contact-form" class="contact-form">
+            <div class="form-field">
+              <label for="contact-name">Your Name</label>
+              <input id="contact-name" name="name" autocomplete="name" required>
+            </div>
 
-        <div id="contact-success" class="success-msg" style="display:none">
-          Thank you for reaching out. Your message is ready in your mail client. If nothing opened, email themusicmakeover@gmail.com directly.
+            <div class="form-field">
+              <label for="contact-email">Email Address</label>
+              <input id="contact-email" type="email" name="email" autocomplete="email" required>
+            </div>
+
+            <div class="form-field">
+              <label for="contact-phone">Phone Number (optional)</label>
+              <input id="contact-phone" type="tel" name="phone" autocomplete="tel">
+            </div>
+
+            <div class="form-field">
+              <label for="contact-subject">Subject</label>
+              <select id="contact-subject" name="subject" required>
+                <option value="General Inquiry">General Inquiry</option>
+                <option value="Private Coaching Question">Private Coaching Question</option>
+                <option value="Worship Team Question">Worship Team Question</option>
+                <option value="Choir / Ensemble Question">Choir / Ensemble Question</option>
+                <option value="Workshop Request">Workshop Request</option>
+                <option value="Program Intensive Question">Program Intensive Question</option>
+                <option value="Speaking / Event Request">Speaking / Event Request</option>
+                <option value="Partnership / Collaboration">Partnership / Collaboration</option>
+                <option value="Media / Interview">Media / Interview</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="contact-message">Message</label>
+              <textarea id="contact-message" name="message" rows="7" required placeholder="Tell Ashley a little more about what you need, what you’re working on, or how The Music Makeover can support you."></textarea>
+            </div>
+
+            <div id="contact-error" class="error-msg" style="display:none"></div>
+
+            <div class="form-submit">
+              <button type="submit" id="contact-submit-btn" class="mm-button">Send Message</button>
+            </div>
+          </form>
         </div>
 
-        <form id="contact-form" class="contact-form">
-          <div class="form-field">
-            <label for="contact-name">Your Name</label>
-            <input id="contact-name" name="name" autocomplete="name" required>
+        <!-- SECTION 3: CONTACT DETAILS -->
+        <div class="contact-details-grid">
+          <!-- Email -->
+          <div class="contact-detail-card">
+            <div class="card-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+            </div>
+            <h3>Email</h3>
+            <div class="detail-val">
+              <a href="mailto:themusicmakeover@gmail.com" data-contact-email>themusicmakeover@gmail.com</a>
+            </div>
+            <p class="detail-helper" data-content="contact.emailNote">For the fastest response, please include your service interest, location, and ideal timeline.</p>
           </div>
 
-          <div class="form-field">
-            <label for="contact-email">Email Address</label>
-            <input id="contact-email" type="email" name="email" autocomplete="email" required>
+          <!-- Based In -->
+          <div class="contact-detail-card">
+            <div class="card-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </div>
+            <h3>Based In</h3>
+            <div class="detail-val" data-content="contact.location">Missouri, USA</div>
           </div>
 
-          <div class="form-field">
-            <label for="contact-phone">Phone Number (optional)</label>
-            <input id="contact-phone" type="tel" name="phone" autocomplete="tel">
+          <!-- Availability -->
+          <div class="contact-detail-card">
+            <div class="card-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+            </div>
+            <h3>Availability</h3>
+            <p class="detail-helper" data-content="contact.locationNote">Available for select in-person and virtual coaching, workshops, and consulting.</p>
           </div>
 
-          <div class="form-field">
-            <label for="contact-subject">Subject</label>
-            <select id="contact-subject" name="subject" required>
-              <option>General inquiry</option>
-              <option>Private Coaching</option>
-              <option>Worship Team Support</option>
-              <option>Choir / Ensemble Coaching</option>
-              <option>Workshop Request</option>
-              <option>Program Intensive</option>
-              <option>Speaking / Event Request</option>
-              <option>Partnership / Collaboration</option>
-              <option>Other</option>
-            </select>
+          <!-- Response Time -->
+          <div class="contact-detail-card">
+            <div class="card-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </div>
+            <h3>Response Time</h3>
+            <p class="detail-helper" data-content="contact.responseNote">Ashley typically responds within 1-2 business days.</p>
           </div>
+        </div>
 
-          <div class="form-field">
-            <label for="contact-message">Message</label>
-            <textarea id="contact-message" name="message" rows="7" required placeholder="Tell Ashley a little about what you need, what you're working on, or how The Music Makeover can support you."></textarea>
-          </div>
-
-          <div id="contact-error" class="error-msg" style="display:none"></div>
-
-          <div class="form-submit">
-            <button type="submit" id="contact-submit-btn">Send Message</button>
-          </div>
-        </form>
       </div>
-
-      <aside class="contact-detail-stack">
-        <section class="contact-info-card">
-          <h3>Email</h3>
-          <p><a href="mailto:themusicmakeover@gmail.com" data-contact-email>themusicmakeover@gmail.com</a></p>
-          <p data-content="contact.emailNote">For the fastest response, please include your service interest, location, and ideal timeline.</p>
-        </section>
-
-        <section class="contact-info-card">
-          <h3>Based In</h3>
-          <p data-content="contact.location">Missouri, USA</p>
-          <p data-content="contact.locationNote">Available for select in-person and virtual coaching, workshops, and consulting.</p>
-        </section>
-
-        <section class="contact-info-card">
-          <h3>Follow Along</h3>
-          <p data-content="contact.socialIntro">Follow The Music Makeover for coaching tips, vocal encouragement, behind-the-scenes updates, and music leadership support.</p>
-          <div class="social-text-links">
-            <a href="https://www.instagram.com/lambchop0328/" target="_blank" rel="noopener" data-content-href="contact.instagramUrl">Instagram</a>
-            <a href="https://www.facebook.com/profile.php?id=48004649" target="_blank" rel="noopener" data-content-href="contact.facebookUrl">Facebook</a>
-            <a href="https://www.tiktok.com/@shleymillz?lang=en" target="_blank" rel="noopener" data-content-href="contact.tiktokUrl">TikTok</a>
-            <a href="https://www.linkedin.com/in/ashley-miller-89201938/" target="_blank" rel="noopener" data-content-href="contact.linkedinUrl">LinkedIn</a>
-            <span>YouTube coming soon</span>
-          </div>
-        </section>
-      </aside>
     </section>
 
-    <section class="contact-quick-links" aria-labelledby="quick-links-heading">
-      <h2 id="quick-links-heading">Quick links</h2>
-      <div class="quick-links-grid four-links">
+    <!-- SECTION 4: FOLLOW ALONG -->
+    <section class="follow-along-section" aria-labelledby="follow-heading">
+      <div class="follow-along-container">
+        <h2 id="follow-heading">Follow Along</h2>
+        <p data-content="contact.socialIntro">Follow The Music Makeover for coaching tips, vocal encouragement, behind-the-scenes updates, and music leadership support.</p>
+        <div class="social-icons-list">
+          <a href="https://www.facebook.com/profile.php?id=61580252074616" target="_blank" rel="noopener noreferrer" data-content-href="contact.facebookUrl">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+            </svg>
+            Facebook
+          </a>
+          <a href="https://www.instagram.com/themusicmakeover/" target="_blank" rel="noopener noreferrer" data-content-href="contact.instagramUrl">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+            Instagram
+          </a>
+          <a href="https://www.tiktok.com/@shleymillz?lang=en" target="_blank" rel="noopener noreferrer" data-content-href="contact.tiktokUrl">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
+            </svg>
+            TikTok
+          </a>
+          <a href="https://www.linkedin.com/in/ashley-miller-89201938/" target="_blank" rel="noopener noreferrer" data-content-href="contact.linkedinUrl">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect x="2" y="9" width="4" height="12"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: QUICK LINKS -->
+    <section class="contact-quick-links" aria-labelledby="quick-links-heading" style="margin-top: 64px;">
+      <h2 id="quick-links-heading" style="text-align: center; font-size: clamp(24px, 3.5vw, 32px); font-weight: 850; color: var(--espresso-charcoal); margin-bottom: 8px;">Quick Links</h2>
+      <div class="quick-links-grid">
         <a href="booking.html" class="quick-link-card">
           <h3>Book / Contact</h3>
           <p>Request coaching, workshops, or program support.</p>
@@ -134,7 +215,12 @@
         </a>
         <a href="services.html" class="quick-link-card">
           <h3>View Services</h3>
-          <p>Explore private coaching, team support, choir coaching, and intensives.</p>
+          <p>Explore private coaching, worship team support, choir coaching, and intensives.</p>
+          <span class="arrow" aria-hidden="true">&rarr;</span>
+        </a>
+        <a href="index.html#makeover-matchmaker" class="quick-link-card">
+          <h3>Take the Growth Style Quiz</h3>
+          <p>Discover your program’s current growth style and recommended next step.</p>
           <span class="arrow" aria-hidden="true">&rarr;</span>
         </a>
         <a href="testimonials.html" class="quick-link-card">
@@ -149,45 +235,136 @@
         </a>
       </div>
     </section>
+
+    <!-- SECTION 6: FOOTER CTA -->
+    <section class="contact-footer-cta" aria-labelledby="footer-cta-heading">
+      <div class="footer-cta-content">
+        <h2 id="footer-cta-heading">Not Sure Where to Start?</h2>
+        <p>Start with the Growth Style Quiz or send a general message. Ashley can help you identify the next right step for your voice, team, choir, or program.</p>
+        <div class="footer-cta-buttons">
+          <a class="hero-cta" href="index.html#makeover-matchmaker">Take the Quiz</a>
+          <a class="hero-cta secondary" href="booking.html?category=general">Find My Next Step</a>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <footer class="footer">
+  <!-- FOOTER -->
+  <footer class="contact-footer">
     <div class="inner">
-      <div class="footer-row">
-        <p>&copy; 2026 The Music Makeover. All rights reserved.</p>
-        <div class="footer-links" aria-label="Social links">
-          <a href="https://www.facebook.com/profile.php?id=48004649" target="_blank" rel="noopener">Facebook</a>
-          <a href="https://www.instagram.com/lambchop0328/" target="_blank" rel="noopener">Instagram</a>
-          <a href="https://www.tiktok.com/@shleymillz?lang=en" target="_blank" rel="noopener">TikTok</a>
-          <a href="https://www.linkedin.com/in/ashley-miller-89201938/" target="_blank" rel="noopener">LinkedIn</a>
+      <div class="footer-top-grid">
+        <div class="footer-brand">
+          <img class="footer-logo" src="media/music-makeover-logo.png" alt="The Music Makeover Logo">
+          <p class="footer-tagline">Revive the Sound. Restore the Purpose.</p>
+          <p class="footer-contact-info">
+            <span>Missouri, USA</span>
+            <span>Email: <a href="mailto:themusicmakeover@gmail.com" data-contact-email>themusicmakeover@gmail.com</a></span>
+          </p>
         </div>
+        <div class="footer-links-col">
+          <h4>Quick Links</h4>
+          <nav class="footer-nav">
+            <a href="about.html">About Me</a>
+            <a href="services.html">Services</a>
+            <a href="booking.html">Booking</a>
+            <a href="testimonials.html">Testimonials</a>
+            <a href="contact.html">Contact</a>
+          </nav>
+        </div>
+        <div class="footer-social-col">
+          <h4>Follow Along</h4>
+          <div class="footer-social-links">
+            <a href="https://www.facebook.com/profile.php?id=61580252074616" target="_blank" rel="noopener noreferrer" data-content-href="contact.facebookUrl">Facebook</a>
+            <a href="https://www.instagram.com/themusicmakeover/" target="_blank" rel="noopener noreferrer" data-content-href="contact.instagramUrl">Instagram</a>
+            <a href="https://www.tiktok.com/@shleymillz?lang=en" target="_blank" rel="noopener noreferrer" data-content-href="contact.tiktokUrl">TikTok</a>
+            <a href="https://www.linkedin.com/in/ashley-miller-89201938/" target="_blank" rel="noopener noreferrer" data-content-href="contact.linkedinUrl">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+      <hr class="footer-divider">
+      <div class="footer-bottom">
+        <p>&copy; 2026 The Music Makeover. All rights reserved.</p>
       </div>
     </div>
   </footer>
 
   <script>
+    // Header Scroll Class Toggle
+    const header = document.querySelector('.header');
+    const applyHeaderScroll = () => {
+      if (window.scrollY > 10) header.classList.add('scrolled');
+      else header.classList.remove('scrolled');
+    };
+    window.addEventListener('scroll', applyHeaderScroll, { passive: true });
+    applyHeaderScroll();
+
+    // Form Submission Handler with API & mailto Fallback
     const contactForm = document.getElementById('contact-form');
     const successMsg = document.getElementById('contact-success');
+    const errorMsg = document.getElementById('contact-error');
+    const submitBtn = document.getElementById('contact-submit-btn');
 
-    contactForm.addEventListener('submit', (event) => {
+    contactForm.addEventListener('submit', async (event) => {
       event.preventDefault();
+      errorMsg.style.display = 'none';
+      errorMsg.textContent = '';
+      submitBtn.disabled = true;
+      const originalBtnText = submitBtn.textContent;
+      submitBtn.textContent = 'Sending...';
 
-      const data = Object.fromEntries(new FormData(contactForm).entries());
-      const subject = `[Contact] ${data.subject} from ${data.name}`;
-      const body = [
-        `Name: ${data.name}`,
-        `Email: ${data.email}`,
-        `Phone: ${data.phone || 'Not provided'}`,
-        `Subject: ${data.subject}`,
-        '',
-        'Message:',
-        data.message,
-      ].join('\n');
+      const formData = new FormData(contactForm);
+      const data = Object.fromEntries(formData.entries());
 
-      const recipient = document.documentElement.dataset.contactRecipient || 'themusicmakeover@gmail.com';
-      window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      contactForm.style.display = 'none';
-      successMsg.style.display = 'block';
+      // Prepare payload to match general category expectations on the CRM API
+      const payload = {
+        category: 'general',
+        name: data.name,
+        email: data.email,
+        phone: data.phone || 'N/A', // Required by CRM schema
+        supportNeeded: data.subject || 'General Inquiry', // Required by CRM schema
+        currentChallenges: data.message || '',
+      };
+
+      try {
+        const response = await fetch('/api/inquiries', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        const result = await response.json();
+        if (response.ok && result.ok) {
+          // Success
+          contactForm.style.display = 'none';
+          successMsg.style.display = 'block';
+          successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          throw new Error(result.error || 'Failed to register inquiry on the CRM server.');
+        }
+      } catch (err) {
+        console.warn('API submission failed, falling back to mailto client:', err);
+
+        const emailSubject = `[Contact] ${payload.supportNeeded} from ${payload.name}`;
+        const emailBody = [
+          `Name: ${payload.name}`,
+          `Email: ${payload.email}`,
+          `Phone: ${payload.phone}`,
+          `Subject: ${payload.supportNeeded}`,
+          '',
+          'Message:',
+          payload.currentChallenges
+        ].join('\n');
+
+        const recipient = document.documentElement.dataset.contactRecipient || 'themusicmakeover@gmail.com';
+        window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+        
+        contactForm.style.display = 'none';
+        successMsg.style.display = 'block';
+        successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+      }
     });
   </script>
 </body>
