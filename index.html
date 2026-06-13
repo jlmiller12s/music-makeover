@@ -4,411 +4,486 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Coming Soon - The Music Makeover</title>
+  <title>The Music Makeover</title>
   <link rel="icon" href="media/music-makeover-logo.png" type="image/png">
-  
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Sen:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --warm-ivory: #F4EFE8;
-      --soft-sand: #DCCFC0;
-      --mushroom-taupe: #B7A693;
-      --deep-olive: #5B5D46;
-      --espresso-charcoal: #2E2926;
-      --muted-rose-gold: #B88473;
-      --dark-bg: #1A1816;
-      --glass-bg: rgba(255, 255, 255, 0.03);
-      --glass-border: rgba(255, 255, 255, 0.08);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: "Sen", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: var(--dark-bg);
-      background-image: 
-        radial-gradient(circle at 50% 25%, rgba(184, 132, 115, 0.15) 0%, transparent 60%),
-        radial-gradient(circle at 10% 80%, rgba(91, 93, 70, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 90% 80%, rgba(183, 166, 147, 0.08) 0%, transparent 50%);
-      color: var(--warm-ivory);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    /* Decorative sound wave lines in background */
-    .bg-waves {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0.03;
-      pointer-events: none;
-      z-index: 0;
-      background-image: repeating-linear-gradient(90deg, transparent, transparent 40px, var(--warm-ivory) 40px, var(--warm-ivory) 41px);
-      mask-image: radial-gradient(circle at 50% 50%, black 30%, transparent 70%);
-      -webkit-mask-image: radial-gradient(circle at 50% 50%, black 30%, transparent 70%);
-    }
-
-    header {
-      width: 100%;
-      max-width: 1200px;
-      padding: 40px 24px;
-      display: flex;
-      justify-content: center;
-      z-index: 10;
-      opacity: 0;
-      animation: fadeInDown 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    .logo-container img {
-      height: 90px;
-      width: auto;
-      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
-      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .logo-container img:hover {
-      transform: scale(1.05);
-    }
-
-    main {
-      flex: 1;
-      width: 100%;
-      max-width: 800px;
-      padding: 0 24px 60px 24px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      z-index: 10;
-    }
-
-    .content-box {
-      opacity: 0;
-      animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
-    }
-
-    h1 {
-      font-family: "Playfair Display", Georgia, serif;
-      font-size: clamp(2.2rem, 5vw, 3.8rem);
-      font-weight: 500;
-      line-height: 1.15;
-      margin-bottom: 16px;
-      color: #fff;
-    }
-
-    h1 span {
-      display: block;
-      font-size: clamp(1rem, 2vw, 1.2rem);
-      font-family: "Sen", sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 0.25em;
-      color: var(--muted-rose-gold);
-      margin-bottom: 12px;
-      font-weight: 700;
-    }
-
-    .tagline {
-      font-size: clamp(1rem, 1.8vw, 1.25rem);
-      color: var(--soft-sand);
-      max-width: 600px;
-      margin: 0 auto 48px auto;
-      line-height: 1.6;
-    }
-
-    /* Countdown Container styling */
-    .countdown-container {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: clamp(12px, 3vw, 24px);
-      width: 100%;
-      max-width: 680px;
-      margin-bottom: 48px;
-      opacity: 0;
-      animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
-    }
-
-    .countdown-card {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-radius: 16px;
-      padding: clamp(16px, 4vw, 32px) clamp(8px, 2vw, 16px);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.3s ease, border-color 0.3s ease;
-    }
-
-    .countdown-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: linear-gradient(90deg, var(--muted-rose-gold), var(--mushroom-taupe));
-      opacity: 0.8;
-    }
-
-    .countdown-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(184, 132, 115, 0.3);
-    }
-
-    .countdown-val {
-      font-family: "Playfair Display", Georgia, serif;
-      font-size: clamp(2rem, 6vw, 3.5rem);
-      font-weight: 700;
-      line-height: 1;
-      color: #fff;
-      margin-bottom: 8px;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .countdown-lbl {
-      font-size: clamp(0.7rem, 1.5vw, 0.85rem);
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--muted-rose-gold);
-      font-weight: 700;
-    }
-
-    /* Form & Action Area */
-    .action-container {
-      opacity: 0;
-      animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
-      max-width: 500px;
-      width: 100%;
-      margin: 0 auto;
-    }
-
-    .email-prompt {
-      font-size: 0.95rem;
-      color: var(--soft-sand);
-      margin-bottom: 20px;
-    }
-
-    .contact-button {
-      display: inline-block;
-      background: var(--muted-rose-gold);
-      color: var(--espresso-charcoal);
-      text-decoration: none;
-      padding: 14px 32px;
-      border-radius: 999px;
-      font-weight: 700;
-      font-size: 0.95rem;
-      letter-spacing: 0.05em;
-      box-shadow: 0 8px 24px rgba(184, 132, 115, 0.3);
-      transition: all 0.3s ease;
-      border: 1px solid transparent;
-    }
-
-    .contact-button:hover {
-      background: transparent;
-      color: var(--warm-ivory);
-      border-color: var(--muted-rose-gold);
-      box-shadow: 0 8px 24px rgba(184, 132, 115, 0.1);
-      transform: translateY(-2px);
-    }
-
-    /* Footer styling */
-    footer {
-      width: 100%;
-      max-width: 1200px;
-      padding: 40px 24px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-      z-index: 10;
-      opacity: 0;
-      animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
-    }
-
-    .social-links {
-      display: flex;
-      gap: 24px;
-    }
-
-    .social-links a {
-      color: var(--mushroom-taupe);
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      transition: color 0.3s ease;
-    }
-
-    .social-links a:hover {
-      color: var(--muted-rose-gold);
-    }
-
-    .copyright {
-      font-size: 0.8rem;
-      color: rgba(244, 239, 232, 0.4);
-    }
-
-    /* Keyframes */
-    @keyframes fadeInDown {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Responsiveness adjustments */
-    @media (max-width: 480px) {
-      .countdown-container {
-        gap: 8px;
-      }
-      .countdown-card {
-        padding: 16px 4px;
-        border-radius: 12px;
-      }
-      .countdown-val {
-        margin-bottom: 4px;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="assets/gsap-lite.js?v=homepage-animations"></script>
+  <script defer src="assets/site.js?v=homepage-animations"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
 </head>
 
 <body>
-  <div class="bg-waves"></div>
-
-  <header>
-    <div class="logo-container">
-      <img src="media/music-makeover-logo.png" alt="The Music Makeover Logo">
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <a href="index.html">
+          <img src="media/music-makeover-logo.png" alt="The Music Makeover">
+        </a>
+      </div>
+      <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="nav" aria-label="Primary">
+        <a href="about.html">ABOUT ME</a>
+        <a href="services.html">SERVICES</a>
+        <a href="booking.html">BOOKING</a>
+        <a href="testimonials.html">TESTIMONIALS</a>
+        <a href="contact.html">CONTACT</a>
+        <a href="#makeover-matchmaker" class="nav-quiz-btn">QUIZ</a>
+      </nav>
     </div>
   </header>
 
   <main>
-    <div class="content-box">
-      <h1>
-        <span>Coming Soon</span>
-        Revive the Sound.<br>Restore the Purpose.
-      </h1>
-      <p class="tagline">
-        We're fine-tuning our new online portal to support singers, choirs, worship teams, and music programs. Stay tuned for our launch!
-      </p>
-    </div>
+    <section class="hero makeover-hero journey-hero" id="home">
+      <img src="media/_MG_0431.JPG" alt="Ashley Miller coaching through The Music Makeover">
+      <div class="hero-content journey-hero-content" data-gsap="hero">
+        <h1>Revive the Sound. Restore the Purpose.</h1>
+        <p>Coaching, workshops, and strategy for singers, worship teams, choirs, and music programs ready to grow with
+          clarity, confidence, and purpose.</p>
+        <div class="hero-actions">
+          <a class="hero-cta" href="booking.html?category=general">Find My Music Makeover</a>
+          <a class="hero-cta secondary" href="services.html">View Services</a>
+        </div>
+      </div>
+    </section>
 
-    <!-- Countdown Timer -->
-    <div class="countdown-container" id="countdown">
-      <div class="countdown-card">
-        <div class="countdown-val" id="days">00</div>
-        <div class="countdown-lbl">Days</div>
+    <section class="journey-section choose-path-section" id="choose-path" aria-labelledby="choose-path-heading">
+      <div class="section-heading">
+        <h2 id="choose-path-heading">Choose Your Path</h2>
+        <p>Start with the support path that sounds closest to what you need right now.</p>
       </div>
-      <div class="countdown-card">
-        <div class="countdown-val" id="hours">00</div>
-        <div class="countdown-lbl">Hours</div>
+      <div class="path-card-grid" data-gsap-stagger>
+        <article class="path-card">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" role="img">
+              <path d="M24 6v24"></path>
+              <path d="M17 30a7 7 0 1 0 7-7"></path>
+              <path d="M30 11c5 1 8 4 9 8"></path>
+            </svg>
+          </div>
+          <h3>Private Coaching</h3>
+          <p>Personal vocal and music coaching for skill, confidence, auditions, and steady growth.</p>
+          <a class="text-link" href="booking.html?category=private">Book Private Coaching</a>
+        </article>
+        <article class="path-card">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" role="img">
+              <path d="M12 34c5-7 19-7 24 0"></path>
+              <path d="M18 20a6 6 0 1 0 12 0"></path>
+              <path d="M9 24c2-5 5-9 10-12"></path>
+              <path d="M39 24c-2-5-5-9-10-12"></path>
+            </svg>
+          </div>
+          <h3>Worship Team Support</h3>
+          <p>Structure, rehearsal flow, vocal unity, and practical support for volunteer-based teams.</p>
+          <a class="text-link" href="booking.html?category=worship">Request Worship Support</a>
+        </article>
+        <article class="path-card">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" role="img">
+              <path d="M10 14h28v24H10z"></path>
+              <path d="M16 14V9h18v5"></path>
+              <path d="M17 23h14"></path>
+              <path d="M17 30h20"></path>
+            </svg>
+          </div>
+          <h3>Choir & Ensemble Coaching</h3>
+          <p>Clinics and workshops for tone, blend, articulation, dynamics, and performance readiness.</p>
+          <a class="text-link" href="booking.html?category=ensemble">Request Choir Coaching</a>
+        </article>
+        <article class="path-card">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" role="img">
+              <circle cx="24" cy="24" r="16"></circle>
+              <path d="m18 30 4-10 8-4-4 10-8 4z"></path>
+              <path d="M24 6v5M24 37v5M6 24h5M37 24h5"></path>
+            </svg>
+          </div>
+          <h3>Program Intensives</h3>
+          <p>Customized strategy for leaders and programs that need systems, structure, and a reset.</p>
+          <a class="text-link" href="booking.html?category=school">Plan an Intensive</a>
+        </article>
       </div>
-      <div class="countdown-card">
-        <div class="countdown-val" id="minutes">00</div>
-        <div class="countdown-lbl">Minutes</div>
-      </div>
-      <div class="countdown-card">
-        <div class="countdown-val" id="seconds">00</div>
-        <div class="countdown-lbl">Seconds</div>
-      </div>
-    </div>
+    </section>
 
-    <div class="action-container">
-      <p class="email-prompt">Need to get in touch before the launch?</p>
-      <a href="mailto:themusicmakeover@gmail.com" class="contact-button">Contact Ashley</a>
-    </div>
+    <section class="video-section" aria-label="Music Makeover coaching clip">
+      <video src="media/music-makeover-cropped.mp4" autoplay muted loop playsinline></video>
+      <div class="video-overlay"></div>
+      <div class="video-overlay-content">
+        <h2>Transform the sound, confidence, and culture of your choir</h2>
+        <p>The Music Makeover helps church, school, and collegiate choirs grow in tone, blend, stage presence, and
+          musical excellence through expert vocal coaching and choir development.</p>
+        <div class="video-actions">
+          <a class="hero-cta" href="booking.html?category=ensemble">Request Choir Coaching</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="journey-section quiz-section" id="makeover-matchmaker" aria-labelledby="quiz-heading"
+      data-matchmaker-quiz data-gsap-section>
+      <div class="quiz-copy" data-gsap-section>
+        <h2 id="quiz-heading">Not sure where to start?</h2>
+        <p>Take the Music Makeover Matchmaker quiz and discover the support path that fits your current needs.</p>
+        <a class="hero-cta" href="#matchmaker-options" data-quiz-start-btn>Take the Quiz</a>
+      </div>
+      <div class="quiz-panel" id="matchmaker-options" data-gsap-section>
+
+        <!-- Step 1: Seek support for -->
+        <div class="quiz-step active" data-quiz-step="1">
+          <div class="quiz-progress-bar"><span style="width: 14.3%"></span></div>
+          <p class="quiz-progress-text">Question 1 of 7</p>
+          <h3 class="quiz-question">Who are you seeking support for?</h3>
+          <div class="quiz-options">
+            <button type="button" class="quiz-opt" data-option="a" data-points="confidence">Myself or my child</button>
+            <button type="button" class="quiz-opt" data-option="b" data-points="team">A worship team</button>
+            <button type="button" class="quiz-opt" data-option="c" data-points="sound">A choir or ensemble</button>
+            <button type="button" class="quiz-opt" data-option="d" data-points="program">A school/church music
+              program</button>
+            <button type="button" class="quiz-opt" data-option="e" data-points="purpose">I’m not totally sure
+              yet</button>
+          </div>
+        </div>
+
+        <!-- Step 2: Biggest challenge -->
+        <div class="quiz-step" data-quiz-step="2" style="display: none;">
+          <div class="quiz-progress-bar"><span style="width: 28.6%"></span></div>
+          <p class="quiz-progress-text">Question 2 of 7</p>
+          <h3 class="quiz-question">What feels like the biggest challenge right now?</h3>
+          <div class="quiz-options">
+            <button type="button" class="quiz-opt" data-option="a" data-points="confidence">Confidence</button>
+            <button type="button" class="quiz-opt" data-option="b" data-points="confidence">Vocal technique</button>
+            <button type="button" class="quiz-opt" data-option="c" data-points="sound">Blend or group sound</button>
+            <button type="button" class="quiz-opt" data-option="d" data-points="team">Rehearsal structure</button>
+            <button type="button" class="quiz-opt" data-option="e" data-points="program">Leadership/program
+              direction</button>
+            <button type="button" class="quiz-opt" data-option="f" data-points="purpose">Motivation or
+              engagement</button>
+          </div>
+          <div class="quiz-nav">
+            <button type="button" class="mm-ghost-button" data-quiz-prev>Back</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Wish felt stronger -->
+        <div class="quiz-step" data-quiz-step="3" style="display: none;">
+          <div class="quiz-progress-bar"><span style="width: 42.9%"></span></div>
+          <p class="quiz-progress-text">Question 3 of 7</p>
+          <h3 class="quiz-question">What do you wish felt stronger?</h3>
+          <div class="quiz-options">
+            <button type="button" class="quiz-opt" data-option="a" data-points="confidence">Individual skill</button>
+            <button type="button" class="quiz-opt" data-option="b" data-points="team">Team unity</button>
+            <button type="button" class="quiz-opt" data-option="c" data-points="sound">Musical excellence</button>
+            <button type="button" class="quiz-opt" data-option="d" data-points="team">Rehearsal flow</button>
+            <button type="button" class="quiz-opt" data-option="e" data-points="purpose">Purpose and direction</button>
+            <button type="button" class="quiz-opt" data-option="f" data-points="program">All of the above,
+              honestly</button>
+          </div>
+          <div class="quiz-nav">
+            <button type="button" class="mm-ghost-button" data-quiz-prev>Back</button>
+          </div>
+        </div>
+
+        <!-- Step 4: Vibe description -->
+        <div class="quiz-step" data-quiz-step="4" style="display: none;">
+          <div class="quiz-progress-bar"><span style="width: 57.1%"></span></div>
+          <p class="quiz-progress-text">Question 4 of 7</p>
+          <h3 class="quiz-question">How would you describe the current vibe?</h3>
+          <div class="quiz-options">
+            <button type="button" class="quiz-opt" data-option="a" data-points="confidence">We have potential but need
+              confidence</button>
+            <button type="button" class="quiz-opt" data-option="b" data-points="sound">We sound okay but need
+              polish</button>
+            <button type="button" class="quiz-opt" data-option="c" data-points="team">We are faithful but
+              scattered</button>
+            <button type="button" class="quiz-opt" data-option="d" data-points="program">We are overwhelmed and need
+              structure</button>
+            <button type="button" class="quiz-opt" data-option="e" data-points="purpose">We need a full reset</button>
+          </div>
+          <div class="quiz-nav">
+            <button type="button" class="mm-ghost-button" data-quiz-prev>Back</button>
+          </div>
+        </div>
+
+        <!-- Step 5: Helpful support -->
+        <div class="quiz-step" data-quiz-step="5" style="display: none;">
+          <div class="quiz-progress-bar"><span style="width: 71.4%"></span></div>
+          <p class="quiz-progress-text">Question 5 of 7</p>
+          <h3 class="quiz-question">What kind of support sounds most helpful?</h3>
+          <div class="quiz-options">
+            <button type="button" class="quiz-opt" data-option="a" data-points="confidence">One-on-one coaching</button>
+            <button type="button" class="quiz-opt" data-option="b" data-points="sound">A workshop or clinic</button>
+            <button type="button" class="quiz-opt" data-option="c" data-points="team">A team training session</button>
+            <button type="button" class="quiz-opt" data-option="d" data-points="program">A strategy session</button>
+            <button type="button" class="quiz-opt" data-option="e" data-points="program">A full customized plan</button>
+          </div>
+          <div class="quiz-nav">
+            <button type="button" class="mm-ghost-button" data-quiz-prev>Back</button>
+          </div>
+        </div>
+
+        <!-- Step 6: How soon -->
+        <div class="quiz-step" data-quiz-step="6" style="display: none;">
+          <div class="quiz-progress-bar"><span style="width: 85.7%"></span></div>
+          <p class="quiz-progress-text">Question 6 of 7</p>
+          <h3 class="quiz-question">How soon do you need support?</h3>
+          <div class="quiz-options">
+            <button type="button" class="quiz-opt" data-option="a" data-points="program">ASAP</button>
+            <button type="button" class="quiz-opt" data-option="b" data-points="sound">Within the next month</button>
+            <button type="button" class="quiz-opt" data-option="c" data-points="confidence">This
+              semester/season</button>
+            <button type="button" class="quiz-opt" data-option="d" data-points="team">Before a specific event</button>
+            <button type="button" class="quiz-opt" data-option="e" data-points="purpose">I’m exploring options</button>
+          </div>
+          <div class="quiz-nav">
+            <button type="button" class="mm-ghost-button" data-quiz-prev>Back</button>
+          </div>
+        </div>
+
+        <!-- Step 7: Win result -->
+        <div class="quiz-step" data-quiz-step="7" style="display: none;">
+          <div class="quiz-progress-bar"><span style="width: 100%"></span></div>
+          <p class="quiz-progress-text">Question 7 of 7</p>
+          <h3 class="quiz-question">What result would feel like a win?</h3>
+          <div class="quiz-options">
+            <button type="button" class="quiz-opt" data-option="a" data-points="confidence">More confidence</button>
+            <button type="button" class="quiz-opt" data-option="b" data-points="sound">Better sound</button>
+            <button type="button" class="quiz-opt" data-option="c" data-points="program">Stronger leadership</button>
+            <button type="button" class="quiz-opt" data-option="d" data-points="purpose">Clearer next steps</button>
+            <button type="button" class="quiz-opt" data-option="e" data-points="team">A healthier, more prepared music
+              experience</button>
+          </div>
+          <div class="quiz-nav">
+            <button type="button" class="mm-ghost-button" data-quiz-prev>Back</button>
+          </div>
+        </div>
+
+        <!-- Step 8: Loading Screen -->
+        <div class="quiz-step quiz-loading-step" data-quiz-step="loading" style="display: none;">
+          <div class="quiz-spinner"></div>
+          <p>Analyzing your music needs...</p>
+        </div>
+
+        <!-- Step 9: Results Card -->
+        <div class="quiz-step quiz-result-step" data-quiz-step="result" style="display: none;">
+          <div class="quiz-result-card">
+            <span class="result-badge">Your Music Makeover Stage</span>
+            <h3 data-quiz-result-title>Result Title</h3>
+            <p data-quiz-result-summary>Result Summary</p>
+            <div class="result-next-step-box">
+              <strong>Recommended Next Step:</strong>
+              <span data-quiz-result-step>Recommended step</span>
+            </div>
+            <div class="result-actions">
+              <a href="#" class="mm-button" data-quiz-result-cta>Book Private Coaching</a>
+              <button type="button" class="mm-ghost-button" data-quiz-restart>Retake Quiz</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="journey-section pathway-section" aria-labelledby="pathway-heading">
+      <div class="section-heading">
+        <h2 id="pathway-heading">The Music Makeover Pathway</h2>
+        <p>A simple process for moving from uncertainty to a clear, personalized next step.</p>
+      </div>
+      <ol class="pathway-steps" data-gsap-stagger>
+        <li>
+          <span>1</span>
+          <h3>Share Your Need</h3>
+          <p>Tell Ashley what is happening with your voice, team, choir, or program.</p>
+        </li>
+        <li>
+          <span>2</span>
+          <h3>Get Clarity</h3>
+          <p>Identify your best next step and the support path that fits your current season.</p>
+        </li>
+        <li>
+          <span>3</span>
+          <h3>Start the Makeover</h3>
+          <p>Begin coaching, workshop, or strategy work with practical direction.</p>
+        </li>
+        <li>
+          <span>4</span>
+          <h3>Grow With Purpose</h3>
+          <p>Build lasting confidence, structure, and musical growth.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="journey-section self-identify-section" aria-labelledby="self-identify-heading" data-gsap-section>
+      <div class="section-heading">
+        <h2 id="self-identify-heading">This Is For You If</h2>
+        <p>You can feel the potential, but you need direction, tools, and a plan that fits real people.</p>
+      </div>
+      <ul class="soft-checklist" data-gsap-stagger>
+        <li>You know there is potential, but need direction.</li>
+        <li>Your singers need confidence and practical tools.</li>
+        <li>Your worship team needs stronger rehearsal flow.</li>
+        <li>Your choir needs better tone, blend, and unity.</li>
+        <li>Your program needs structure, strategy, or a reset.</li>
+        <li>You want growth that feels excellent, intentional, and personal.</li>
+      </ul>
+    </section>
+
+    <section class="journey-section sound-strategy-section" aria-labelledby="sound-strategy-heading" data-gsap-section>
+      <div class="sound-strategy-copy" data-gsap-section>
+        <span class="visual-label">Sound + Strategy</span>
+        <h2 id="sound-strategy-heading">Find Your Sound Strategy</h2>
+        <p>The Music Makeover brings musical development and practical structure together so growth has somewhere to
+          live after the session ends.</p>
+      </div>
+      <div class="venn-visual" aria-label="Sound plus Strategy equals Purposeful Growth" data-gsap-stagger>
+        <div class="venn-circle sound-circle">
+          <h3>Sound</h3>
+          <p>Tone<br>Blend<br>Musicianship<br>Technique</p>
+        </div>
+        <div class="venn-circle strategy-circle">
+          <h3>Strategy</h3>
+          <p>Structure<br>Leadership<br>Systems<br>Confidence</p>
+        </div>
+        <div class="venn-center">Purposeful Growth</div>
+      </div>
+    </section>
+
+    <section class="journey-section meet-ashley-section" aria-labelledby="meet-ashley-heading" data-gsap-section>
+      <div class="meet-ashley-image" data-gsap-section>
+        <img src="media/_MG_0429.JPG" alt="Ashley Miller seated at a table">
+      </div>
+      <div class="meet-ashley-copy" data-gsap-section>
+        <span>Meet Ashley</span>
+        <h2 id="meet-ashley-heading">Music Educator, Conductor, Worship Leader, Songwriter, Recording Artist,
+          Consultant, and Coach.</h2>
+        <p>Ashley Miller has nearly 20 years of experience helping singers, students, choirs, worship teams, and music
+          programs grow with confidence, excellence, and purpose.</p>
+        <p>Her work is rooted in the belief that music is more than performance. It is a gift, a responsibility, and a
+          powerful tool for connection, confidence, worship, and transformation.</p>
+        <a class="hero-cta" href="about.html">Meet Ashley</a>
+      </div>
+    </section>
+
+    <section class="journey-section pillars-section" aria-labelledby="pillars-heading">
+      <div class="section-heading">
+        <h2 id="pillars-heading">More Than Technique</h2>
+        <p>Every makeover is built around the musical and personal growth that helps people keep moving forward.</p>
+      </div>
+      <div class="pillar-grid" data-gsap-stagger>
+        <article>
+          <h3>Skill</h3>
+          <p>Vocal and musical development.</p>
+        </article>
+        <article>
+          <h3>Confidence</h3>
+          <p>Helping singers trust their sound.</p>
+        </article>
+        <article>
+          <h3>Structure</h3>
+          <p>Creating systems that support growth.</p>
+        </article>
+        <article>
+          <h3>Purpose</h3>
+          <p>Connecting music-making to meaning and impact.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="journey-section testimonial-preview-section" aria-labelledby="testimonial-preview-heading">
+      <div class="section-heading">
+        <h2 id="testimonial-preview-heading">Growth People Can Feel</h2>
+        <p>Voices from singers, workshop participants, and music leaders who have experienced The Music Makeover.</p>
+      </div>
+      <div class="quote-card-grid" data-gsap-stagger>
+        <article>
+          <p>"The most useful training I've ever had. Ashley Miller's direction, explanations, demonstrations, and
+            exercises have been soooo helpful."</p>
+          <h3>Workshop Participant</h3>
+          <span>Choir Member</span>
+        </article>
+        <article>
+          <p>"Learning felt fun, engaging, and energizing. Ashley made the information practical and encouraging."</p>
+          <h3>Workshop Participant</h3>
+          <span>Training Feedback</span>
+        </article>
+        <article>
+          <p>"The Music Makeover helped us hear what was possible and gave us steps we could actually use right away."
+          </p>
+          <h3>Music Leader</h3>
+          <span>Program Support</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="homepage-cta journey-final-cta" aria-labelledby="cta-heading" data-gsap-section>
+      <div>
+        <h2 id="cta-heading">Your next level does not have to feel unclear.</h2>
+        <p>Choose the path that fits where you are now, or start with a simple conversation and let Ashley help you find
+          the right next step.</p>
+      </div>
+      <a class="hero-cta" href="booking.html?category=general">Find My Next Step</a>
+    </section>
   </main>
 
-  <footer>
-    <div class="social-links">
-      <a href="https://www.facebook.com/profile.php?id=61580252074616" target="_blank" rel="noopener noreferrer">Facebook</a>
-      <a href="https://www.instagram.com/themusicmakeover/" target="_blank" rel="noopener noreferrer">Instagram</a>
-      <a href="https://www.tiktok.com/@shleymillz?lang=en" target="_blank" rel="noopener noreferrer">TikTok</a>
-      <a href="https://www.linkedin.com/in/ashley-miller-themusicmakeover/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-    </div>
-    <div class="copyright">
-      &copy; 2026 The Music Makeover. All rights reserved.
+  <!-- FOOTER -->
+  <footer class="contact-footer">
+    <div class="inner">
+      <div class="footer-top-grid">
+        <div class="footer-brand">
+          <img class="footer-logo" src="media/music-makeover-logo.png" alt="The Music Makeover Logo">
+          <p class="footer-tagline">Revive the Sound. Restore the Purpose.</p>
+          <p class="footer-contact-info">
+            <span>Missouri, USA</span>
+            <span>Email: <a href="mailto:themusicmakeover@gmail.com"
+                data-contact-email>themusicmakeover@gmail.com</a></span>
+          </p>
+        </div>
+        <div class="footer-links-col">
+          <h4>Quick Links</h4>
+          <nav class="footer-nav">
+            <a href="about.html">About Me</a>
+            <a href="services.html">Services</a>
+            <a href="booking.html">Booking</a>
+            <a href="testimonials.html">Testimonials</a>
+            <a href="contact.html">Contact</a>
+          </nav>
+        </div>
+        <div class="footer-social-col">
+          <h4>Follow Along</h4>
+          <div class="footer-social-links">
+            <a href="https://www.facebook.com/profile.php?id=61580252074616" target="_blank" rel="noopener noreferrer"
+              data-content-href="contact.facebookUrl">Facebook</a>
+            <a href="https://www.instagram.com/themusicmakeover/" target="_blank" rel="noopener noreferrer"
+              data-content-href="contact.instagramUrl">Instagram</a>
+            <a href="https://www.tiktok.com/@shleymillz?lang=en" target="_blank" rel="noopener noreferrer"
+              data-content-href="contact.tiktokUrl">TikTok</a>
+            <a href="https://www.linkedin.com/in/ashley-miller-themusicmakeover/" target="_blank"
+              rel="noopener noreferrer" data-content-href="contact.linkedinUrl">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+      <hr class="footer-divider">
+      <div class="footer-bottom">
+        <p>&copy; 2026 The Music Makeover. All rights reserved.</p>
+      </div>
     </div>
   </footer>
 
   <script>
-    (function () {
-      // Target time: Monday, June 15, 2026 at 12:00 AM (local time offset -05:00)
-      const targetDate = new Date("2026-06-15T00:00:00-05:00").getTime();
-
-      const daysEl = document.getElementById('days');
-      const hoursEl = document.getElementById('hours');
-      const minutesEl = document.getElementById('minutes');
-      const secondsEl = document.getElementById('seconds');
-
-      function updateCountdown() {
-        const now = new Date().getTime();
-        const difference = targetDate - now;
-
-        if (difference <= 0) {
-          // Time is up
-          daysEl.textContent = '00';
-          hoursEl.textContent = '00';
-          minutesEl.textContent = '00';
-          secondsEl.textContent = '00';
-          
-          const tagline = document.querySelector('.tagline');
-          if (tagline) {
-            tagline.textContent = "We are officially live! Welcome to the new Music Makeover site.";
-          }
-          clearInterval(intervalId);
-          return;
-        }
-
-        // Calculations
-        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-        // Format leading zeros
-        daysEl.textContent = days.toString().padStart(2, '0');
-        hoursEl.textContent = hours.toString().padStart(2, '0');
-        minutesEl.textContent = minutes.toString().padStart(2, '0');
-        secondsEl.textContent = seconds.toString().padStart(2, '0');
-      }
-
-      // Initial run
-      updateCountdown();
-      const intervalId = setInterval(updateCountdown, 1000);
-    })();
+    const header = document.querySelector('.header');
+    const apply = () => {
+      if (window.scrollY > 10) header.classList.add('scrolled');
+      else header.classList.remove('scrolled');
+    };
+    if (window.gsap && window.ScrollTrigger) {
+      gsap.registerPlugin(ScrollTrigger);
+      ScrollTrigger.create({ start: 10, onEnter: () => header.classList.add('scrolled'), onLeaveBack: () => header.classList.remove('scrolled') });
+    } else {
+      window.addEventListener('scroll', apply, { passive: true });
+      apply();
+    }
   </script>
 </body>
 
