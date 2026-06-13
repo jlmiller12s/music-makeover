@@ -4,6 +4,28 @@
   "public": true,
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    { "source": "/about", "destination": "/", "permanent": false },
+    { "source": "/about.html", "destination": "/", "permanent": false },
+    { "source": "/services", "destination": "/", "permanent": false },
+    { "source": "/services.html", "destination": "/", "permanent": false },
+    { "source": "/booking", "destination": "/", "permanent": false },
+    { "source": "/booking.html", "destination": "/", "permanent": false },
+    { "source": "/testimonials", "destination": "/", "permanent": false },
+    { "source": "/testimonials.html", "destination": "/", "permanent": false },
+    { "source": "/contact", "destination": "/", "permanent": false },
+    { "source": "/contact.html", "destination": "/", "permanent": false },
+    { "source": "/client-portal", "destination": "/", "permanent": false },
+    { "source": "/client-portal.html", "destination": "/", "permanent": false },
+    { "source": "/admin", "destination": "/", "permanent": false },
+    { "source": "/admin.html", "destination": "/", "permanent": false },
+    { "source": "/admin-login", "destination": "/", "permanent": false },
+    { "source": "/admin-login.html", "destination": "/", "permanent": false },
+    { "source": "/reset-password", "destination": "/", "permanent": false },
+    { "source": "/reset-password.html", "destination": "/", "permanent": false },
+    { "source": "/thank-you", "destination": "/", "permanent": false },
+    { "source": "/thank-you.html", "destination": "/", "permanent": false }
+  ],
   "headers": [
     {
       "source": "/(.*)",

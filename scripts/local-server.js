@@ -38,6 +38,26 @@ const server = http.createServer(async (req, res) => {
     if (pathname === '/api/portal-preview') return portalPreviewHandler(req, res);
     if (pathname === '/api/public-config') return publicConfigHandler(req, res);
 
+    // Mimic vercel.json redirects
+    const redirectPaths = [
+      '/about', '/about.html',
+      '/services', '/services.html',
+      '/booking', '/booking.html',
+      '/testimonials', '/testimonials.html',
+      '/contact', '/contact.html',
+      '/client-portal', '/client-portal.html',
+      '/admin', '/admin.html',
+      '/admin-login', '/admin-login.html',
+      '/reset-password', '/reset-password.html',
+      '/thank-you', '/thank-you.html'
+    ];
+    if (redirectPaths.includes(pathname)) {
+      res.statusCode = 307;
+      res.setHeader('Location', '/');
+      res.end();
+      return;
+    }
+
     const filePath = resolveStaticPath(pathname);
     const data = await fs.readFile(filePath);
     res.statusCode = 200;
