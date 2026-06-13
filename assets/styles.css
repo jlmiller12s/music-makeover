@@ -4050,11 +4050,17 @@ html {
   box-shadow: 0 8px 24px rgba(46, 41, 38, 0.06);
 }
 
-.service-media img,
-.service-media video {
+.service-media img {
   width: 100%;
   height: auto;
   min-height: 340px;
+  object-fit: cover;
+  display: block;
+}
+
+.service-media video {
+  width: 100%;
+  height: 380px;
   object-fit: cover;
   display: block;
 }
