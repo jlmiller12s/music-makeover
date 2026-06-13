@@ -1926,7 +1926,7 @@ html {
   inset: 0;
   z-index: 1;
   background:
-    linear-gradient(90deg, rgba(0, 0, 0, .12) 0%, rgba(0, 0, 0, .2) 38%, rgba(0, 0, 0, .5) 66%, rgba(0, 0, 0, .72) 100%),
+    linear-gradient(90deg, rgba(0, 0, 0, .72) 0%, rgba(0, 0, 0, .5) 34%, rgba(0, 0, 0, .2) 62%, rgba(0, 0, 0, .12) 100%),
     linear-gradient(180deg, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, .22) 100%);
   pointer-events: none;
 }
@@ -1935,11 +1935,11 @@ html {
   position: relative;
   z-index: 2;
   width: min(680px, calc(100% - 40px));
-  margin-left: auto;
-  margin-right: max(24px, calc((100vw - 1200px) / 2 + 24px));
+  margin-left: max(24px, calc((100vw - 1200px) / 2 + 24px));
+  margin-right: auto;
   padding-top: 120px;
   color: #fff;
-  text-align: right;
+  text-align: left;
 }
 
 .makeover-hero h1 {
@@ -1947,16 +1947,22 @@ html {
   line-height: 1.04;
   letter-spacing: 0;
   max-width: 640px;
-  margin-left: auto;
+  margin-right: auto;
+  margin-left: 0;
 }
 
 .makeover-hero p {
   max-width: 620px;
   margin-top: 20px;
-  margin-left: auto;
+  margin-right: auto;
+  margin-left: 0;
   color: rgba(255, 255, 255, .88);
   font-size: clamp(15px, 1.25vw, 18px);
   line-height: 1.65;
+}
+
+.makeover-hero .hero-actions {
+  justify-content: flex-start;
 }
 
 .hero-actions {
@@ -2316,16 +2322,17 @@ html {
 
   .makeover-hero .hero-content {
     width: min(100% - 28px, 720px);
-    margin-left: auto;
-    margin-right: 14px;
+    margin-left: 14px;
+    margin-right: auto;
     padding-top: 110px;
-    text-align: right;
+    text-align: left;
   }
 
   .makeover-hero h1 {
     font-size: clamp(31px, 9vw, 42px);
     max-width: 350px;
-    margin-left: auto;
+    margin-right: auto;
+    margin-left: 0;
   }
 
   .makeover-hero::after {
