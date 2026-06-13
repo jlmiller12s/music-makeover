@@ -47,9 +47,12 @@ textarea {
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(244, 239, 232, 0.95); /* Warm Ivory with opacity */
-  border-bottom: 1px solid rgba(183, 166, 147, 0.4); /* Mushroom Taupe border */
-  box-shadow: 0 4px 20px rgba(46, 41, 38, 0.05); /* Soft Espresso shadow */
+  background: rgba(244, 239, 232, 0.95);
+  /* Warm Ivory with opacity */
+  border-bottom: 1px solid rgba(183, 166, 147, 0.4);
+  /* Mushroom Taupe border */
+  box-shadow: 0 4px 20px rgba(46, 41, 38, 0.05);
+  /* Soft Espresso shadow */
   backdrop-filter: blur(14px);
   transition: background .25s ease, box-shadow .25s ease, border-color .25s ease
 }
@@ -60,8 +63,10 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 80px; /* Reduced from 106px for tighter layout */
-  padding: 8px 24px /* Reduced vertical padding */
+  min-height: 80px;
+  /* Reduced from 106px for tighter layout */
+  padding: 8px 24px
+    /* Reduced vertical padding */
 }
 
 .logo {
@@ -71,7 +76,8 @@ textarea {
 }
 
 .logo img {
-  height: 60px; /* Reduced from 82px to fit compact header */
+  height: 60px;
+  /* Reduced from 82px to fit compact header */
   width: auto;
   max-width: 100%;
   object-fit: contain;
@@ -82,7 +88,8 @@ textarea {
   align-items: center;
   gap: 4px;
   padding: 5px;
-  background: rgba(220, 207, 192, 0.3); /* Soft Sand tint */
+  background: rgba(220, 207, 192, 0.3);
+  /* Soft Sand tint */
   border-radius: 999px;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2)
 }
@@ -698,7 +705,7 @@ html {
 
 /* Vocal Consultations card background */
 .service-card[data-card="true"]:first-child {
-  background-image: url('../media/_MG_9919.JPG');
+  background-image: url('../media/meet-ashley-about.JPG');
   background-size: cover;
   background-position: center;
   position: relative;
@@ -1935,7 +1942,7 @@ html {
   position: relative;
   z-index: 2;
   width: min(680px, calc(100% - 40px));
-  margin-left: max(24px, calc((100vw - 1200px) / 2 + 24px));
+  margin-left: max(24px, calc((80vw - 1200px) / 2 + 24px));
   margin-right: auto;
   padding-top: 120px;
   color: #fff;
@@ -2505,7 +2512,8 @@ html {
 }
 
 .page-support {
-  margin-top: 48px; /* Tightened from 68px */
+  margin-top: 48px;
+  /* Tightened from 68px */
 }
 
 .serve-grid {
@@ -2556,15 +2564,18 @@ html {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px;
-  margin: 36px 0; /* Tightened from 56px */
+  margin: 36px 0;
+  /* Tightened from 56px */
 }
 
 .service-detail-card {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  min-height: 360px; /* Tightened from 460px */
-  padding: 20px; /* Tightened from 28px */
+  min-height: 360px;
+  /* Tightened from 460px */
+  padding: 20px;
+  /* Tightened from 28px */
   border: 1px solid var(--soft-sand);
   border-radius: 8px;
   background: #fff;
@@ -3339,14 +3350,16 @@ html {
   position: absolute;
   left: 50%;
   top: 50%;
-  margin-left: -69px; /* Centered exactly with margins for GSAP compatibility */
+  margin-left: -69px;
+  /* Centered exactly with margins for GSAP compatibility */
   margin-top: -26px;
   background: linear-gradient(135deg, var(--deep-olive), var(--muted-rose-gold));
   color: #fff;
   padding: 10px 18px;
   border-radius: 999px;
   font-weight: 700;
-  font-size: 10px; /* Exact 10px font size per user request #5 */
+  font-size: 10px;
+  /* Exact 10px font size per user request #5 */
   box-shadow: 0 4px 15px rgba(46, 41, 38, 0.15);
   z-index: 10;
   white-space: nowrap;
@@ -3499,7 +3512,8 @@ html {
 
 .about-page {
   width: min(1200px, calc(100% - 48px));
-  margin: 100px auto 36px; /* Offset for compact header */
+  margin: 100px auto 36px;
+  /* Offset for compact header */
 }
 
 /* About Hero */
@@ -4577,7 +4591,9 @@ html {
 }
 
 @keyframes quiz-spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .quiz-loading-step p {
@@ -4658,6 +4674,7 @@ html {
     flex-direction: column;
     align-items: stretch;
   }
+
   .result-actions a,
   .result-actions button {
     width: 100%;
@@ -4672,7 +4689,8 @@ html {
 .support-option-card:hover {
   border: 2px solid var(--muted-rose-gold, #b88473);
   background: var(--warm-ivory, #F4EFE8);
-  padding: 23px 19px; /* offset border-width increase to prevent layout jump */
+  padding: 23px 19px;
+  /* offset border-width increase to prevent layout jump */
   transform: translateY(-3px);
   box-shadow: 0 8px 25px rgba(184, 132, 115, 0.1);
 }
@@ -4706,7 +4724,8 @@ html {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(46, 41, 38, 0.45); /* warm dark tint using espresso-charcoal */
+  background: rgba(46, 41, 38, 0.45);
+  /* warm dark tint using espresso-charcoal */
   z-index: 1;
 }
 
@@ -5202,5 +5221,144 @@ html {
   .footer-top-grid {
     grid-template-columns: 1fr;
     gap: 32px;
+  }
+}
+
+/* Approach Accordion Styles */
+.approach-accordion {
+  width: 100%;
+  max-width: 900px;
+  margin: 32px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Spacing between accordion items - no more than 10px */
+}
+
+.accordion-item {
+  background: rgba(220, 207, 192, 0.25); /* soft sand tint background */
+  border: 1px solid rgba(183, 166, 147, 0.4); /* mushroom taupe border */
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.accordion-item.active {
+  background: #fff;
+  border-color: var(--muted-rose-gold);
+  box-shadow: 0 8px 30px rgba(184, 132, 115, 0.08);
+}
+
+.accordion-header {
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  text-align: left;
+  outline: none;
+  font-family: inherit;
+}
+
+.accordion-header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.accordion-header-left .service-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: var(--soft-sand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--deep-olive);
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.accordion-header:hover .service-icon {
+  transform: scale(1.05);
+}
+
+.accordion-header-left .service-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.accordion-header-left h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--espresso-charcoal);
+  margin: 0;
+}
+
+.accordion-arrow {
+  color: var(--mushroom-taupe);
+  transition: transform 0.3s ease, color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(183, 166, 147, 0.2);
+}
+
+.accordion-header:hover .accordion-arrow {
+  background: #fff;
+  color: var(--espresso-charcoal);
+}
+
+.accordion-item.active .accordion-arrow {
+  transform: rotate(180deg);
+  background: var(--muted-rose-gold);
+  color: #fff;
+  border-color: var(--muted-rose-gold);
+}
+
+.accordion-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.accordion-content {
+  padding: 0 24px 24px 84px; /* indent content to align under header text */
+}
+
+.accordion-content p {
+  margin: 0;
+  color: var(--espresso-charcoal);
+  font-size: 15px;
+  line-height: 1.6;
+  opacity: 0.95;
+}
+
+@media (max-width: 640px) {
+  .accordion-header {
+    padding: 16px;
+  }
+  .accordion-content {
+    padding: 0 16px 16px 76px;
+  }
+  .accordion-header-left h3 {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .accordion-content {
+    padding: 0 16px 16px 16px; /* remove indentation on very small screens to fit text */
   }
 }
