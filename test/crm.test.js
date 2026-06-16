@@ -207,6 +207,25 @@ test('records a public testimonial submission and notifies the business', () => 
   assert.match(result.state.testimonialEmailOutbox[0].subject, /New testimonial/i);
 });
 
+test('records a public guest testimonial submission and notifies the business', () => {
+  const state = createDefaultState('2026-05-14T18:00:00.000Z');
+  const result = recordTestimonial(state, {
+    email: 'guest@example.com',
+    considerationQuote: 'This was a super fast guest submission, simple and quick!',
+    source: 'guest-testimonial-form',
+  }, '2026-05-14T19:00:00.000Z');
+
+  assert.equal(result.testimonial.status, 'submitted');
+  assert.equal(result.testimonial.clientName, 'Guest');
+  assert.equal(result.testimonial.approvedForWebsite, true);
+  assert.equal(result.testimonial.nameDisplay, 'Anonymous');
+  assert.equal(result.state.testimonials[0].id, result.testimonial.id);
+  assert.equal(result.state.testimonialEmailOutbox.length, 1);
+  assert.equal(result.state.testimonialEmailOutbox[0].to, 'themusicmakeover@gmail.com');
+  assert.equal(result.state.testimonialEmailOutbox[0].replyTo, 'guest@example.com');
+  assert.match(result.state.testimonialEmailOutbox[0].subject, /New guest testimonial/i);
+});
+
 test('saves consultation notes with upload metadata for AI review', () => {
   const state = createDefaultState('2026-05-14T18:00:00.000Z');
   const result = saveConsultationNotes(state, {
