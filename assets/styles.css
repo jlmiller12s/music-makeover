@@ -743,7 +743,7 @@ html {
 
 /* Choir Revitalization Program card background */
 .service-card[data-card="true"]:nth-child(2) {
-  background-image: url('../media/_MG_9770.JPG');
+  background-image: url('../media/intensive.JPG');
   background-size: cover;
   background-position: center;
   position: relative;
@@ -2901,6 +2901,58 @@ html {
 .testimonial-form-section {
   grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
   background: #f7f4f1;
+}
+
+/* Guest Testimonial Form Styles */
+.guest-testimonial-box {
+  margin-top: 32px;
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid var(--soft-sand);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(46, 41, 38, 0.04);
+}
+
+.guest-testimonial-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--espresso-charcoal);
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(220, 207, 192, 0.4);
+  padding-bottom: 8px;
+}
+
+.guest-submission-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-submit-guest {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.form-submit-guest button {
+  background: #111;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.form-submit-guest button:hover {
+  background: #000;
+}
+
+.form-submit-guest button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 @media (max-width: 1080px) {
@@ -5634,4 +5686,116 @@ html {
   .pricing-card {
     padding: 32px 24px;
   }
+}
+
+/* About Page Image Carousel */
+.about-carousel-section {
+  width: 100%;
+  margin-top: 80px; /* offset for fixed header */
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  background: var(--dark-bg, #1a1816);
+}
+
+.about-swiper {
+  width: 100%;
+  height: 580px;
+}
+
+.about-swiper .swiper-wrapper {
+  transition-timing-function: linear !important;
+}
+
+.about-swiper .swiper-slide {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.about-swiper .swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.about-swiper .swiper-slide:hover img {
+  transform: scale(1.03);
+}
+
+.about-page {
+  padding-top: 0 !important;
+  margin-top: 40px !important; /* reduce top margin since carousel is above main */
+}
+
+@media (max-width: 768px) {
+  .about-carousel-section {
+    margin-top: 96px; /* offset for mobile header height */
+  }
+  .about-swiper {
+    height: 450px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-swiper {
+    height: 350px;
+  }
+}
+
+/* Privacy Policy Page */
+.privacy-policy-page {
+  max-width: 800px;
+  margin: 140px auto 80px;
+  padding: 0 24px;
+}
+
+.privacy-policy-hero {
+  text-align: center;
+  margin-bottom: 48px;
+  border-bottom: 1px solid var(--soft-sand);
+  padding-bottom: 32px;
+}
+
+.privacy-policy-hero h1 {
+  font-size: clamp(32px, 5vw, 48px);
+  color: var(--espresso-charcoal);
+  margin-bottom: 12px;
+  font-weight: 800;
+}
+
+.privacy-policy-hero .effective-date {
+  font-size: 15px;
+  color: var(--muted-rose-gold);
+  font-weight: 600;
+}
+
+.privacy-policy-content h2 {
+  font-size: clamp(20px, 3vw, 24px);
+  margin-top: 36px;
+  margin-bottom: 16px;
+  color: var(--espresso-charcoal);
+  font-weight: 700;
+}
+
+.privacy-policy-content p {
+  margin-bottom: 16px;
+  line-height: 1.75;
+  color: var(--espresso-charcoal);
+  opacity: 0.9;
+}
+
+.privacy-policy-content ul {
+  margin-bottom: 24px;
+  padding-left: 24px;
+  list-style-type: disc;
+}
+
+.privacy-policy-content li {
+  margin-bottom: 8px;
+  line-height: 1.6;
+  color: var(--espresso-charcoal);
+  opacity: 0.9;
 }

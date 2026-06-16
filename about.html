@@ -7,6 +7,7 @@
   <title>About Me - The Music Makeover</title>
   <link rel="icon" href="media/music-makeover-logo.png" type="image/png">
   <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <script src="assets/gsap-lite.js?v=homepage-animations"></script>
   <script defer src="assets/site.js?v=homepage-animations"></script>
   <script defer src="/_vercel/insights/script.js"></script>
@@ -34,6 +35,38 @@
     </div>
   </header>
 
+  <!-- Section 0: Image Carousel -->
+  <section class="about-carousel-section" aria-label="Image Gallery">
+    <div class="swiper about-swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <img src="media/worship-team.JPG" alt="Ashley Miller with worship team" style="object-position: center 15%;">
+        </div>
+        <div class="swiper-slide">
+          <img src="media/_MG_0126.JPG" alt="Ashley Miller conducting" style="object-position: center 15%;">
+        </div>
+        <div class="swiper-slide">
+          <img src="media/_MG_0005.JPG" alt="Ashley Miller coaching" style="object-position: center 15%;">
+        </div>
+        <div class="swiper-slide">
+          <img src="media/_MG_9972.JPG" alt="Ashley Miller smiling portrait" style="object-position: center 15%;">
+        </div>
+        <div class="swiper-slide">
+          <img src="media/_MG_0280.jpg" alt="Ashley Miller conducting pose" style="object-position: center 15%;">
+        </div>
+        <div class="swiper-slide">
+          <img src="media/_MG_9997.JPG" alt="Ashley Miller laughing portrait" style="object-position: center 15%;">
+        </div>
+        <div class="swiper-slide">
+          <img src="media/intensive.JPG" alt="Choir intensive training" style="object-position: center 15%;">
+        </div>
+        <div class="swiper-slide">
+          <img src="media/_MG_9997.JPG" alt="Ashley Miller laughing portrait duplicate" style="object-position: center 15%;">
+        </div>
+      </div>
+    </div>
+  </section>
+
   <main class="about-page">
     <!-- Section 1: About Hero -->
     <section class="about-hero" id="about-hero" aria-labelledby="about-hero-heading" data-gsap-section>
@@ -48,7 +81,7 @@
         </div>
       </div>
       <div class="about-hero-image" data-gsap="hero">
-        <img src="media/growth.jpg" alt="Ashley Miller coaching through The Music Makeover">
+        <img src="media/growth.JPG" alt="Ashley Miller coaching through The Music Makeover">
         <!-- Subtle musical watermark SVG -->
         <svg class="about-hero-watermark" viewBox="0 0 100 100" aria-hidden="true">
           <path fill="currentColor"
@@ -378,6 +411,7 @@
             <a href="booking.html">Booking</a>
             <a href="testimonials.html">Testimonials</a>
             <a href="contact.html">Contact</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
           </nav>
         </div>
         <div class="footer-social-col">
@@ -448,6 +482,34 @@
           header.setAttribute('aria-expanded', 'true');
           panel.style.maxHeight = panel.scrollHeight + 'px';
           panel.setAttribute('aria-hidden', 'false');
+        }
+      });
+    });
+  </script>
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      new Swiper('.about-swiper', {
+        loop: true,
+        autoplay: {
+          delay: 0,
+          disableOnInteraction: false,
+        },
+        speed: 6000,
+        breakpoints: {
+          320: {
+            slidesPerView: 1,
+            spaceBetween: 0
+          },
+          600: {
+            slidesPerView: 2,
+            spaceBetween: 0
+          },
+          900: {
+            slidesPerView: 3,
+            spaceBetween: 0
+          }
         }
       });
     });

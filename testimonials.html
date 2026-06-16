@@ -130,6 +130,27 @@
         <h2 id="leave-testimonial-heading">Leave a Testimonial</h2>
         <p class="testimonial-form-intro" data-content="testimonials.formIntro">Your words help future students,
           families, worship teams, choirs, and music leaders understand what is possible through The Music Makeover.</p>
+        
+        <div class="guest-testimonial-box">
+          <h3 class="guest-testimonial-title">Submit as Guest</h3>
+          <form id="guest-testimonial-form" class="guest-submission-form">
+            <div id="guest-testimonial-status" class="status-message" role="status" aria-live="polite"></div>
+
+            <div class="form-field">
+              <label for="guest-email">Email address</label>
+              <input id="guest-email" name="email" type="email" autocomplete="email" required placeholder="your@email.com">
+            </div>
+
+            <div class="form-field">
+              <label for="guest-quote">Your testimonial</label>
+              <textarea id="guest-quote" name="considerationQuote" rows="6" required placeholder="Tell us about your experience..."></textarea>
+            </div>
+
+            <div class="form-submit" style="display: flex; justify-content: flex-end; margin-top: 8px;">
+              <button type="submit" style="width: auto; padding: 10px 20px;">Submit as Guest</button>
+            </div>
+          </form>
+        </div>
       </div>
       <form id="testimonial-form" class="testimonial-submission-form">
         <div id="testimonial-status" class="status-message" role="status" aria-live="polite"></div>
@@ -244,6 +265,7 @@
             <a href="booking.html">Booking</a>
             <a href="testimonials.html">Testimonials</a>
             <a href="contact.html">Contact</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
           </nav>
         </div>
         <div class="footer-social-col">
