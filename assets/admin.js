@@ -190,6 +190,16 @@
       app.selectedConsultationId = event.currentTarget.value;
     });
     document.getElementById('generate-recommendation').addEventListener('click', generateRecommendation);
+
+    document.getElementById('clear-all-data-button').addEventListener('click', () => {
+      document.getElementById('clear-all-dialog').showModal();
+    });
+
+    document.getElementById('cancel-clear-all').addEventListener('click', () => {
+      document.getElementById('clear-all-dialog').close();
+    });
+
+    document.getElementById('confirm-clear-all').addEventListener('click', submitClearAllState);
   }
 
   function render() {
@@ -541,6 +551,24 @@
     document.getElementById('inquiry-dialog').close();
     app.activePanel = 'pipeline';
     renderPanels();
+  }
+
+  async function submitClearAllState() {
+    const confirmButton = document.getElementById('confirm-clear-all');
+    confirmButton.disabled = true;
+    confirmButton.textContent = 'Clearing...';
+
+    try {
+      await postAction({ action: 'state:clear' });
+      document.getElementById('clear-all-dialog').close();
+      app.activePanel = 'home';
+      render();
+    } catch (error) {
+      alert(`Failed to clear board data: ${error.message}`);
+    } finally {
+      confirmButton.disabled = false;
+      confirmButton.textContent = 'CLEAR ALL';
+    }
   }
 
   async function submitConsultationNotes(event) {

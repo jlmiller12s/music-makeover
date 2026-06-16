@@ -322,6 +322,20 @@
             </div>
           </div>
           <div class="side-stack" id="integration-list"></div>
+
+          <div class="panel-header compact-header" style="margin-top: 2.5rem;">
+            <div>
+              <h3 style="color: #d93838;">Danger Zone</h3>
+              <p>Permanently remove records from the CRM database.</p>
+            </div>
+          </div>
+          <div class="settings-danger-card">
+            <div>
+              <strong>Clear ALL Board Data</strong>
+              <p>This will permanently delete all inquiries, clients, appointments, proposals, contracts, invoices, payments, tasks, and notes from the database. This action is irreversible.</p>
+            </div>
+            <button class="mm-button danger" id="clear-all-data-button" type="button">Clear ALL Data</button>
+          </div>
         </section>
       </div>
     </main>
@@ -414,6 +428,17 @@
           <button class="mm-button" type="submit">Save service</button>
         </div>
       </form>
+    </div>
+  </dialog>
+
+  <dialog class="admin-dialog" id="clear-all-dialog">
+    <div class="dialog-card">
+      <h2 style="color: #d93838;">Clear ALL board data?</h2>
+      <p style="margin: 1rem 0; line-height: 1.5; color: #555;">This will permanently delete all inquiries, clients, appointments, proposals, contracts, invoices, payments, tasks, and notes from the database. This action is irreversible.</p>
+      <div class="dialog-actions">
+        <button class="mm-ghost-button" id="cancel-clear-all" type="button">Cancel</button>
+        <button class="mm-button danger" id="confirm-clear-all" type="button">CLEAR ALL</button>
+      </div>
     </div>
   </dialog>
 

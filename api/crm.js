@@ -2,6 +2,7 @@ const { loadAuthState, loadState, saveState } = require('../lib/crmRuntimeStore'
 const { getPublicAdminProfile, verifyAdminSession } = require('../lib/adminAuth');
 const {
   buildDashboardSummary,
+  clearState,
   generateServiceRecommendations,
   moveInquiryStage,
   recordInquiry,
@@ -71,6 +72,8 @@ function applyAction(state, payload) {
       return generateServiceRecommendations(state, payload.consultationId);
     case 'template:update':
       return updateTemplate(state, payload.collection, payload.templateId, payload.patch || {});
+    case 'state:clear':
+      return clearState(state);
     default:
       throw new Error(`Unknown CRM action: ${payload.action}`);
   }

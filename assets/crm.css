@@ -2565,3 +2565,45 @@ body.admin-body {
   transform: translateY(-3px);
   box-shadow: 0 8px 25px rgba(184, 132, 115, 0.1);
 }
+
+/* Danger settings button and card */
+.mm-button.danger {
+  background: #d93838;
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(217, 56, 56, 0.2);
+}
+
+.mm-button.danger:hover {
+  background: #b82a2a;
+  box-shadow: 0 10px 24px rgba(217, 56, 56, 0.28);
+}
+
+.settings-danger-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff0f0;
+  border: 1px solid #ffcccc;
+  border-radius: var(--mm-radius);
+  padding: 1.5rem;
+  margin-top: 1rem;
+  gap: 1.5rem;
+}
+
+.settings-danger-card div p {
+  margin: 0.5rem 0 0 0;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.settings-danger-card div strong {
+  color: #c00;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .settings-danger-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
