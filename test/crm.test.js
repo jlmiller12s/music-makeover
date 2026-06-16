@@ -64,7 +64,7 @@ test('validates category-specific required inquiry fields', () => {
 });
 
 test('builds dashboard metrics from leads, appointments, invoices, tasks, and payments', () => {
-  const state = createDefaultState('2026-05-14T18:00:00.000Z');
+  const state = createDefaultState('2026-05-14T18:00:00.000Z', true);
   const dashboard = buildDashboardSummary(state, '2026-05-14T18:00:00.000Z');
 
   assert.equal(dashboard.cards.newInquiries, 4);
