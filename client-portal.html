@@ -103,6 +103,64 @@
     </section>
   </main>
 
+  <!-- FOOTER -->
+  <footer class="contact-footer">
+    <div class="inner">
+      <div class="footer-top-grid">
+        <div class="footer-brand">
+          <img class="footer-logo" src="media/music-makeover-logo.png" alt="The Music Makeover Logo">
+          <p class="footer-tagline">Revive the Sound. Restore the Purpose.</p>
+          <p class="footer-contact-info">
+            <span>Missouri, USA</span>
+            <span>Email: <a href="mailto:themusicmakeover@gmail.com"
+                data-contact-email>themusicmakeover@gmail.com</a></span>
+          </p>
+        </div>
+        <div class="footer-links-col">
+          <h4>Quick Links</h4>
+          <nav class="footer-nav">
+            <a href="about.html">About Me</a>
+            <a href="services.html">Services</a>
+            <a href="booking.html">Booking</a>
+            <a href="testimonials.html">Testimonials</a>
+            <a href="contact.html">Contact</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-of-use.html">Terms of Use</a>
+            <a href="refund-policy.html">Refund Policy</a>
+          </nav>
+        </div>
+        <div class="footer-social-col">
+          <h4>Follow Along</h4>
+          <div class="footer-social-links">
+            <a href="https://www.facebook.com/profile.php?id=61580252074616" target="_blank" rel="noopener noreferrer"
+              data-content-href="contact.facebookUrl">Facebook</a>
+            <a href="https://www.instagram.com/themusicmakeover/" target="_blank" rel="noopener noreferrer"
+              data-content-href="contact.instagramUrl">Instagram</a>
+            <a href="https://www.tiktok.com/@theofficialmusicmakeover?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer"
+              data-content-href="contact.tiktokUrl">TikTok</a>
+            <a href="https://www.linkedin.com/in/ashley-miller-themusicmakeover/" target="_blank"
+              rel="noopener noreferrer" data-content-href="contact.linkedinUrl">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+      <hr class="footer-divider">
+      <div class="footer-bottom">
+        <p>&copy; 2026 The Music Makeover. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Header Scroll Class Toggle
+    const header = document.querySelector('.header');
+    const applyHeaderScroll = () => {
+      if (window.scrollY > 10) header.classList.add('scrolled');
+      else header.classList.remove('scrolled');
+    };
+    window.addEventListener('scroll', applyHeaderScroll, { passive: true });
+    applyHeaderScroll();
+  </script>
+
   <script src="assets/portal.js"></script>
 </body>
 
