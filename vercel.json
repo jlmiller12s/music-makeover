@@ -1,32 +1,7 @@
 {
   "version": 2,
   "name": "music-makeover",
-  "public": true,
   "cleanUrls": true,
-  "trailingSlash": false,
-  "redirects": [
-    { "source": "/", "destination": "/coming-soon", "permanent": false },
-    { "source": "/about", "destination": "/coming-soon", "permanent": false },
-    { "source": "/about.html", "destination": "/coming-soon", "permanent": false },
-    { "source": "/services", "destination": "/coming-soon", "permanent": false },
-    { "source": "/services.html", "destination": "/coming-soon", "permanent": false },
-    { "source": "/booking", "destination": "/coming-soon", "permanent": false },
-    { "source": "/booking.html", "destination": "/coming-soon", "permanent": false },
-    { "source": "/testimonials", "destination": "/coming-soon", "permanent": false },
-    { "source": "/testimonials.html", "destination": "/coming-soon", "permanent": false },
-    { "source": "/contact", "destination": "/coming-soon", "permanent": false },
-    { "source": "/contact.html", "destination": "/coming-soon", "permanent": false },
-    { "source": "/client-portal", "destination": "/coming-soon", "permanent": false },
-    { "source": "/client-portal.html", "destination": "/coming-soon", "permanent": false },
-    { "source": "/admin", "destination": "/coming-soon", "permanent": false },
-    { "source": "/admin.html", "destination": "/coming-soon", "permanent": false },
-    { "source": "/admin-login", "destination": "/coming-soon", "permanent": false },
-    { "source": "/admin-login.html", "destination": "/coming-soon", "permanent": false },
-    { "source": "/reset-password", "destination": "/coming-soon", "permanent": false },
-    { "source": "/reset-password.html", "destination": "/coming-soon", "permanent": false },
-    { "source": "/thank-you", "destination": "/coming-soon", "permanent": false },
-    { "source": "/thank-you.html", "destination": "/coming-soon", "permanent": false }
-  ],
   "headers": [
     {
       "source": "/(.*)",

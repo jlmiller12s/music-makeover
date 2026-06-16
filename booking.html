@@ -712,13 +712,64 @@
     </section>
   </main>
 
-  <footer class="footer">
+  <!-- FOOTER -->
+  <footer class="contact-footer">
     <div class="inner">
-      <div class="footer-row">
+      <div class="footer-top-grid">
+        <div class="footer-brand">
+          <img class="footer-logo" src="media/music-makeover-logo.png" alt="The Music Makeover Logo">
+          <p class="footer-tagline">Revive the Sound. Restore the Purpose.</p>
+          <p class="footer-contact-info">
+            <span>Missouri, USA</span>
+            <span>Email: <a href="mailto:themusicmakeover@gmail.com"
+                data-contact-email>themusicmakeover@gmail.com</a></span>
+          </p>
+        </div>
+        <div class="footer-links-col">
+          <h4>Quick Links</h4>
+          <nav class="footer-nav">
+            <a href="about.html">About Me</a>
+            <a href="services.html">Services</a>
+            <a href="booking.html">Booking</a>
+            <a href="testimonials.html">Testimonials</a>
+            <a href="contact.html">Contact</a>
+          </nav>
+        </div>
+        <div class="footer-social-col">
+          <h4>Follow Along</h4>
+          <div class="footer-social-links">
+            <a href="https://www.facebook.com/profile.php?id=61580252074616" target="_blank" rel="noopener noreferrer"
+              data-content-href="contact.facebookUrl">Facebook</a>
+            <a href="https://www.instagram.com/themusicmakeover/" target="_blank" rel="noopener noreferrer"
+              data-content-href="contact.instagramUrl">Instagram</a>
+            <a href="https://www.tiktok.com/@shleymillz?lang=en" target="_blank" rel="noopener noreferrer"
+              data-content-href="contact.tiktokUrl">TikTok</a>
+            <a href="https://www.linkedin.com/in/ashley-miller-themusicmakeover/" target="_blank"
+              rel="noopener noreferrer" data-content-href="contact.linkedinUrl">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+      <hr class="footer-divider">
+      <div class="footer-bottom">
         <p>&copy; 2026 The Music Makeover. All rights reserved.</p>
       </div>
     </div>
   </footer>
+
+  <script>
+    const header = document.querySelector('.header');
+    const apply = () => {
+      if (window.scrollY > 10) header.classList.add('scrolled');
+      else header.classList.remove('scrolled');
+    };
+    if (window.gsap && window.ScrollTrigger) {
+      gsap.registerPlugin(ScrollTrigger);
+      ScrollTrigger.create({ start: 10, onEnter: () => header.classList.add('scrolled'), onLeaveBack: () => header.classList.remove('scrolled') });
+    } else {
+      window.addEventListener('scroll', apply, { passive: true });
+      apply();
+    }
+  </script>
 
   <script src="assets/booking.js"></script>
 </body>

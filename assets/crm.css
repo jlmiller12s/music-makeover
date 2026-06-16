@@ -23,26 +23,26 @@ body.admin-body {
   color: var(--mm-ink);
 }
 
-.booking-crm .header,
 .portal-body .header {
-  position: sticky;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
   background: rgba(255, 255, 255, .96);
   border-bottom: 1px solid var(--mm-line);
   box-shadow: 0 4px 18px rgba(17, 17, 17, .04);
 }
 
-.booking-crm .header-inner,
 .portal-body .header-inner {
   min-height: 96px;
   padding: 12px 24px;
 }
 
-.booking-crm .logo img,
 .portal-body .logo img {
   height: 72px;
 }
 
-.booking-crm .nav a,
 .portal-body .nav a {
   font-size: 13px;
   letter-spacing: 0;
