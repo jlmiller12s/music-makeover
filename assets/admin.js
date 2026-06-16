@@ -244,7 +244,7 @@
 
   function renderPipeline() {
     const markup = app.dashboard.pipeline.map((column) => `
-      <section class="kanban-column">
+      <section class="kanban-column" data-stage="${escapeHtml(column.stage)}">
         <h3>${column.stage}<span class="pill">${column.count}</span></h3>
         ${column.leads.map(renderLeadCard).join('') || '<p class="muted">No leads here yet.</p>'}
       </section>
@@ -252,16 +252,76 @@
     document.getElementById('pipeline-board').innerHTML = markup;
     document.getElementById('pipeline-board-home').innerHTML = markup;
 
+    // dropdown selects change listeners
     document.querySelectorAll('[data-stage-select]').forEach((select) => {
       select.addEventListener('change', async () => {
         await postAction({ action: 'lead:stage', inquiryId: select.dataset.stageSelect, stage: select.value });
+      });
+    });
+
+    // Wire up HTML5 Drag and Drop listeners
+    const boards = [
+      document.getElementById('pipeline-board'),
+      document.getElementById('pipeline-board-home')
+    ];
+
+    boards.forEach((board) => {
+      if (!board) return;
+
+      // Draggable card listeners
+      board.querySelectorAll('.lead-card').forEach((card) => {
+        card.addEventListener('dragstart', (e) => {
+          e.dataTransfer.setData('text/plain', card.dataset.leadId);
+          e.dataTransfer.effectAllowed = 'move';
+          card.classList.add('dragging');
+        });
+
+        card.addEventListener('dragend', () => {
+          card.classList.remove('dragging');
+        });
+      });
+
+      // Drop target column listeners
+      board.querySelectorAll('.kanban-column').forEach((column) => {
+        column.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          e.dataTransfer.dropEffect = 'move';
+        });
+
+        column.addEventListener('dragenter', (e) => {
+          e.preventDefault();
+          column.classList.add('drag-hover');
+        });
+
+        column.addEventListener('dragleave', () => {
+          column.classList.remove('drag-hover');
+        });
+
+        column.addEventListener('drop', async (e) => {
+          e.preventDefault();
+          column.classList.remove('drag-hover');
+
+          const leadId = e.dataTransfer.getData('text/plain');
+          const targetStage = column.dataset.stage;
+          if (!leadId || !targetStage) return;
+
+          // Find the lead in the app state to check if it's already in this stage
+          const lead = (app.state.inquiries || []).find((inq) => inq.id === leadId);
+          if (lead && lead.stage === targetStage) return;
+
+          try {
+            await postAction({ action: 'lead:stage', inquiryId: leadId, stage: targetStage });
+          } catch (err) {
+            console.error('Failed to move lead stage via drag-and-drop:', err);
+          }
+        });
       });
     });
   }
 
   function renderLeadCard(lead) {
     return `
-      <article class="lead-card">
+      <article class="lead-card" draggable="true" data-lead-id="${lead.id}">
         <strong>${escapeHtml(lead.name)}</strong>
         <span>${escapeHtml(lead.clientType)}</span>
         <span>${escapeHtml(lead.organization || lead.supportNeeded || 'No organization listed')}</span>
