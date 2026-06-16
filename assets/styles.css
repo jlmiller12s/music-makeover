@@ -5745,34 +5745,44 @@ html {
   }
 }
 
-/* Privacy Policy Page */
-.privacy-policy-page {
+/* Privacy Policy, Terms of Use, & Refund Policy Pages */
+.privacy-policy-page,
+.terms-of-use-page,
+.refund-policy-page {
   max-width: 800px;
   margin: 140px auto 80px;
   padding: 0 24px;
 }
 
-.privacy-policy-hero {
+.privacy-policy-hero,
+.terms-of-use-hero,
+.refund-policy-hero {
   text-align: center;
   margin-bottom: 48px;
   border-bottom: 1px solid var(--soft-sand);
   padding-bottom: 32px;
 }
 
-.privacy-policy-hero h1 {
+.privacy-policy-hero h1,
+.terms-of-use-hero h1,
+.refund-policy-hero h1 {
   font-size: clamp(32px, 5vw, 48px);
   color: var(--espresso-charcoal);
   margin-bottom: 12px;
   font-weight: 800;
 }
 
-.privacy-policy-hero .effective-date {
+.privacy-policy-hero .effective-date,
+.terms-of-use-hero .effective-date,
+.refund-policy-hero .effective-date {
   font-size: 15px;
   color: var(--muted-rose-gold);
   font-weight: 600;
 }
 
-.privacy-policy-content h2 {
+.privacy-policy-content h2,
+.terms-of-use-content h2,
+.refund-policy-content h2 {
   font-size: clamp(20px, 3vw, 24px);
   margin-top: 36px;
   margin-bottom: 16px;
@@ -5780,20 +5790,26 @@ html {
   font-weight: 700;
 }
 
-.privacy-policy-content p {
+.privacy-policy-content p,
+.terms-of-use-content p,
+.refund-policy-content p {
   margin-bottom: 16px;
   line-height: 1.75;
   color: var(--espresso-charcoal);
   opacity: 0.9;
 }
 
-.privacy-policy-content ul {
+.privacy-policy-content ul,
+.terms-of-use-content ul,
+.refund-policy-content ul {
   margin-bottom: 24px;
   padding-left: 24px;
   list-style-type: disc;
 }
 
-.privacy-policy-content li {
+.privacy-policy-content li,
+.terms-of-use-content li,
+.refund-policy-content li {
   margin-bottom: 8px;
   line-height: 1.6;
   color: var(--espresso-charcoal);
