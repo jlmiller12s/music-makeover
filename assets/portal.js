@@ -13,6 +13,21 @@
   }
 
   function renderPortal(state, client) {
+    if (!client) {
+      document.getElementById('portal-client-name').textContent = 'Guest Workspace';
+      document.getElementById('portal-client-type').textContent = 'No Client Selected';
+      document.getElementById('portal-client-email').textContent = 'Please select or add a client in the CRM';
+      document.getElementById('portal-client-revenue').textContent = '$0';
+
+      document.getElementById('portal-appointments').innerHTML = '<article class="portal-row"><span>No upcoming appointments.</span></article>';
+      document.getElementById('portal-contracts').innerHTML = '<article class="portal-row"><span>No contracts found.</span></article>';
+      document.getElementById('portal-invoices').innerHTML = '<article class="portal-row"><span>No invoices found.</span></article>';
+      document.getElementById('portal-resources').innerHTML = '<article class="portal-row"><span>No shared resources.</span></article>';
+      document.getElementById('portal-notes').innerHTML = '<article class="portal-row"><span>No shared notes.</span></article>';
+      document.getElementById('portal-media').innerHTML = '<article class="portal-row"><span>No media release on file.</span></article>';
+      return;
+    }
+
     document.getElementById('portal-client-name').textContent = client.name;
     document.getElementById('portal-client-type').textContent = client.clientType;
     document.getElementById('portal-client-email').textContent = client.email;
