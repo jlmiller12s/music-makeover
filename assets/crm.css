@@ -1955,6 +1955,8 @@ body.admin-body {
   border-radius: var(--mm-radius);
   background: #fff;
   padding: 0 8px;
+  width: 100%;
+  max-width: 100%;
 }
 
 .side-stack {
