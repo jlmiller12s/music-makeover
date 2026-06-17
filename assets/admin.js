@@ -177,7 +177,30 @@
         renderTestimonialsReview();
       });
     });
+
+    const deleteBtn = document.getElementById('delete-selected-testimonials-btn');
+    if (deleteBtn) {
+      deleteBtn.addEventListener('click', async () => {
+        const selectedCheckboxes = document.querySelectorAll('.testimonial-select-checkbox:checked');
+        const testimonialIds = Array.from(selectedCheckboxes).map((cb) => cb.dataset.testimonialId);
+        if (testimonialIds.length === 0) return;
+
+        const confirmed = confirm(`Are you sure you want to permanently delete the ${testimonialIds.length} selected testimonial(s)?`);
+        if (!confirmed) return;
+
+        deleteBtn.disabled = true;
+        deleteBtn.textContent = 'Deleting...';
+        try {
+          await postAction({ action: 'testimonial:delete', testimonialIds });
+        } catch (error) {
+          alert(`Failed to delete testimonials: ${error.message}`);
+        } finally {
+          deleteBtn.textContent = 'Delete Permanently';
+        }
+      });
+    }
   }
+
 
   function wireDialogs() {
     document.getElementById('new-inquiry-button').addEventListener('click', () => {
@@ -753,6 +776,11 @@
       return t.status === app.testimonialFilter;
     });
 
+    const deleteBtn = document.getElementById('delete-selected-testimonials-btn');
+    if (deleteBtn) {
+      deleteBtn.disabled = true;
+    }
+
     if (filtered.length === 0) {
       list.innerHTML = `<article class="list-row testimonial-review-card empty-state"><strong>No testimonials found</strong><span>None match the selected filter.</span></article>`;
       return;
@@ -795,11 +823,14 @@
       return `
         <article class="testimonial-review-card" data-testimonial-id="${t.id}">
           <div class="testimonial-review-header">
-            <div>
-              <strong style="font-size: 16px;">${escapeHtml(formattedName)}</strong>
-              <div class="testimonial-review-meta">
-                <span>Email: ${escapeHtml(t.email)}</span> | 
-                <span>Service: ${escapeHtml(t.serviceType || 'Other')}</span>
+            <div style="display: flex; gap: 12px; align-items: center;">
+              <input type="checkbox" class="testimonial-select-checkbox" data-testimonial-id="${t.id}" style="width: 18px; height: 18px; cursor: pointer; margin: 0;">
+              <div>
+                <strong style="font-size: 16px;">${escapeHtml(formattedName)}</strong>
+                <div class="testimonial-review-meta">
+                  <span>Email: ${escapeHtml(t.email)}</span> | 
+                  <span>Service: ${escapeHtml(t.serviceType || 'Other')}</span>
+                </div>
               </div>
             </div>
             <span class="pill ${statusClass}">${statusLabel}</span>
@@ -814,6 +845,16 @@
         </article>
       `;
     }).join('');
+
+    const checkboxes = list.querySelectorAll('.testimonial-select-checkbox');
+    checkboxes.forEach((cb) => {
+      cb.addEventListener('change', () => {
+        const anyChecked = Array.from(checkboxes).some((c) => c.checked);
+        if (deleteBtn) {
+          deleteBtn.disabled = !anyChecked;
+        }
+      });
+    });
 
     list.querySelectorAll('[data-approve]').forEach((btn) => {
       btn.addEventListener('click', async () => {

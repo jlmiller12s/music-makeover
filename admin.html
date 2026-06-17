@@ -150,11 +150,12 @@
               <p>Approve or deny new testimonials. Approved testimonials will appear on the live website.</p>
             </div>
           </div>
-          <div class="panel-filters" style="margin-bottom: 20px; display: flex; gap: 10px;">
+          <div class="panel-filters" style="margin-bottom: 20px; display: flex; gap: 10px; align-items: center;">
             <button type="button" class="mm-ghost-button filter-btn is-active" data-testimonial-filter="all">All</button>
             <button type="button" class="mm-ghost-button filter-btn" data-testimonial-filter="submitted">Pending Review</button>
             <button type="button" class="mm-ghost-button filter-btn" data-testimonial-filter="approved">Approved</button>
             <button type="button" class="mm-ghost-button filter-btn" data-testimonial-filter="denied">Denied</button>
+            <button type="button" class="mm-button danger" id="delete-selected-testimonials-btn" style="margin-left: auto; background-color: #d93838;" disabled>Delete Permanently</button>
           </div>
           <div id="testimonials-review-list" class="side-stack"></div>
         </section>

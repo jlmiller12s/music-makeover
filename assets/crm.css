@@ -2701,4 +2701,11 @@ body.admin-body {
 
 .testimonial-review-actions .btn-deny:hover {
   background: #fdf2f2 !important;
-}
+}
+
+/* Card select checkbox outline */
+.testimonial-select-checkbox:focus-visible {
+  outline: 2px solid var(--mm-teal, #087f7b);
+  outline-offset: 2px;
+}
+

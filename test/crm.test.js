@@ -13,6 +13,7 @@ const {
   updateSiteContent,
   updateServiceCatalog,
   updateTestimonialStatus,
+  deleteTestimonials,
 } = require('../lib/musicMakeoverCrm');
 
 test('normalizes and tags a school inquiry for the pipeline', () => {
@@ -297,4 +298,27 @@ test('updates testimonial review status and toggles web approval', () => {
   assert.equal(deniedTestimonial.approvedForWebsite, false);
   assert.equal(deniedTestimonial.approvedForSocial, false);
 });
+
+test('permanently deletes selected testimonials from state', () => {
+  const state = createDefaultState('2026-05-14T18:00:00.000Z');
+  const recordResult = recordTestimonial(state, {
+    name: 'Test Client Delete',
+    email: 'delete@example.com',
+    serviceType: 'Private Music Coaching',
+    challengeGoal: 'Challenge',
+    standout: 'Standout',
+    changedImproved: 'Improved',
+    considerationQuote: 'Please delete me!',
+    sharePermission: 'yes',
+    nameDisplay: 'Full name',
+  }, '2026-05-14T19:00:00.000Z');
+
+  const testimonialId = recordResult.testimonial.id;
+  assert.equal(recordResult.state.testimonials[0].id, testimonialId);
+
+  const afterDeleteState = deleteTestimonials(recordResult.state, [testimonialId], '2026-05-14T19:30:00.000Z');
+  const foundTestimonial = afterDeleteState.testimonials.find((t) => t.id === testimonialId);
+  assert.equal(foundTestimonial, undefined);
+});
+
 

@@ -11,6 +11,7 @@ const {
   updateServiceCatalog,
   updateTemplate,
   updateTestimonialStatus,
+  deleteTestimonials,
 } = require('../lib/musicMakeoverCrm');
 
 module.exports = async function handler(req, res) {
@@ -75,6 +76,8 @@ function applyAction(state, payload) {
       return updateTemplate(state, payload.collection, payload.templateId, payload.patch || {});
     case 'testimonial:status':
       return updateTestimonialStatus(state, payload.testimonialId, payload.status);
+    case 'testimonial:delete':
+      return deleteTestimonials(state, payload.testimonialIds);
     case 'state:clear':
       return clearState(state);
     default:
