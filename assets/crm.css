@@ -2708,4 +2708,12 @@ body.admin-body {
   outline: 2px solid var(--mm-teal, #087f7b);
   outline-offset: 2px;
 }
+
+/* Testimonial review filter active state */
+.panel-filters .filter-btn.is-active {
+  background: var(--mm-black, #111111) !important;
+  color: #ffffff !important;
+  border-color: var(--mm-black, #111111) !important;
+}
+
 
