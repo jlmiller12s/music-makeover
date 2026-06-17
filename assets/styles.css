@@ -5815,3 +5815,19 @@ html {
   color: var(--espresso-charcoal);
   opacity: 0.9;
 }
+
+/* Testimonials Masonry Gallery */
+.testimonials-masonry-gallery {
+  column-width: 320px;
+  column-gap: 24px;
+  max-width: 1200px;
+  margin: 40px auto 0;
+}
+
+.testimonials-masonry-gallery .testimonial-card {
+  break-inside: avoid;
+  margin-bottom: 24px;
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+}

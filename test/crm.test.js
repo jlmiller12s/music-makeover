@@ -12,6 +12,7 @@ const {
   saveConsultationNotes,
   updateSiteContent,
   updateServiceCatalog,
+  updateTestimonialStatus,
 } = require('../lib/musicMakeoverCrm');
 
 test('normalizes and tags a school inquiry for the pipeline', () => {
@@ -266,3 +267,34 @@ test('generates service and package recommendations from consultation notes', ()
   assert.match(recommendationResult.result.recommendations[0].rationale.join(' '), /worship|four-week|rehearsal/i);
   assert.equal(recommendationResult.state.aiRecommendations[0].consultationId, noteResult.result.id);
 });
+
+test('updates testimonial review status and toggles web approval', () => {
+  const state = createDefaultState('2026-05-14T18:00:00.000Z');
+  const recordResult = recordTestimonial(state, {
+    name: 'Test Client',
+    email: 'test@example.com',
+    serviceType: 'Private Music Coaching',
+    challengeGoal: 'Challenge',
+    standout: 'Standout',
+    changedImproved: 'Improved',
+    considerationQuote: 'Highly recommended!',
+    sharePermission: 'yes',
+    nameDisplay: 'Full name',
+  }, '2026-05-14T19:00:00.000Z');
+
+  const testimonialId = recordResult.testimonial.id;
+  assert.equal(recordResult.state.testimonials[0].status, 'submitted');
+  assert.equal(recordResult.state.testimonials[0].approvedForWebsite, true);
+
+  const approvedState = updateTestimonialStatus(recordResult.state, testimonialId, 'approved', '2026-05-14T19:30:00.000Z');
+  const approvedTestimonial = approvedState.testimonials.find((t) => t.id === testimonialId);
+  assert.equal(approvedTestimonial.status, 'approved');
+  assert.equal(approvedTestimonial.approvedForWebsite, true);
+
+  const deniedState = updateTestimonialStatus(approvedState, testimonialId, 'denied', '2026-05-14T19:40:00.000Z');
+  const deniedTestimonial = deniedState.testimonials.find((t) => t.id === testimonialId);
+  assert.equal(deniedTestimonial.status, 'denied');
+  assert.equal(deniedTestimonial.approvedForWebsite, false);
+  assert.equal(deniedTestimonial.approvedForSocial, false);
+});
+

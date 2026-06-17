@@ -10,6 +10,7 @@ const {
   updateSiteContent,
   updateServiceCatalog,
   updateTemplate,
+  updateTestimonialStatus,
 } = require('../lib/musicMakeoverCrm');
 
 module.exports = async function handler(req, res) {
@@ -72,6 +73,8 @@ function applyAction(state, payload) {
       return generateServiceRecommendations(state, payload.consultationId);
     case 'template:update':
       return updateTemplate(state, payload.collection, payload.templateId, payload.patch || {});
+    case 'testimonial:status':
+      return updateTestimonialStatus(state, payload.testimonialId, payload.status);
     case 'state:clear':
       return clearState(state);
     default:

@@ -1,8 +1,13 @@
 (function () {
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', wireTestimonialForms);
+    document.addEventListener('DOMContentLoaded', init);
   } else {
+    init();
+  }
+
+  function init() {
     wireTestimonialForms();
+    loadAndRenderApprovedTestimonials();
   }
 
   function wireTestimonialForms() {
@@ -120,4 +125,65 @@
     element.className = `status-message ${type || ''}${message ? ' is-visible' : ''}`;
     element.textContent = message;
   }
+
+  async function loadAndRenderApprovedTestimonials() {
+    const grid = document.getElementById('dynamic-testimonials-grid');
+    if (!grid) return;
+
+    try {
+      const response = await fetch('/api/public-config');
+      const payload = await response.json();
+      if (!payload.ok || !payload.state || !Array.isArray(payload.state.testimonials)) return;
+
+      const testimonials = payload.state.testimonials;
+      if (testimonials.length === 0) return;
+
+      const cardsHtml = testimonials.map((t) => {
+        const formattedName = formatTestimonialName(t.clientName, t.nameDisplay);
+        const avatarLetter = (formattedName[0] || 'W').toUpperCase();
+        const quote = t.shortQuote || (t.responses && t.responses.considerationQuote) || '';
+        
+        return `
+          <article class="testimonial-card">
+            <blockquote>"${escapeHtml(quote)}"</blockquote>
+            <div class="testimonial-author">
+              <div class="author-avatar">${escapeHtml(avatarLetter)}</div>
+              <div class="author-info">
+                <div class="author-name">${escapeHtml(formattedName)}</div>
+                <div class="author-role">${escapeHtml(t.serviceType || 'Other')}</div>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      grid.insertAdjacentHTML('beforeend', cardsHtml);
+    } catch (error) {
+      console.error('Failed to load dynamic testimonials:', error);
+    }
+  }
+
+  function formatTestimonialName(clientName, nameDisplay) {
+    if (!clientName) return 'Anonymous';
+    const display = String(nameDisplay || '').toLowerCase();
+    if (display === 'anonymous') return 'Anonymous';
+    if (display === 'first name only') {
+      return clientName.split(/\s+/)[0] || 'Anonymous';
+    }
+    if (display === 'initials only') {
+      return clientName.split(/\s+/).map((p) => p[0]).filter(Boolean).join('.').toUpperCase();
+    }
+    return clientName;
+  }
+
+  function escapeHtml(value) {
+    return String(value || '').replace(/[&<>"']/g, (char) => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#039;',
+    }[char]));
+  }
 }());
+

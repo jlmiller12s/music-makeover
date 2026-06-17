@@ -2631,3 +2631,74 @@ body.admin-body {
   border-color: var(--mm-rose, #9f7a64) !important;
   border-style: dashed !important;
 }
+
+/* Testimonial Review Styles */
+.testimonial-review-card {
+  background: var(--mm-paper, #ffffff);
+  border: 1px solid var(--mm-line, #e7e2df);
+  border-radius: var(--mm-radius, 8px);
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: var(--mm-shadow, 0 12px 30px rgba(17, 17, 17, .08));
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.testimonial-review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  border-bottom: 1px dashed var(--mm-line, #e7e2df);
+  padding-bottom: 12px;
+}
+
+.testimonial-review-meta {
+  font-size: 13px;
+  color: var(--mm-muted, #667085);
+  margin-top: 4px;
+}
+
+.testimonial-review-content {
+  color: var(--mm-ink, #171717);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.testimonial-review-content blockquote {
+  font-style: italic;
+  border-left: 3px solid var(--mm-rose, #9f7a64);
+  padding-left: 16px;
+  margin: 12px 0 0;
+  color: var(--mm-ink, #171717);
+}
+
+.testimonial-qa p {
+  margin: 6px 0;
+}
+
+.testimonial-review-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.testimonial-review-actions .btn-approve {
+  background: var(--mm-teal, #087f7b) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 12px rgba(8, 127, 123, 0.25) !important;
+}
+
+.testimonial-review-actions .btn-approve:hover {
+  background: #06625f !important;
+}
+
+.testimonial-review-actions .btn-deny {
+  border-color: #d93838 !important;
+  color: #d93838 !important;
+}
+
+.testimonial-review-actions .btn-deny:hover {
+  background: #fdf2f2 !important;
+}

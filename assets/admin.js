@@ -5,6 +5,7 @@
     activePanel: 'home',
     selectedService: null,
     selectedConsultationId: null,
+    testimonialFilter: 'all',
   };
 
   const siteContentSections = [
@@ -166,6 +167,16 @@
         renderPanels();
       });
     });
+
+    document.querySelectorAll('[data-testimonial-filter]').forEach((button) => {
+      button.addEventListener('click', () => {
+        app.testimonialFilter = button.dataset.testimonialFilter;
+        document.querySelectorAll('[data-testimonial-filter]').forEach((btn) => {
+          btn.classList.toggle('is-active', btn.dataset.testimonialFilter === app.testimonialFilter);
+        });
+        renderTestimonialsReview();
+      });
+    });
   }
 
   function wireDialogs() {
@@ -217,6 +228,7 @@
     renderContacts();
     renderReports();
     renderSettings();
+    renderTestimonialsReview();
   }
 
   function renderPanels() {
@@ -731,6 +743,106 @@
     }[char]));
   }
 
+  function renderTestimonialsReview() {
+    const list = document.getElementById('testimonials-review-list');
+    if (!list) return;
+
+    const testimonials = app.state.testimonials || [];
+    const filtered = testimonials.filter((t) => {
+      if (app.testimonialFilter === 'all') return true;
+      return t.status === app.testimonialFilter;
+    });
+
+    if (filtered.length === 0) {
+      list.innerHTML = `<article class="list-row testimonial-review-card empty-state"><strong>No testimonials found</strong><span>None match the selected filter.</span></article>`;
+      return;
+    }
+
+    list.innerHTML = filtered.map((t) => {
+      const formattedName = formatTestimonialName(t.clientName, t.nameDisplay);
+      const isApproved = t.status === 'approved';
+      const isDenied = t.status === 'denied';
+      const isPending = !isApproved && !isDenied;
+
+      let statusClass = 'gold';
+      let statusLabel = 'Pending Review';
+      if (isApproved) {
+        statusClass = 'teal';
+        statusLabel = 'Approved';
+      } else if (isDenied) {
+        statusClass = 'rose';
+        statusLabel = 'Denied';
+      }
+
+      const isGuest = t.source === 'guest-testimonial-form';
+      
+      let detailsHtml = '';
+      if (isGuest) {
+        detailsHtml = `<blockquote>"${escapeHtml(t.shortQuote || '')}"</blockquote>`;
+      } else {
+        const resp = t.responses || {};
+        detailsHtml = `
+          <div class="testimonial-qa">
+            <p><strong>Challenge/Goal:</strong> ${escapeHtml(resp.challengeGoal || t.challengeGoal || 'N/A')}</p>
+            <p><strong>What Stood Out:</strong> ${escapeHtml(resp.standout || t.standout || 'N/A')}</p>
+            <p><strong>What Improved:</strong> ${escapeHtml(resp.changedImproved || t.changedImproved || 'N/A')}</p>
+            <p><strong>Quote to Share:</strong></p>
+            <blockquote>"${escapeHtml(t.shortQuote || resp.considerationQuote || '')}"</blockquote>
+          </div>
+        `;
+      }
+
+      return `
+        <article class="testimonial-review-card" data-testimonial-id="${t.id}">
+          <div class="testimonial-review-header">
+            <div>
+              <strong style="font-size: 16px;">${escapeHtml(formattedName)}</strong>
+              <div class="testimonial-review-meta">
+                <span>Email: ${escapeHtml(t.email)}</span> | 
+                <span>Service: ${escapeHtml(t.serviceType || 'Other')}</span>
+              </div>
+            </div>
+            <span class="pill ${statusClass}">${statusLabel}</span>
+          </div>
+          <div class="testimonial-review-content">
+            ${detailsHtml}
+          </div>
+          <div class="testimonial-review-actions">
+            ${!isApproved ? `<button class="mm-button btn-approve" data-approve="${t.id}" type="button">Approve</button>` : ''}
+            ${!isDenied ? `<button class="mm-ghost-button btn-deny" data-deny="${t.id}" type="button">Deny</button>` : ''}
+          </div>
+        </article>
+      `;
+    }).join('');
+
+    list.querySelectorAll('[data-approve]').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const id = btn.dataset.approve;
+        await postAction({ action: 'testimonial:status', testimonialId: id, status: 'approved' });
+      });
+    });
+
+    list.querySelectorAll('[data-deny]').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const id = btn.dataset.deny;
+        await postAction({ action: 'testimonial:status', testimonialId: id, status: 'denied' });
+      });
+    });
+  }
+
+  function formatTestimonialName(clientName, nameDisplay) {
+    if (!clientName) return 'Anonymous';
+    const display = String(nameDisplay || '').toLowerCase();
+    if (display === 'anonymous') return 'Anonymous';
+    if (display === 'first name only') {
+      return clientName.split(/\s+/)[0] || 'Anonymous';
+    }
+    if (display === 'initials only') {
+      return clientName.split(/\s+/).map((p) => p[0]).filter(Boolean).join('.').toUpperCase();
+    }
+    return clientName;
+  }
+
   function getAdminToken() {
     return localStorage.getItem('musicMakeoverAdminToken') || sessionStorage.getItem('musicMakeoverAdminToken') || '';
   }
@@ -744,3 +856,4 @@
     return { Authorization: `Bearer ${getAdminToken()}` };
   }
 }());
+

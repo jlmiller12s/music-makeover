@@ -21,8 +21,10 @@ module.exports = async function handler(req, res) {
       appointmentTypes: state.appointmentTypes,
       adminContent: state.adminContent,
       siteContent: state.siteContent,
+      testimonials: (state.testimonials || []).filter(t => t.status === 'approved'),
     },
   });
+
 };
 
 function setHeaders(res) {

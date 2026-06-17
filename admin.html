@@ -30,6 +30,7 @@
         <button type="button" data-panel-target="calendar">Calendar</button>
         <button type="button" data-panel-target="services">Services</button>
         <button type="button" data-panel-target="website-copy">Website Copy</button>
+        <button type="button" data-panel-target="testimonials-review">Testimonials for Review</button>
         <button type="button" data-panel-target="consultations">Consultation Notes</button>
         <button type="button" data-panel-target="recommendations">AI Recommendations</button>
         <button type="button" data-panel-target="files">Files</button>
@@ -140,6 +141,22 @@
               <button class="mm-button" type="submit">Save website copy</button>
             </div>
           </form>
+        </section>
+
+        <section class="admin-panel" data-panel="testimonials-review" hidden>
+          <div class="panel-header">
+            <div>
+              <h2>Testimonials for Review</h2>
+              <p>Approve or deny new testimonials. Approved testimonials will appear on the live website.</p>
+            </div>
+          </div>
+          <div class="panel-filters" style="margin-bottom: 20px; display: flex; gap: 10px;">
+            <button type="button" class="mm-ghost-button filter-btn is-active" data-testimonial-filter="all">All</button>
+            <button type="button" class="mm-ghost-button filter-btn" data-testimonial-filter="submitted">Pending Review</button>
+            <button type="button" class="mm-ghost-button filter-btn" data-testimonial-filter="approved">Approved</button>
+            <button type="button" class="mm-ghost-button filter-btn" data-testimonial-filter="denied">Denied</button>
+          </div>
+          <div id="testimonials-review-list" class="side-stack"></div>
         </section>
 
         <section class="admin-panel" data-panel="consultations" hidden>
