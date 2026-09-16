@@ -100,6 +100,18 @@
     submitted = true;
     clearTimeout(timer); error(''); saved.textContent = '';
     root.innerHTML = window.CheckinSnapshot.render(submission.snapshot, submission.submittedAt, submission.reviewStatus) + '<div class="ci-snapshot-actions"><p class="ci-small">Your Snapshot is saved for Ashley’s review. You can view it in this browser while your session is active, or save a PDF below.</p><button id="print-snapshot" class="ci-secondary" type="button">Print / save as PDF</button></div>';
+    root.insertAdjacentHTML('beforeend', `<section class="ci-feedback ci-card" aria-labelledby="post-clarity-title"><h2 id="post-clarity-title">After seeing your Snapshot…</h2><form id="post-clarity-form">${choices('postClarity', 'How clear are you now about what may be making your work difficult—or easier—to sustain?', ['Not at all clear', 'Slightly clear', 'Somewhat clear', 'Mostly clear', 'Very clear'], submission.postClarity?.value)}<button type="submit" class="ci-button">Save clarity response</button><p id="post-clarity-status" role="status" aria-live="polite">${submission.postClarity ? 'Your clarity response is saved.' : ''}</p></form></section>`);
+    const clarityForm = root.querySelector('#post-clarity-form');
+    clarityForm.addEventListener('change', () => { root.querySelector('#post-clarity-status').textContent = 'Clarity response has unsaved changes.'; });
+    clarityForm.addEventListener('submit', async e => {
+      e.preventDefault(); const button = clarityForm.querySelector('button'); button.disabled = true;
+      const message = root.querySelector('#post-clarity-status'); message.textContent = 'Saving clarity response…';
+      try {
+        await api('clarity', { value: Number(new FormData(clarityForm).get('postClarity')) });
+        message.textContent = 'Your clarity response is saved. Thank you.';
+      } catch (e) { message.textContent = e.message || 'Unable to save. Please try again.'; }
+      finally { button.disabled = false; }
+    });
     const feedback = submission.feedback?.answers || {};
     root.insertAdjacentHTML('beforeend', `<section class="ci-feedback ci-card" aria-labelledby="feedback-title"><h2 id="feedback-title">Before You Move On…</h2><p>Help us strengthen the experience while it’s still fresh.</p><p class="ci-small">These questions are optional and do not affect your results. Your feedback is saved with this assessment for authorized Music Makeover admins.</p><form id="feedback-form">${window.CheckinFeedback.map((item, i) => `<label class="ci-field" for="feedback-${item.id}"><span><strong>${i + 1}. ${esc(item.title)}</strong><br>${esc(item.question)}</span><textarea id="feedback-${item.id}" name="${item.id}" maxlength="3000">${esc(feedback[item.id] || '')}</textarea></label>`).join('')}<button type="submit" class="ci-button">${submission.feedback ? 'Update feedback' : 'Save feedback'}</button><p id="feedback-status" role="status" aria-live="polite">${submission.feedback ? 'Your feedback is saved. Thank you.' : ''}</p></form></section>`);
     const feedbackForm = root.querySelector('#feedback-form');
@@ -121,6 +133,6 @@
     try { clearTimeout(timer); if (data && !submitted) { capture(); await save(); } else await saving.catch(() => {}); await api('logout'); data = null; account = null; submitted = false; renderLogin(); }
     catch (e) { error(e.message); } finally { signOut.disabled = false; }
   });
-  window.addEventListener('beforeunload', e => { if (root.querySelector('#feedback-status')?.textContent === 'Feedback has unsaved changes.' || root.querySelector('#feedback-status')?.textContent === 'Saving feedback…' || saved.textContent === 'Saving…' || saved.textContent.startsWith('Latest changes')) { e.preventDefault(); e.returnValue = ''; } });
+  window.addEventListener('beforeunload', e => { if (root.querySelector('#post-clarity-status')?.textContent === 'Clarity response has unsaved changes.' || root.querySelector('#post-clarity-status')?.textContent === 'Saving clarity response…' || root.querySelector('#feedback-status')?.textContent === 'Feedback has unsaved changes.' || root.querySelector('#feedback-status')?.textContent === 'Saving feedback…' || saved.textContent === 'Saving…' || saved.textContent.startsWith('Latest changes')) { e.preventDefault(); e.returnValue = ''; } });
   load();
 })();

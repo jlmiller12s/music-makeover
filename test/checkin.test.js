@@ -310,3 +310,23 @@ test('post-assessment feedback is isolated, validated and leaves scored answers 
   await service.revoke(own.id,admin);
   await assert.rejects(service.saveFeedback(first.token,answers),{status:401});
 });
+
+test('post-Snapshot clarity requires a completed authorized assessment and does not change scoring or feedback', async () => {
+  const {service,admin}=setup();
+  const session=await service.begin('clarity@example.com','clarity-ip');
+  await assert.rejects(service.saveClarity(session.token,4),{status:409});
+  const original=await service.submit(session.token,input(),[]);
+  await service.saveFeedback(session.token,{feltTrue:'Keep this feedback'});
+  for (const value of [0,6,2.5,'4',null]) await assert.rejects(service.saveClarity(session.token,value),{status:400});
+  await service.saveClarity(session.token,4);
+  const own=await service.participant(session.token);
+  assert.equal(own.submission.postClarity.value,4);
+  assert.deepEqual(own.submission.snapshot,original.snapshot);
+  assert.equal(own.submission.feedback.answers.feltTrue,'Keep this feedback');
+  assert.equal((await service.detail(own.id)).submission.postClarity.value,4);
+  await service.saveClarity(session.token,5);
+  await service.saveFeedback(session.token,{feltTrue:'Updated feedback'});
+  assert.equal((await service.participant(session.token)).submission.postClarity.value,5);
+  await service.revoke(own.id,admin);
+  await assert.rejects(service.saveClarity(session.token,4),{status:401});
+});
