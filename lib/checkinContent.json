@@ -1,0 +1,357 @@
+{
+  "version": "pre-pilot-v1",
+  "domains": [
+    {
+      "id": "connection",
+      "name": "Connection & Support",
+      "items": [
+        {
+          "id": "ConnectionQ1Score",
+          "text": "I have at least one person I trust to bring difficult professional situations to."
+        },
+        {
+          "id": "ConnectionQ2Score",
+          "text": "I have access to people who understand the unique realities of music teaching and leadership."
+        },
+        {
+          "id": "ConnectionQ3Score",
+          "text": "When I need perspective, encouragement, or help thinking through a problem, I know where to go."
+        },
+        {
+          "id": "ConnectionQ4Score",
+          "text": "I feel meaningfully connected to other professionals rather than alone in navigating my work."
+        }
+      ],
+      "profiles": {
+        "Strong": {
+          "meaning": "You appear to have meaningful professional relationships and people you can actually turn to—not simply people you know. You likely have access to perspective, encouragement, and understanding when leadership gets complicated. Protect This: Professional connection is part of your sustainability infrastructure. Don’t wait until you’re struggling to use it.",
+          "reflection": "What relationships are contributing most to your sense of support, and are you intentionally maintaining them?",
+          "pathway": "CONTRIBUTE. Share wisdom, participate in conversations, encourage others, and continue strengthening your own relationships."
+        },
+        "Stable": {
+          "meaning": "You have some meaningful professional support, although it may not consistently meet every need. Perhaps you have people—but not always people who understand music leadership specifically, or you know where to go but don’t always use that support. Strengthen This: Look at the difference between having professional contacts and having usable professional relationships.",
+          "reflection": "When something genuinely difficult happens at work, who do you actually contact?",
+          "pathway": "DEEPEN. Build a few relationships beyond casual interaction."
+        },
+        "Needs Attention": {
+          "meaning": "You may have people around you while still carrying significant parts of music leadership alone. Support may be inconsistent, too general, difficult to access, or missing when situations become complicated. Explore: The question may not be “Do I know people?” but “Do I have people with whom I can actually be honest?”",
+          "reflection": "What are you currently carrying professionally that nobody else really knows about?",
+          "pathway": "CONNECT. Find 2-3 people with relevant experience and begin building trusted relationships."
+        },
+        "Under Strain": {
+          "meaning": "Professional isolation may be creating meaningful strain. You may frequently process difficult situations alone or lack people who understand the specific realities of your work. This does not mean you are incapable of leading independently. It suggests independence may have become isolation.",
+          "reflection": "Where do you currently go when you genuinely don’t know what to do?",
+          "pathway": "BELONG. Your first goal may not be solving your biggest professional problem. It may be building a support system so you no longer have to solve it alone."
+        }
+      }
+    },
+    {
+      "id": "capacity",
+      "name": "Capacity & Workload",
+      "items": [
+        {
+          "id": "CapacityQ1Score",
+          "text": "My responsibilities are manageable within the time, energy, staffing, and resources available to me."
+        },
+        {
+          "id": "CapacityQ2Score",
+          "text": "I have adequate time to plan, prepare, communicate, and complete the behind-the-scenes work my role requires."
+        },
+        {
+          "id": "CapacityQ3Score",
+          "text": "The additional responsibilities surrounding my teaching—performances, events, communication, recruitment, administrative tasks, and other program needs—feel manageable over time."
+        },
+        {
+          "id": "CapacityQ4Score",
+          "text": "I can meet the important demands of my role without routinely relying on excessive personal time or energy."
+        }
+      ],
+      "profiles": {
+        "Strong": {
+          "meaning": "Your current responsibilities appear reasonably aligned with the time, energy, staffing, and resources available to you. Busy seasons may still exist, but overload does not appear to be your normal operating condition.",
+          "reflection": "What systems, resources, boundaries, staffing, or divisions are helping your workload remain manageable?",
+          "pathway": "PROTECT what is working—and share useful practices with others."
+        },
+        "Stable": {
+          "meaning": "Your workload appears generally manageable, although certain seasons or responsibilities may create pressure. You may be functioning well but have specific areas where capacity gets tight.",
+          "reflection": "Which responsibility or season is most likely to push your workload from manageable into overload?",
+          "pathway": "STRENGTHEN systems before high-demand periods expose weak spots."
+        },
+        "Needs Attention": {
+          "meaning": "Your responsibilities may be regularly approaching or exceeding the capacity available to meet them. You may be getting everything done—but at a personal cost that deserves examination. Important Distinction: Completion is not evidence of capacity.",
+          "reflection": "What gets sacrificed when everything gets done? → Sleep? Planning? Family time? Lunch? Quality? Recovery? Your own money? Your emotional availability?",
+          "pathway": "AUDIT Identify what can be eliminated, delegated, systematized, renegotiated, resourced, or done differently."
+        },
+        "Under Strain": {
+          "meaning": "The demands surrounding your role may be significantly exceeding your available capacity. If you’re continually compensating with nights, weekends, personal resources, or chronic overextension, the issue may be larger than productivity.",
+          "reflection": "If you stopped personally compensating for the capacity gap tomorrow, what would no longer get done? → That answer may expose the actual problem.",
+          "pathway": "UNDERSTAND BEFORE OPTIMIZING. Don’t immediately add another productivity strategy. Identify where the capacity mismatch originates."
+        }
+      }
+    },
+    {
+      "id": "voice",
+      "name": "Professional Voice & Agency",
+      "items": [
+        {
+          "id": "VoiceQ1Score",
+          "text": "My professional knowledge and expertise are respected by the people who make decisions affecting my work."
+        },
+        {
+          "id": "VoiceQ2Score",
+          "text": "I have meaningful opportunities to provide input on decisions that affect my students, program, or responsibilities."
+        },
+        {
+          "id": "VoiceQ3Score",
+          "text": "I have enough autonomy to make appropriate professional decisions within my role."
+        },
+        {
+          "id": "VoiceQ4Score",
+          "text": "When decisions outside my control affect my work, I generally understand how and why those decisions were made."
+        }
+      ],
+      "profiles": {
+        "Strong": {
+          "meaning": "You appear to experience meaningful professional respect, autonomy, and opportunity to influence decisions affecting your work. This doesn’t mean you always get your way; it means your expertise has a legitimate place in the conversation.",
+          "reflection": "What has helped establish trust in your professional expertise?",
+          "pathway": "LEVERAGE. Continue building collaborative relationships and use your influence thoughtfully."
+        },
+        "Stable": {
+          "meaning": "You generally experience professional voice and autonomy, although there may be situations where your input arrives late, carries limited weight, or certain decisions feel disconnected from your expertise.",
+          "reflection": "Where do you have meaningful influence—and where does your professional voice become noticeably smaller?",
+          "pathway": "STRENGTHEN communication and stakeholder relationships before problems arise."
+        },
+        "Needs Attention": {
+          "meaning": "You may be responsible for outcomes without having sufficient influence over some of the conditions producing them. That’s worth examining.",
+          "reflection": "What are you currently being held responsible for that you have limited authority or influence over? → Enrollment? Scheduling? Performance expectations? Student placement? Resources?",
+          "pathway": "CLARIFY. Identify where responsibility and authority are misaligned and determine what communication or advocacy is appropriate."
+        },
+        "Under Strain": {
+          "meaning": "You may frequently feel professionally overlooked, excluded from meaningful decisions or unable to influence conditions that directly affect your work. That can create profound professional strain even when you remain highly capable.",
+          "reflection": "Where are decisions being made about your work without meaningful opportunity for your expertise to inform them?",
+          "pathway": "RECLAIM PROFESSIONAL VOICE. Begin with one specific area where clearer communication, documentation, recommendation, or advocacy may increase agency."
+        }
+      }
+    },
+    {
+      "id": "advocacy",
+      "name": "Advocacy Confidence & Safety",
+      "items": [
+        {
+          "id": "AdvocacyQ1Score",
+          "text": "I feel able to raise concerns, ask questions, or express professional disagreement when necessary."
+        },
+        {
+          "id": "AdvocacyQ2Score",
+          "text": "I know how to communicate my program’s needs in ways that are clear, evidence-informed, and professionally appropriate."
+        },
+        {
+          "id": "AdvocacyQ3Score",
+          "text": "I can advocate for myself, my students, or my program without excessive fear of being labeled difficult, negative, or uncooperative."
+        },
+        {
+          "id": "AdvocacyQ4Score",
+          "text": "When I need to advocate, I can identify what I am asking for and communicate a reasonable recommendation or next step."
+        }
+      ],
+      "profiles": {
+        "Strong": {
+          "meaning": "You appear confident identifying needs, raising concerns, communicating recommendations, and advocating professionally. You likely understand that advocacy doesn’t require aggression.",
+          "reflection": "What makes you effective when you need to advocate?",
+          "pathway": "REFINE & CONTRIBUTE. Continue developing strategic advocacy and share effective approaches with others."
+        },
+        "Stable": {
+          "meaning": "You generally know how to advocate, but particular people, situations, or stakes may make doing so more difficult.",
+          "reflection": "What changes when advocacy feels hardest—your confidence, your clarity, the power dynamic, or your perception of safety?",
+          "pathway": "PREPARE. Strengthen the part of your advocacy process that becomes less reliable under pressure."
+        },
+        "Needs Attention": {
+          "meaning": "You may know that something needs to be said while feeling uncertain about what to say, how to say it, when to say it, or what may happen afterward.",
+          "reflection": "Is your greatest barrier to advocacy skill, clarity, confidence, relationship, or safety? That’s critical because those are five different problems.",
+          "pathway": "PREPARE WITH SUPPORT. Use scripts, coaching, peer perspective, evidence, and rehearsal before important conversations."
+        },
+        "Under Strain": {
+          "meaning": "Advocating may currently feel especially difficult or risky. You may avoid raising concerns, second-guess yourself extensively, or fear professional consequences. We should not automatically interpret this as a confidence deficit.",
+          "reflection": "If you knew exactly what to say, would you feel comfortable saying it? If yes , you may primarily need communication tools. If no , we need to explore why speaking feels unsafe.",
+          "pathway": "DISCERN BEFORE ACTING. Clarify the situation, desired outcome, risk, documentation, and available support before deciding how to proceed."
+        }
+      }
+    },
+    {
+      "id": "boundaries",
+      "name": "Boundaries & Recovery",
+      "items": [
+        {
+          "id": "BoundariesQ1Score",
+          "text": "I can set reasonable limits around my work when my capacity has been reached."
+        },
+        {
+          "id": "BoundariesQ2Score",
+          "text": "I can disconnect from work regularly without persistent guilt or anxiety about what I am not doing."
+        },
+        {
+          "id": "BoundariesQ3Score",
+          "text": "My work allows enough opportunity for physical, mental, and emotional recovery between periods of high demand."
+        },
+        {
+          "id": "BoundariesQ4Score",
+          "text": "I can protect important personal time and commitments without work routinely overtaking them."
+        }
+      ],
+      "profiles": {
+        "Strong": {
+          "meaning": "You appear able to establish reasonable limits and recover from the demands of your work. Work may still be intense, but it doesn’t routinely consume everything around it.",
+          "reflection": "Which boundaries or recovery practices are most responsible for keeping your work sustainable?",
+          "pathway": "PROTECT."
+        },
+        "Stable": {
+          "meaning": "You generally maintain reasonable boundaries, although high-demand seasons may erode them.",
+          "reflection": "Which boundary disappears first when work gets busy? There’s your vulnerable point.",
+          "pathway": "FORTIFY that boundary before the next demanding season."
+        },
+        "Needs Attention": {
+          "meaning": "Work may be regularly extending into time or energy needed for recovery. You may also experience guilt when attempting to disconnect.",
+          "reflection": "Is work crossing your boundaries because you haven’t established them—or because your workload makes them difficult to maintain? Again: Different problem, different solution.",
+          "pathway": "DISTINGUISH. Determine whether you need a personal boundary, workload intervention, communication, additional support, or some combination."
+        },
+        "Under Strain": {
+          "meaning": "Your current work pattern may leave insufficient space for meaningful recovery. Chronic availability, excessive after-hours work, emotional carryover, or difficulty protecting personal commitments may be significantly affecting sustainability.",
+          "reflection": "What does your work routinely take from the rest of your life in order to keep functioning?",
+          "pathway": "INTERRUPT THE PATTERN. Identify one recurring demand that needs a boundary, system, resource, conversation, or structural change."
+        }
+      }
+    },
+    {
+      "id": "confidence",
+      "name": "Professional Confidence & Growth",
+      "items": [
+        {
+          "id": "ConfidenceQ1Score",
+          "text": "I feel capable of handling most of the teaching and leadership responsibilities expected of me."
+        },
+        {
+          "id": "ConfidenceQ2Score",
+          "text": "When I encounter something I don’t know how to handle, I can access useful guidance, resources, or expertise."
+        },
+        {
+          "id": "ConfidenceQ3Score",
+          "text": "I can identify areas where I need to grow without interpreting those gaps as evidence that I am inadequate."
+        },
+        {
+          "id": "ConfidenceQ4Score",
+          "text": "I have meaningful opportunities to develop the skills I need for the music leader I am becoming."
+        }
+      ],
+      "profiles": {
+        "Strong": {
+          "meaning": "You appear confident in your professional capability while remaining open to growth. You don’t need to know everything to trust your ability to learn, seek support, and lead effectively.",
+          "reflection": "What expertise do you now possess that an earlier version of you would have desperately needed?",
+          "pathway": "GROW & GIVE. Continue developing—and consider contributing your expertise to others."
+        },
+        "Stable": {
+          "meaning": "You generally feel capable but may have specific areas where confidence or access to development is inconsistent.",
+          "reflection": "What leadership challenge currently makes you feel least equipped?",
+          "pathway": "TARGET. Choose development based on actual need rather than consuming random PD."
+        },
+        "Needs Attention": {
+          "meaning": "You may be questioning your competence more often than your actual experience warrants—or encountering responsibilities for which you genuinely haven’t been adequately prepared. Those are different.",
+          "reflection": "Is the problem “I don’t know how to do this yet” or “I don’t trust myself even when I do know?”",
+          "pathway": "IDENTIFY THE GAP. Skill gap? Get equipped. Confidence gap? Build evidence and perspective. Both? Address both."
+        },
+        "Under Strain": {
+          "meaning": "You may currently feel significantly underprepared, uncertain, or disconnected from opportunities to grow. New responsibilities or difficult conditions may also be causing you to interpret struggle as evidence that you are inadequate.",
+          "reflection": "Which parts of your job make you question whether you’re good at the parts you actually are good at?",
+          "pathway": "SEPARATE IDENTITY FROM SKILL. Identify specific gaps, seek targeted development, and use trusted perspective to distinguish what belongs to you from what belongs to the situation."
+        }
+      }
+    },
+    {
+      "id": "program",
+      "name": "Program Conditions",
+      "items": [
+        {
+          "id": "ProgramQ1Score",
+          "text": "My program’s scheduling and student access conditions allow me to do my work reasonably well."
+        },
+        {
+          "id": "ProgramQ2Score",
+          "text": "The staffing, resources, facilities, and materials available to me are reasonably aligned with what I am expected to accomplish."
+        },
+        {
+          "id": "ProgramQ3Score",
+          "text": "Expectations for my program are generally clear, realistic, and aligned with the support available to meet them."
+        },
+        {
+          "id": "ProgramQ4Score",
+          "text": "I am not routinely required to compensate personally for structural problems in order for my program to function."
+        }
+      ],
+      "profiles": {
+        "Strong": {
+          "meaning": "The structural conditions around your program appear reasonably aligned with what you’re expected to accomplish. Scheduling, access, staffing, resources, facilities, and expectations are generally supporting rather than obstructing the work.",
+          "reflection": "Which program conditions are most responsible for making your work possible?",
+          "pathway": "PROTECT & DOCUMENT what works so healthy conditions aren’t taken for granted."
+        },
+        "Stable": {
+          "meaning": "Your program conditions generally support the work, although particular structures may create recurring friction.",
+          "reflection": "Which structural issue creates the most unnecessary work for you?",
+          "pathway": "IMPROVE one friction point before it becomes chronic strain."
+        },
+        "Needs Attention": {
+          "meaning": "One or more program conditions may be making your job substantially harder than it needs to be. You may find yourself repeatedly compensating for scheduling, staffing, resources, facilities, access, or unclear expectations.",
+          "reflection": "What problem are you currently solving over and over because the underlying condition hasn’t changed?",
+          "pathway": "ROOT-CAUSE. Stop treating the recurring symptom as a series of unrelated emergencies."
+        },
+        "Under Strain": {
+          "meaning": "Structural conditions may be significantly undermining your ability to lead the program sustainably. This is where we have to resist: “What can YOU do better?” Some problems are genuinely structural.",
+          "reflection": "Which condition, if changed, would create the greatest improvement in your ability to lead well? Then: Is that condition within your control, influence, or outside both?",
+          "pathway": "STRATEGIZE. Identify the highest-leverage condition and determine whether the appropriate response is systems change, advocacy, support, adaptations, documentation—or recognition of a limitation you cannot personally solve."
+        }
+      }
+    },
+    {
+      "id": "sustainability",
+      "name": "Personal Sustainability",
+      "items": [
+        {
+          "id": "SustainabilityQ1Score",
+          "text": "The way I am currently working feels sustainable beyond just getting through this semester or school year."
+        },
+        {
+          "id": "SustainabilityQ2Score",
+          "text": "I can show up for my work with a level of energy and engagement that feels healthy and maintainable."
+        },
+        {
+          "id": "SustainabilityQ3Score",
+          "text": "My current way of leading allows me to do meaningful work without consistently sacrificing too much of myself to do it."
+        },
+        {
+          "id": "SustainabilityQ4Score",
+          "text": "I can imagine continuing in music leadership without needing to become increasingly depleted in order to succeed."
+        }
+      ],
+      "profiles": {
+        "Strong": {
+          "meaning": "Your current way of leading appears sustainable beyond merely surviving the immediate season. You can imagine continuing meaningful work without increasing levels of depletion.",
+          "reflection": "What’s making this season sustainable—and what must remain true for it to stay that way?",
+          "pathway": "PRESERVE & GROW."
+        },
+        "Stable": {
+          "meaning": "Your work generally feels sustainable, but certain patterns may become problematic if they continue to intensify.",
+          "reflection": "What would have to get worse for this to stop feeling sustainable? That’s an early-warning indicator.",
+          "pathway": "PREVENT. Address emerging pressure before it becomes a crisis."
+        },
+        "Needs Attention": {
+          "meaning": "Something about your current way of working may be difficult to imagine maintaining indefinitely. You may still be functioning effectively while sensing that this cannot become the permanent version of the job.",
+          "reflection": "Finish this sentence: “I can keep doing this for now, but I cannot keep __________.”",
+          "pathway": "NAME THE UNSUSTAINABLE PART. Then trace it back to the dimension most connected to it."
+        },
+        "Under Strain": {
+          "meaning": "Your responses suggest your current way of leading may feel difficult to sustain over time. That doesn’t automatically mean: quit, change careers, you’re burned out, or your school is toxic. It means something deserves honest attention.",
+          "reflection": "“I still want _______, but I cannot continue _________.” That separates what they still value from what needs to change.",
+          "pathway": "DON’T CARRY THIS ALONE. Use the rest of your Sustainability Snapshot to identify what’s contributing most to the strain and determine your next supported step."
+        }
+      }
+    }
+  ]
+}

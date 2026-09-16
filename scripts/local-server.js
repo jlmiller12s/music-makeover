@@ -8,6 +8,7 @@ const inquiriesHandler = require('../api/inquiries');
 const testimonialsHandler = require('../api/testimonials');
 const portalPreviewHandler = require('../api/portal-preview');
 const publicConfigHandler = require('../api/public-config');
+const checkinHandler = require('../api/checkin');
 
 const root = path.resolve(__dirname, '..');
 const port = Number(process.env.PORT || 3000);
@@ -37,6 +38,7 @@ const server = http.createServer(async (req, res) => {
     if (pathname === '/api/testimonials') return testimonialsHandler(req, res);
     if (pathname === '/api/portal-preview') return portalPreviewHandler(req, res);
     if (pathname === '/api/public-config') return publicConfigHandler(req, res);
+    if (pathname === '/api/checkin') return checkinHandler(req, res);
     const filePath = resolveStaticPath(pathname);
     const data = await fs.readFile(filePath);
     res.statusCode = 200;
@@ -56,10 +58,13 @@ server.listen(port, () => {
 function resolveStaticPath(pathname) {
   let clean = decodeURIComponent(pathname).replace(/^\/+/, '');
   if (!clean) clean = 'index.html';
+  if (/(^|\/)(\.|lib\/|scripts\/|test\/|node_modules\/|api\/|tmp\/)/.test(clean)) {
+    const error = new Error('Not found'); error.code = 'ENOENT'; throw error;
+  }
   if (!path.extname(clean)) clean = `${clean}.html`;
 
   const resolved = path.resolve(root, clean);
-  if (!resolved.startsWith(root)) {
+  if (!resolved.startsWith(root + path.sep)) {
     const error = new Error('Invalid path');
     error.code = 'ENOENT';
     throw error;

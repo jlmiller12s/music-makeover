@@ -8,6 +8,7 @@
   <link rel="icon" href="media/music-makeover-logo.png" type="image/png">
   <link rel="stylesheet" href="assets/styles.css?v=2">
   <link rel="stylesheet" href="assets/crm.css?v=2">
+  <link rel="stylesheet" href="assets/checkin.css">
 </head>
 
 <body class="admin-body">
@@ -31,6 +32,7 @@
         <button type="button" data-panel-target="services">Services</button>
         <button type="button" data-panel-target="website-copy">Website Copy</button>
         <button type="button" data-panel-target="testimonials-review">Testimonials for Review</button>
+        <button type="button" data-panel-target="sustainability">Sustainability Check-Ins</button>
         <button type="button" data-panel-target="consultations">Consultation Notes</button>
         <button type="button" data-panel-target="recommendations">AI Recommendations</button>
         <button type="button" data-panel-target="files">Files</button>
@@ -93,6 +95,12 @@
               </section>
             </aside>
           </div>
+        </section>
+
+        <section class="admin-panel ci-admin" data-panel="sustainability" hidden>
+          <div class="panel-header"><div><h2>Sustainability Check-Ins</h2><p>Approve participants, review their Snapshots, and prepare for your conversation.</p></div></div>
+          <div id="checkin-admin"><p>Select this section to load participant records.</p></div>
+          <p id="checkin-admin-status" class="ci-admin-status" role="status" aria-live="polite"></p>
         </section>
 
         <section class="admin-panel" data-panel="pipeline" hidden>
@@ -461,6 +469,8 @@
   </dialog>
 
   <script src="assets/admin.js?v=2"></script>
+  <script src="assets/checkin-snapshot.js"></script>
+  <script src="assets/checkin-admin.js"></script>
 </body>
 
 </html>
