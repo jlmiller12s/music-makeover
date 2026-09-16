@@ -22,3 +22,5 @@
 .ci-quick-results{scroll-margin-top:90px}.ci-quick-results h2{font-size:30px;margin-bottom:12px}.ci-quick-results h3{margin:0 0 10px}.ci-quick-results .ci-notice p{margin:0 0 12px}.ci-quick-results table{font-size:16px}.ci-quick-results caption{text-align:left;color:var(--ci-muted);margin-bottom:12px}.ci-quick-reflection{white-space:pre-wrap;overflow-wrap:anywhere}.ci-full-snapshot>summary{font-size:18px;font-weight:600;padding:18px 0}
 
 .ci-feedback{margin-top:48px}.ci-feedback .ci-field{margin-top:28px}.ci-feedback textarea{min-height:120px}.ci-feedback .ci-field>span{font-size:18px;line-height:1.65}
+
+.ci-feedback .ci-feedback-question{margin:36px 0 0;padding:28px 0 8px;border-top:1px solid var(--ci-line)}.ci-feedback-question>span{font-weight:400}.ci-feedback-question>span>strong{display:inline-block;color:#805c49;font-size:21px;margin-bottom:12px;line-height:1.35}.ci-feedback-question textarea{margin-top:16px}.ci-feedback-note{max-width:760px;line-height:1.7}#feedback-form>button{margin-top:28px}.ci-notice>p:first-child{margin-top:0}.ci-notice>p:last-child{margin-bottom:0}

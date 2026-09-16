@@ -290,10 +290,10 @@ test('Postgres mutation takes a row lock, commits changes and rolls back failed 
 test('post-assessment feedback is isolated, validated and leaves scored answers unchanged', async () => {
   const {service, admin, outbox}=setup();
   const first=await service.begin('feedback@example.com','feedback-ip');
-  await assert.rejects(service.saveFeedback(first.token,{feltTrue:'Too early'}),{status:409});
+  await assert.rejects(service.saveFeedback(first.token,{feltTrue:'Too early',missing:'Nothing comes to mind',unclear:'Nothing comes to mind',clearer:'Nothing comes to mind'}),{status:409});
   const original=await service.submit(first.token,input(),['admin@example.com']);
   const count=outbox.length;
-  const answers={feltTrue:'Accurate <script>literal</script>',missing:'Resources',unclear:'',clearer:'Workload'};
+  const answers={feltTrue:'Accurate <script>literal</script>',missing:'Resources',unclear:'Nothing comes to mind',clearer:'Workload'};
   await service.saveFeedback(first.token,answers);
   const own=await service.participant(first.token);
   assert.deepEqual(own.submission.feedback.answers,answers);
@@ -304,7 +304,7 @@ test('post-assessment feedback is isolated, validated and leaves scored answers 
   await assert.rejects(service.saveFeedback(other.token,answers),{status:409});
   await assert.rejects(service.saveFeedback(first.token,{feltTrue:'a'.repeat(3001)}),{status:400});
   await assert.rejects(service.saveFeedback(first.token,{missing:42}),{status:400});
-  await service.saveFeedback(first.token,{feltTrue:'Updated'});
+  await service.saveFeedback(first.token,{feltTrue:'Updated',missing:'Nothing comes to mind',unclear:'Nothing comes to mind',clearer:'Nothing comes to mind'});
   assert.equal((await service.participant(first.token)).submission.feedback.answers.feltTrue,'Updated');
   assert.equal(outbox.length,count);
   await service.revoke(own.id,admin);
@@ -316,7 +316,7 @@ test('post-Snapshot clarity requires a completed authorized assessment and does 
   const session=await service.begin('clarity@example.com','clarity-ip');
   await assert.rejects(service.saveClarity(session.token,4),{status:409});
   const original=await service.submit(session.token,input(),[]);
-  await service.saveFeedback(session.token,{feltTrue:'Keep this feedback'});
+  await service.saveFeedback(session.token,{feltTrue:'Keep this feedback',missing:'Nothing comes to mind',unclear:'Nothing comes to mind',clearer:'Nothing comes to mind'});
   for (const value of [0,6,2.5,'4',null]) await assert.rejects(service.saveClarity(session.token,value),{status:400});
   await service.saveClarity(session.token,4);
   const own=await service.participant(session.token);
@@ -325,8 +325,27 @@ test('post-Snapshot clarity requires a completed authorized assessment and does 
   assert.equal(own.submission.feedback.answers.feltTrue,'Keep this feedback');
   assert.equal((await service.detail(own.id)).submission.postClarity.value,4);
   await service.saveClarity(session.token,5);
-  await service.saveFeedback(session.token,{feltTrue:'Updated feedback'});
+  await service.saveFeedback(session.token,{feltTrue:'Updated feedback',missing:'Nothing comes to mind',unclear:'Nothing comes to mind',clearer:'Nothing comes to mind'});
   assert.equal((await service.participant(session.token)).submission.postClarity.value,5);
   await service.revoke(own.id,admin);
   await assert.rejects(service.saveClarity(session.token,4),{status:401});
+});
+
+test('opening reflections are required on completion but incomplete drafts remain saveable', () => {
+  for (const field of ['heaviest','hope']) for (const value of ['', '   ', '\n']) {
+    const payload={...input(),[field]:value};
+    assert.throws(()=>validateInput(payload),/both opening reflections/);
+    assert.doesNotThrow(()=>validateInput(payload,false));
+  }
+  assert.equal(questionnaire().outlookLabels[0],'Significant sustainability concern');
+});
+test('all four feedback responses must contain text', async () => {
+  const {service}=setup(); const session=await service.begin('required@example.com','required-ip');
+  await service.submit(session.token,input(),[]);
+  const complete={feltTrue:'Nothing comes to mind',missing:'Nothing comes to mind',unclear:'Nothing comes to mind',clearer:'Nothing comes to mind'};
+  for (const key of Object.keys(complete)) for (const value of ['', '  ', undefined]) {
+    await assert.rejects(service.saveFeedback(session.token,{...complete,[key]:value}),{status:400});
+  }
+  await service.saveFeedback(session.token,complete);
+  assert.deepEqual((await service.participant(session.token)).submission.feedback.answers,complete);
 });
