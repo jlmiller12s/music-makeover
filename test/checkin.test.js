@@ -286,3 +286,27 @@ test('Postgres mutation takes a row lock, commits changes and rolls back failed 
   await assert.rejects(store.mutate('account:a@example.com', () => { throw new Error('fail'); }));
   assert.ok(calls.some(c => c.sql === 'ROLLBACK'));
 });
+
+test('post-assessment feedback is isolated, validated and leaves scored answers unchanged', async () => {
+  const {service, admin, outbox}=setup();
+  const first=await service.begin('feedback@example.com','feedback-ip');
+  await assert.rejects(service.saveFeedback(first.token,{feltTrue:'Too early'}),{status:409});
+  const original=await service.submit(first.token,input(),['admin@example.com']);
+  const count=outbox.length;
+  const answers={feltTrue:'Accurate <script>literal</script>',missing:'Resources',unclear:'',clearer:'Workload'};
+  await service.saveFeedback(first.token,answers);
+  const own=await service.participant(first.token);
+  assert.deepEqual(own.submission.feedback.answers,answers);
+  assert.deepEqual(own.submission.snapshot,original.snapshot);
+  assert.deepEqual((await service.detail(own.id)).submission.feedback.answers,answers);
+  const other=await service.begin('feedback@example.com','feedback-ip-2');
+  assert.equal((await service.participant(other.token)).submission,null);
+  await assert.rejects(service.saveFeedback(other.token,answers),{status:409});
+  await assert.rejects(service.saveFeedback(first.token,{feltTrue:'a'.repeat(3001)}),{status:400});
+  await assert.rejects(service.saveFeedback(first.token,{missing:42}),{status:400});
+  await service.saveFeedback(first.token,{feltTrue:'Updated'});
+  assert.equal((await service.participant(first.token)).submission.feedback.answers.feltTrue,'Updated');
+  assert.equal(outbox.length,count);
+  await service.revoke(own.id,admin);
+  await assert.rejects(service.saveFeedback(first.token,answers),{status:401});
+});

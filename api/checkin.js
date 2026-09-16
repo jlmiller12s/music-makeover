@@ -39,6 +39,7 @@ function makeHandler(deps = {}) {
         return respond(200, { ok: true });
       }
       if (payload.action === 'draft') return respond(200, { ok: true, ...await service.saveDraft(token, payload.input) });
+      if (payload.action === 'feedback') return respond(200, { ok: true, feedback: await service.saveFeedback(token, payload.input) });
       if (payload.action === 'submit') return respond(200, { ok: true, submission: await service.submit(token, payload.input, await adminEmails(deps)) });
       const admin = await requireAdmin(req, deps);
       switch (payload.action) {
