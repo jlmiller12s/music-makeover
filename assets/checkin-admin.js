@@ -29,7 +29,7 @@
   }
   function table() {
     const visible = participants.filter(p => !filter || (filter === 'not-submitted' ? !p.submittedAt : p.reviewStatus === filter));
-    root.querySelector('#participant-table').innerHTML = visible.length ? `<table><thead><tr><th><input type="checkbox" id="select-visible-participants" aria-label="Select all participants in the current filter"></th><th>Participant</th><th>Access</th><th>Check-in</th><th>Review</th><th>Actions</th></tr></thead><tbody>${visible.map(p => `<tr><td><input type="checkbox" data-select="${esc(p.id)}" aria-label="Select ${esc(p.email)}" ${selected.has(p.id) ? 'checked' : ''}></td><td>${esc(p.email)}</td><td>${p.active ? 'Active' : 'Revoked'}</td><td>${p.submittedAt ? esc(new Date(p.submittedAt).toLocaleDateString()) : p.started ? 'In progress' : 'Not started'}</td><td>${p.reviewStatus === 'reviewed' ? 'Reviewed' : p.submittedAt ? 'Awaiting review' : '—'}${p.notification === 'failed' ? '<br>Email notification failed' : ''}</td><td>${p.submittedAt ? `<button class="ci-secondary" type="button" data-open="${esc(p.id)}">Review</button> ` : ''}<button class="text-button" type="button" data-access="${esc(p.id)}" data-active="${p.active}" ${p.active ? '' : 'disabled'}>${p.active ? 'Revoke session' : 'Session revoked'}</button>${canResetPreview ? ` <button class="text-button" type="button" data-reset="${esc(p.id)}">Reset preview test</button>` : ''}</td></tr>`).join('')}</tbody></table>` : '<p>No participants in this view yet.</p>';
+    root.querySelector('#participant-table').innerHTML = visible.length ? `<table><thead><tr><th><input type="checkbox" id="select-visible-participants" aria-label="Select all participants in the current filter"></th><th>Participant</th><th>Access</th><th>Check-in</th><th>Review</th><th>Actions</th></tr></thead><tbody>${visible.map(p => `<tr><td><input type="checkbox" data-select="${esc(p.id)}" aria-label="Select ${esc(p.email)}" ${selected.has(p.id) ? 'checked' : ''}></td><td>${esc(p.email)}</td><td>${p.active ? 'Active' : 'Revoked'}</td><td>${p.submittedAt ? esc(new Date(p.submittedAt).toLocaleDateString()) : p.started ? 'In progress' : 'Not started'}</td><td>${p.reviewStatus === 'reviewed' ? 'Reviewed' : p.submittedAt ? 'Awaiting review' : '—'}${p.notification === 'failed' ? '<br>Email notification failed' : ''}</td><td>${p.submittedAt ? `<button class="ci-secondary" type="button" data-results="${esc(p.id)}">View Results</button> <button class="ci-secondary" type="button" data-open="${esc(p.id)}">Review</button> ` : ''}<button class="text-button" type="button" data-access="${esc(p.id)}" data-active="${p.active}" ${p.active ? '' : 'disabled'}>${p.active ? 'Revoke session' : 'Session revoked'}</button>${canResetPreview ? ` <button class="text-button" type="button" data-reset="${esc(p.id)}">Reset preview test</button>` : ''}</td></tr>`).join('')}</tbody></table>` : '<p>No participants in this view yet.</p>';
     root.querySelectorAll('[data-select]').forEach(box => box.addEventListener('change', () => {
       if (box.checked) selected.add(box.dataset.select); else selected.delete(box.dataset.select);
       selectionState();
@@ -48,6 +48,7 @@
       try { await api('admin:reset-preview', { email: b.dataset.reset }); await list(); message('Preview test reset. Enter your email to start a fresh assessment.'); }
       catch (e) { message(e.message); b.disabled = false; }
     }));
+    root.querySelectorAll('[data-results]').forEach(b => b.addEventListener('click', () => detail(b.dataset.results, true)));
     root.querySelectorAll('[data-open]').forEach(b => b.addEventListener('click', () => detail(b.dataset.open)));
     root.querySelectorAll('[data-access]').forEach(b => b.addEventListener('click', async () => {
       b.disabled = true;
@@ -83,7 +84,7 @@
       selectionState(); message(e.message);
     }
   }
-  async function detail(address) {
+  async function detail(address, showResults = false) {
     message('Loading participant…');
     try {
       const { participant } = await api(null, {}, `?admin=1&email=${encodeURIComponent(address)}`);
@@ -102,6 +103,12 @@
         try { const result = await api('admin:notify', { email: address }); message(result.sent ? 'Admin notification sent.' : 'Notification failed. Check the email configuration.'); }
         catch (e) { message(e.message); } finally { e.target.disabled = false; }
       });
+      if (showResults) {
+        const snapshot = root.querySelector('.ci-snapshot');
+        const heading = snapshot?.querySelector('h1');
+        if (heading) { heading.setAttribute('tabindex', '-1'); heading.focus({ preventScroll: true }); }
+        snapshot?.scrollIntoView({ block: 'start' });
+      }
       message('Participant Snapshot and original responses loaded.');
     } catch (e) { message(e.message); }
   }
