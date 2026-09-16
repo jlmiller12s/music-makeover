@@ -119,6 +119,56 @@ test('100 participants remain separate under concurrent submissions', async () =
   assert.equal((await f.service.list()).filter(a => a.submittedAt).length, 100);
 });
 
+test('any email can begin without approval or email delivery, with independent private attempts', async () => {
+  const f = setup();
+  const open = createCheckinService({ store: f.store, emailReady: () => false, sendEmail: async () => { throw new Error('No email should be sent to begin'); } });
+  const first = await open.begin('new@example.com', 'ip');
+  await open.saveDraft(first.token, input());
+  const second = await open.begin('new@example.com', 'ip');
+  const a = await open.participant(first.token); const b = await open.participant(second.token);
+  assert.notEqual(a.id, b.id); assert.equal(b.draft, null); assert.equal(b.submission, null);
+  assert.ok(a.draft); assert.equal(b.email, 'new@example.com');
+  await assert.rejects(open.participant(`${first.token.split('.')[0]}.${second.token.split('.')[1]}`), e => e.status === 401);
+  await open.deleteParticipants([a.id]);
+  await assert.rejects(open.participant(first.token), e => e.status === 401);
+  assert.equal((await open.participant(second.token)).id, b.id);
+  await open.submit(second.token, input(3), ['admin@example.com']);
+  await open.review(b.id, 'Private note for this attempt', 'reviewed', f.admin);
+  assert.equal((await open.detail(b.id)).submission.review.notes, 'Private note for this attempt');
+  assert.equal((await open.participant(second.token)).submission.reviewStatus, 'reviewed');
+  await assert.rejects(open.begin('not-an-email', 'ip'), /valid email/);
+});
+
+test('started and completed API notifications use only the two requested recipients', async () => {
+  const f = setup(); let startedRecipients, completedRecipients;
+  const handler = makeHandler({ service: { ...f.service,
+    begin: async (_email, _ip, recipients) => { startedRecipients = recipients; return { token: 'test-token' }; },
+    submit: async (_token, _input, recipients) => { completedRecipients = recipients; return {}; }
+  }, loadAuthState: async () => { throw new Error('Recipient list must not come from stored admins'); } });
+  const headers = { origin: 'http://localhost:3000', 'content-type': 'application/json' };
+  assert.equal((await request(handler, { method: 'POST', headers, body: { action: 'begin', email: 'new@example.com' } })).status, 200);
+  assert.equal((await request(handler, { method: 'POST', headers, body: { action: 'submit', input: input() } })).status, 200);
+  assert.deepEqual(startedRecipients, ['themusicmakeover@gmail.com', 'jlmiller12s@gmail.com']);
+  assert.deepEqual(completedRecipients, startedRecipients);
+});
+
+test('begin sends a started notification and tolerates failed delivery', async () => {
+  const f = setup(); const recipients = ['themusicmakeover@gmail.com', 'jlmiller12s@gmail.com'];
+  await f.service.begin('new@example.com', 'ip', recipients);
+  assert.deepEqual(f.outbox[0].to, recipients); assert.match(f.outbox[0].subject, /started/);
+  const broken = createCheckinService({ store: f.store, sendEmail: async () => { throw new Error('provider unavailable'); } });
+  const session = await broken.begin('other@example.com', 'ip', recipients);
+  assert.equal((await broken.participant(session.token)).email, 'other@example.com');
+});
+
+test('email entry never reveals an existing completed legacy assessment', async () => {
+  const f = setup(); const legacy = await f.login();
+  await f.service.submit(legacy.token, input(), ['admin@example.com']);
+  const fresh = await f.service.begin('one@example.com', 'ip');
+  assert.equal((await f.service.participant(fresh.token)).submission, null);
+  assert.ok((await f.service.participant(legacy.token)).submission);
+});
+
 test('bulk deletion removes selected records and sessions without touching others', async () => {
   const f = setup(); const first = await f.login(); const second = await f.login('two@example.com', 'ip2'); const kept = await f.login('keep@example.com', 'ip3');
   await f.service.submit(first.token, input(), ['admin@example.com']);
@@ -186,11 +236,11 @@ test('HTTP API rejects unauthenticated access, cross-origin writes and oversized
   headers.origin = 'http://localhost:3000';
   assert.equal((await request(handler, { method: 'POST', body: { data: 'x'.repeat(33000) }, headers })).status, 413);
 });
-test('HTTP login sets HttpOnly scoped cookie and never returns session token in JSON', async () => {
+test('email entry sets HttpOnly scoped cookie and never returns session token in JSON', async () => {
   const f = setup(); await f.service.allow(['one@example.com'], f.admin); await f.service.requestCode('one@example.com','ip1');
   const code = f.outbox.at(-1).text.match(/\b\d{8}\b/)[0];
   const handler = makeHandler({ service: f.service });
-  const result = await request(handler, { method: 'POST', headers: { origin: 'https://localhost:3000', 'content-type': 'application/json', 'x-forwarded-proto': 'https' }, body: { action: 'verify-code', email: 'one@example.com', code } });
+  const result = await request(handler, { method: 'POST', headers: { origin: 'https://localhost:3000', 'content-type': 'application/json', 'x-forwarded-proto': 'https' }, body: { action: 'begin', email: 'one@example.com' } });
   assert.equal(result.status, 200); assert.equal(result.body.token, undefined);
   assert.match(result.headers['Set-Cookie'], /HttpOnly; SameSite=Strict; Path=\/api\/checkin; Max-Age=43200; Secure/);
   assert.equal(result.headers['Cache-Control'], 'private, no-store');

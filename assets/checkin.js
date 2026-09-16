@@ -16,8 +16,8 @@
   async function load() {
     try {
       account = await api(); q = account.questionnaire;
-      if (dataEmail !== account.email) data = null;
-      dataEmail = account.email;
+      if (dataEmail !== account.id) data = null;
+      dataEmail = account.id;
       signOut.hidden = false;
       if (account.submission) return showSnapshot(account.submission);
       data = data || account.draft || { answers: {}, step: 0, heaviest: '', hope: '', consent: false };
@@ -25,16 +25,15 @@
       render();
     } catch (e) { renderLogin(); if (e.status !== 401) error(e.message); }
   }
-  function renderLogin(code = false) {
+  function renderLogin() {
     signOut.hidden = true; saved.textContent = ''; error('');
-    root.innerHTML = `<div class="ci-intro-grid"><section class="ci-intro-copy"><p class="ci-kicker">For the person behind the music</p><h1 class="ci-title" tabindex="-1">Meaningful work.<br><em>A sustainable way<br>to keep doing it.</em></h1><p class="ci-lead">A little space to check in with yourself—and notice what music leadership feels like right now.</p><hr class="ci-rule"><p class="ci-detail">The Music Leader Sustainability Check-In™ is a guided reflection. There is no passing, failing, or perfect answer.</p><div class="ci-facts"><div><strong>32</strong><span>statements</span></div><div><strong>8</strong><span>areas of your work</span></div><div><strong>Your</strong><span>personal Snapshot</span></div></div></section><section class="ci-card"><p class="ci-kicker">An invitation to pause</p><h2>${code ? 'Check your inbox.' : 'Welcome to your check-in.'}</h2><p>${code ? `If ${esc(loginEmail)} is approved, you’ll receive an eight-digit code. It is valid for 10 minutes. Check your spam folder, too.` : 'This pre-pilot is available by invitation. Use the email address Ashley approved to receive a sign-in code.'}</p><form id="login-form"><label class="ci-field"><span>${code ? 'Sign-in code' : 'Your approved email address'}</span><input id="login-value" ${code ? 'type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{8}" maxlength="8"' : 'type="email" autocomplete="email" maxlength="254"'} required value="${code ? '' : esc(loginEmail)}"></label><button class="ci-button ci-wide" type="submit">${code ? 'Open my check-in' : 'Email me a sign-in code'} <span aria-hidden="true">→</span></button></form>${code ? '<button class="text-button" id="resend" type="button">Request another code or use a different email</button>' : ''}<hr class="ci-rule"><p class="ci-small">Your responses and Snapshot are available to you and authorized Music Makeover admins, including Ashley. They are not published on the website.</p></section></div>`;
-    root.querySelector('#resend')?.addEventListener('click', () => renderLogin());
+    root.innerHTML = `<div class="ci-intro-grid"><section class="ci-intro-copy"><p class="ci-kicker">For the person behind the music</p><h1 class="ci-title" tabindex="-1">Meaningful work.<br><em>A sustainable way<br>to keep doing it.</em></h1><p class="ci-lead">A little space to check in with yourself—and notice what music leadership feels like right now.</p><hr class="ci-rule"><p class="ci-detail">The Music Leader Sustainability Check-In™ is a guided reflection. There is no passing, failing, or perfect answer.</p><div class="ci-facts"><div><strong>32</strong><span>statements</span></div><div><strong>8</strong><span>areas of your work</span></div><div><strong>Your</strong><span>personal Snapshot</span></div></div></section><section class="ci-card"><p class="ci-kicker">An invitation to pause</p><h2>Input email to begin.</h2><p>Enter your email to start your assessment.</p><form id="login-form"><label class="ci-field"><span>Email address</span><input id="login-value" type="email" autocomplete="email" maxlength="254" required value="${esc(loginEmail)}"></label><button class="ci-button ci-wide" type="submit">Begin assessment <span aria-hidden="true">→</span></button></form><hr class="ci-rule"><p class="ci-small">Your email connects this assessment to your responses for Ashley’s review. Your responses and Snapshot are available to you in this browser and to authorized Music Makeover admins. They are not published on the website.</p></section></div>`;
     root.querySelector('#login-form').addEventListener('submit', async e => {
       e.preventDefault(); const button = e.target.querySelector('button'); button.disabled = true; error('');
       try {
-        if (!code) { loginEmail = root.querySelector('#login-value').value.trim(); await api('request-code', { email: loginEmail }); renderLogin(true); }
-        else { await api('verify-code', { email: loginEmail, code: root.querySelector('#login-value').value.trim() }); await load(); }
-        focusTitle();
+        loginEmail = root.querySelector('#login-value').value.trim();
+        await api('begin', { email: loginEmail }); data = null; submitted = false;
+        await load(); focusTitle();
       } catch (e) { error(e.message); button.disabled = false; }
     });
   }
@@ -44,7 +43,7 @@
   function render() {
     error('');
     if (step === 0) {
-      root.innerHTML = `<div class="ci-intro-grid"><section class="ci-intro-copy"><p class="ci-kicker">Music Leader Sustainability Check-In™</p><h1 class="ci-title" tabindex="-1">Begin where<br><em>you actually are.</em></h1><p class="ci-lead">Not where you think you should be. Not what you can push through. Your experience, right now.</p><hr class="ci-rule"><p class="ci-detail">You’ll reflect on eight areas of music leadership, then see a Snapshot of the conditions supporting you and the pressures you may be carrying.</p></section><section class="ci-card"><h2>A few things before we begin.</h2><p>Answer each statement on a 1–5 scale. All 32 statements are required; written reflections are optional. You can go back and change answers before submitting.</p><p>This is an exploratory pre-pilot, not an employee evaluation or a clinical assessment. Your responses are saved as you go, so you can return using the same email.</p><p>You’ll see your results immediately. Ashley will review them with you later, with room for the context a form cannot fully capture.</p><form id="welcome-form"><label class="ci-consent"><input type="checkbox" id="consent" required ${data.consent ? 'checked' : ''}><span>I understand that my responses will be stored for this pre-pilot and can be reviewed by authorized Music Makeover admins, including Ashley.</span></label><button class="ci-button ci-wide" type="submit">Begin my check-in <span aria-hidden="true">→</span></button></form></section></div>`;
+      root.innerHTML = `<div class="ci-intro-grid"><section class="ci-intro-copy"><p class="ci-kicker">Music Leader Sustainability Check-In™</p><h1 class="ci-title" tabindex="-1">Begin where<br><em>you actually are.</em></h1><p class="ci-lead">Not where you think you should be. Not what you can push through. Your experience, right now.</p><hr class="ci-rule"><p class="ci-detail">You’ll reflect on eight areas of music leadership, then see a Snapshot of the conditions supporting you and the pressures you may be carrying.</p></section><section class="ci-card"><h2>A few things before we begin.</h2><p>Answer each statement on a 1–5 scale. All 32 statements are required; written reflections are optional. You can go back and change answers before submitting.</p><p>This is an exploratory pre-pilot, not an employee evaluation or a clinical assessment. Your responses are saved as you go, so you can return in this browser while your session is active. Starting again with an email creates a new assessment.</p><p>You’ll see your results immediately. Ashley will review them with you later, with room for the context a form cannot fully capture.</p><form id="welcome-form"><label class="ci-consent"><input type="checkbox" id="consent" required ${data.consent ? 'checked' : ''}><span>I understand that my responses will be stored for this pre-pilot and can be reviewed by authorized Music Makeover admins, including Ashley.</span></label><button class="ci-button ci-wide" type="submit">Begin my check-in <span aria-hidden="true">→</span></button></form></section></div>`;
       root.querySelector('#welcome-form').addEventListener('submit', async e => { e.preventDefault(); data.consent = true; await move(1); }); return;
     }
     let title, intro, content;
@@ -88,7 +87,7 @@
   }
   function offerSignIn() {
     if (errorBox.querySelector('button')) return;
-    const button = document.createElement('button'); button.className = 'text-button'; button.textContent = 'Sign in again'; button.addEventListener('click', () => renderLogin()); errorBox.append(' ', button);
+    const button = document.createElement('button'); button.className = 'text-button'; button.textContent = 'Start a new assessment'; button.addEventListener('click', () => renderLogin()); errorBox.append(' ', button);
   }
   async function move(next) {
     if (busy) return; busy = true; root.querySelectorAll('button').forEach(b => b.disabled = true);
@@ -100,7 +99,7 @@
   function showSnapshot(submission) {
     submitted = true;
     clearTimeout(timer); error(''); saved.textContent = '';
-    root.innerHTML = window.CheckinSnapshot.render(submission.snapshot, submission.submittedAt, submission.reviewStatus) + '<div class="ci-snapshot-actions"><p class="ci-small">Your Snapshot is saved. Return using your approved email any time.</p><button id="print-snapshot" class="ci-secondary" type="button">Print / save as PDF</button></div>';
+    root.innerHTML = window.CheckinSnapshot.render(submission.snapshot, submission.submittedAt, submission.reviewStatus) + '<div class="ci-snapshot-actions"><p class="ci-small">Your Snapshot is saved for Ashley’s review. You can view it in this browser while your session is active, or save a PDF below.</p><button id="print-snapshot" class="ci-secondary" type="button">Print / save as PDF</button></div>';
     root.querySelector('#print-snapshot').addEventListener('click', () => { root.querySelectorAll('details').forEach(d => d.open = true); window.print(); });
   }
   signOut.addEventListener('click', async () => {

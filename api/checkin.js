@@ -27,9 +27,9 @@ function makeHandler(deps = {}) {
       checkOrigin(req);
       const payload = await readBody(req);
       const ip = String(req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown').split(',')[0];
-      if (payload.action === 'request-code') return respond(200, { ok: true, ...await service.requestCode(payload.email, ip) });
-      if (payload.action === 'verify-code') {
-        const session = await service.verifyCode(payload.email, payload.code, ip);
+      if (['request-code', 'verify-code'].includes(payload.action)) throw fail('Codes are no longer needed. Refresh the page and enter your email to begin.', 410);
+      if (payload.action === 'begin') {
+        const session = await service.begin(payload.email, ip, await adminEmails());
         res.setHeader('Set-Cookie', cookie(session.token, req, SESSION_MS / 1000));
         return respond(200, { ok: true });
       }
@@ -70,10 +70,7 @@ async function requireAdmin(req, deps) {
   return admin;
 }
 async function adminEmails(deps) {
-  const state = await (deps.loadAuthState || loadAuthState)();
-  const emails = state.admins.filter(a => a.role === 'admin').map(a => a.email);
-  if (process.env.ADMIN_EMAIL) emails.push(process.env.ADMIN_EMAIL);
-  return [...new Set(emails)];
+  return ['themusicmakeover@gmail.com', 'jlmiller12s@gmail.com'];
 }
 function checkOrigin(req) {
   const origin = req.headers.origin;
