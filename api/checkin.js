@@ -42,6 +42,7 @@ function makeHandler(deps = {}) {
       if (payload.action === 'submit') return respond(200, { ok: true, submission: await service.submit(token, payload.input, await adminEmails(deps)) });
       const admin = await requireAdmin(req, deps);
       switch (payload.action) {
+        case 'admin:delete': return respond(200, { ok: true, ...await service.deleteParticipants(payload.emails) });
         case 'admin:reset-preview':
           if (process.env.VERCEL_ENV !== 'preview') throw fail('Test resets are available only in preview.', 403);
           await service.resetPreview(payload.email); break;

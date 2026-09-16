@@ -15,6 +15,7 @@ function memoryStore() {
     records,
     async get(key) { return structuredClone(records.get(key) || null); },
     async listAccounts() { return [...records].filter(([k]) => k.startsWith('account:')).map(([, v]) => structuredClone(v)); },
+    async deleteAccounts(addresses) { let count = 0; for (const address of addresses) if (records.delete(`account:${address}`)) count++; return count; },
     mutate(key, callback) {
       const operation = queue.then(async () => {
         const state = structuredClone(records.get(key) || {});
@@ -116,6 +117,35 @@ test('100 participants remain separate under concurrent submissions', async () =
   const results = await Promise.all(sessions.map(s => f.service.submit(s.token, input(), ['admin@example.com'])));
   assert.equal(new Set(results.map(r => r.id)).size, 100);
   assert.equal((await f.service.list()).filter(a => a.submittedAt).length, 100);
+});
+
+test('bulk deletion removes selected records and sessions without touching others', async () => {
+  const f = setup(); const first = await f.login(); const second = await f.login('two@example.com', 'ip2'); const kept = await f.login('keep@example.com', 'ip3');
+  await f.service.submit(first.token, input(), ['admin@example.com']);
+  await f.service.saveDraft(second.token, input());
+  await assert.rejects(f.service.deleteParticipants(['one@example.com', 'invalid']), /valid email/);
+  assert.ok((await f.service.participant(first.token)).submission);
+  assert.deepEqual(await f.service.deleteParticipants(['ONE@example.com', 'two@example.com', 'one@example.com']), { count: 2 });
+  await assert.rejects(f.service.participant(first.token), e => e.status === 401);
+  await assert.rejects(f.service.participant(second.token), e => e.status === 401);
+  await assert.rejects(f.service.detail('one@example.com'), e => e.status === 404);
+  assert.equal((await f.service.participant(kept.token)).email, 'keep@example.com');
+  assert.deepEqual((await f.service.list()).map(p => p.email), ['keep@example.com']);
+  const count = f.outbox.length; await f.service.requestCode('one@example.com', 'new-ip'); assert.equal(f.outbox.length, count);
+  await assert.rejects(f.service.deleteParticipants([]), /Select between/);
+});
+
+test('bulk deletion API permits admins only', async () => {
+  const f = setup(); let deleted;
+  const auth = { admins: [{ ...f.admin, role: 'admin' }], sessions: [{ token: 'delete-test-session', adminId: f.admin.id, expiresAt: new Date(Date.now() + 60000).toISOString() }] };
+  const handler = makeHandler({ service: { ...f.service, deleteParticipants: async emails => { deleted = emails; return { count: emails.length }; } }, loadAuthState: async () => auth });
+  const headers = { origin: 'http://localhost:3000', 'content-type': 'application/json' };
+  const body = { action: 'admin:delete', emails: ['one@example.com'] };
+  assert.equal((await request(handler, { method: 'POST', headers, body })).status, 401);
+  assert.equal(deleted, undefined);
+  headers.authorization = 'Bearer delete-test-session';
+  assert.equal((await request(handler, { method: 'POST', headers, body })).body.count, 1);
+  assert.deepEqual(deleted, body.emails);
 });
 
 test('preview reset clears only the selected test and requires fresh sign-in', async () => {

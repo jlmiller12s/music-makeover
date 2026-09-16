@@ -2,6 +2,8 @@
   const root = document.getElementById('checkin-admin');
   const status = document.getElementById('checkin-admin-status');
   const esc = window.CheckinSnapshot.escape;
+  const selected = new Set();
+  let deleting = false;
   let participants = [], filter = '', loading = false, canResetPreview = false;
   async function api(action, data = {}, query = '') {
     const token = localStorage.getItem('musicMakeoverAdminToken') || sessionStorage.getItem('musicMakeoverAdminToken');
@@ -12,12 +14,12 @@
   }
   function message(text) { status.textContent = text; }
   async function list() {
-    if (loading) return; loading = true; message('Loading check-ins…');
+    if (loading || deleting) return; loading = true; message('Loading check-ins…');
     try {
-      const result = await api(); participants = result.participants; canResetPreview = result.canResetPreview === true;
-      root.innerHTML = `<div class="ci-admin-layout"><section class="ci-card"><h3>Approve participant emails</h3><p>Add up to 100 addresses, separated by commas or new lines. Approval lets them request their own sign-in code; this does not send an invitation.</p><form id="approve-emails"><label for="approved-emails">Email addresses</label><textarea id="approved-emails" rows="4" required maxlength="25500" placeholder="participant@example.com"></textarea><div class="ci-admin-toolbar"><button class="ci-button" type="submit">Approve access</button></div></form></section><section class="ci-card"><h3>Share the private check-in</h3><p>Send this link directly to approved participants. They must verify their approved email before entering.</p><p><a href="/check-in" target="_blank" rel="noopener">${esc(location.origin)}/check-in</a></p><button id="copy-checkin-link" type="button" class="ci-secondary">Copy participant link</button><p class="ci-small">${result.emailReady ? 'Email delivery is configured. Verify a real sign-in email before inviting the pilot.' : 'Email delivery is not configured. Add the Resend API key and verified sender in Vercel before inviting participants.'}</p></section></div><div class="ci-admin-toolbar"><label for="checkin-filter">Filter participants</label><select id="checkin-filter"><option value="">Everyone</option><option value="pending">Awaiting review</option><option value="reviewed">Reviewed</option><option value="not-submitted">Not submitted</option></select><button class="ci-secondary" id="refresh-checkins" type="button">Refresh</button></div><div id="participant-table" class="ci-admin-table"></div>`;
+      const result = await api(); participants = result.participants; canResetPreview = result.canResetPreview === true; selected.clear();
+      root.innerHTML = `<div class="ci-admin-layout"><section class="ci-card"><h3>Approve participant emails</h3><p>Add up to 100 addresses, separated by commas or new lines. Approval lets them request their own sign-in code; this does not send an invitation.</p><form id="approve-emails"><label for="approved-emails">Email addresses</label><textarea id="approved-emails" rows="4" required maxlength="25500" placeholder="participant@example.com"></textarea><div class="ci-admin-toolbar"><button class="ci-button" type="submit">Approve access</button></div></form></section><section class="ci-card"><h3>Share the private check-in</h3><p>Send this link directly to approved participants. They must verify their approved email before entering.</p><p><a href="/check-in" target="_blank" rel="noopener">${esc(location.origin)}/check-in</a></p><button id="copy-checkin-link" type="button" class="ci-secondary">Copy participant link</button><p class="ci-small">${result.emailReady ? 'Email delivery is configured. Verify a real sign-in email before inviting the pilot.' : 'Email delivery is not configured. Add the Resend API key and verified sender in Vercel before inviting participants.'}</p></section></div><div class="ci-admin-toolbar"><label for="checkin-filter">Filter participants</label><select id="checkin-filter"><option value="">Everyone</option><option value="pending">Awaiting review</option><option value="reviewed">Reviewed</option><option value="not-submitted">Not submitted</option></select><button class="ci-secondary" id="refresh-checkins" type="button">Refresh</button></div><div class="ci-admin-toolbar"><span id="selection-count" aria-live="polite">0 selected</span><button id="delete-participants" class="ci-secondary" type="button" disabled>Delete selected</button></div><div id="participant-table" class="ci-admin-table"></div>`;
       root.querySelector('#checkin-filter').value = filter;
-      root.querySelector('#checkin-filter').addEventListener('change', e => { filter = e.target.value; table(); });
+      root.querySelector('#checkin-filter').addEventListener('change', e => { filter = e.target.value; selected.clear(); table(); });
       root.querySelector('#refresh-checkins').addEventListener('click', list);
       root.querySelector('#copy-checkin-link').addEventListener('click', async () => { try { await navigator.clipboard.writeText(`${location.origin}/check-in`); message('Participant link copied.'); } catch { message('Copy the link shown above.'); } });
       root.querySelector('#approve-emails').addEventListener('submit', async e => {
@@ -25,13 +27,26 @@
         try { const result = await api('admin:allow', { emails: root.querySelector('#approved-emails').value.split(/[,;\n]+/).map(s => s.trim()).filter(Boolean) }); await list(); message(`${result.count} email address(es) approved. You can now share the private link.`); }
         catch (e) { message(e.message); button.disabled = false; }
       });
+      root.querySelector('#delete-participants').addEventListener('click', deleteSelected);
       table(); message(`${participants.length} approved or previously approved participants · ${participants.filter(p => p.submittedAt).length} completed · ${participants.filter(p => p.reviewStatus === 'pending').length} awaiting review`);
     } catch (e) { message(e.message); }
     finally { loading = false; }
   }
   function table() {
     const visible = participants.filter(p => !filter || (filter === 'not-submitted' ? !p.submittedAt : p.reviewStatus === filter));
-    root.querySelector('#participant-table').innerHTML = visible.length ? `<table><thead><tr><th>Participant</th><th>Access</th><th>Check-in</th><th>Review</th><th>Actions</th></tr></thead><tbody>${visible.map(p => `<tr><td>${esc(p.email)}</td><td>${p.active ? 'Approved' : 'Revoked'}</td><td>${p.submittedAt ? esc(new Date(p.submittedAt).toLocaleDateString()) : p.started ? 'In progress' : 'Not started'}</td><td>${p.reviewStatus === 'reviewed' ? 'Reviewed' : p.submittedAt ? 'Awaiting review' : '—'}${p.notification === 'failed' ? '<br>Email notification failed' : ''}</td><td>${p.submittedAt ? `<button class="ci-secondary" type="button" data-open="${esc(p.email)}">Review</button> ` : ''}<button class="text-button" type="button" data-access="${esc(p.email)}" data-active="${p.active}">${p.active ? 'Revoke access' : 'Restore access'}</button>${canResetPreview ? ` <button class="text-button" type="button" data-reset="${esc(p.email)}">Reset preview test</button>` : ''}</td></tr>`).join('')}</tbody></table>` : '<p>No participants in this view yet.</p>';
+    root.querySelector('#participant-table').innerHTML = visible.length ? `<table><thead><tr><th><input type="checkbox" id="select-visible-participants" aria-label="Select all participants in the current filter"></th><th>Participant</th><th>Access</th><th>Check-in</th><th>Review</th><th>Actions</th></tr></thead><tbody>${visible.map(p => `<tr><td><input type="checkbox" data-select="${esc(p.email)}" aria-label="Select ${esc(p.email)}" ${selected.has(p.email) ? 'checked' : ''}></td><td>${esc(p.email)}</td><td>${p.active ? 'Approved' : 'Revoked'}</td><td>${p.submittedAt ? esc(new Date(p.submittedAt).toLocaleDateString()) : p.started ? 'In progress' : 'Not started'}</td><td>${p.reviewStatus === 'reviewed' ? 'Reviewed' : p.submittedAt ? 'Awaiting review' : '—'}${p.notification === 'failed' ? '<br>Email notification failed' : ''}</td><td>${p.submittedAt ? `<button class="ci-secondary" type="button" data-open="${esc(p.email)}">Review</button> ` : ''}<button class="text-button" type="button" data-access="${esc(p.email)}" data-active="${p.active}">${p.active ? 'Revoke access' : 'Restore access'}</button>${canResetPreview ? ` <button class="text-button" type="button" data-reset="${esc(p.email)}">Reset preview test</button>` : ''}</td></tr>`).join('')}</tbody></table>` : '<p>No participants in this view yet.</p>';
+    root.querySelectorAll('[data-select]').forEach(box => box.addEventListener('change', () => {
+      if (box.checked) selected.add(box.dataset.select); else selected.delete(box.dataset.select);
+      selectionState();
+    }));
+    root.querySelector('#select-visible-participants')?.addEventListener('change', e => {
+      root.querySelectorAll('[data-select]').forEach(box => {
+        box.checked = e.target.checked;
+        if (box.checked) selected.add(box.dataset.select); else selected.delete(box.dataset.select);
+      });
+      selectionState();
+    });
+    selectionState();
     root.querySelectorAll('[data-reset]').forEach(b => b.addEventListener('click', async () => {
       if (!confirm(`Delete the saved preview answers, Snapshot, and notes for ${b.dataset.reset}? They will be able to start again after signing in. Production records are unaffected.`)) return;
       b.disabled = true;
@@ -44,6 +59,34 @@
       try { await api(b.dataset.active === 'true' ? 'admin:revoke' : 'admin:allow', { email: b.dataset.access, emails: [b.dataset.access] }); await list(); message('Access updated. Revoked participants are signed out immediately; existing submissions remain available to admins.'); }
       catch (e) { message(e.message); b.disabled = false; }
     }));
+  }
+  function selectionState() {
+    const boxes = [...root.querySelectorAll('[data-select]')];
+    const all = root.querySelector('#select-visible-participants');
+    if (all) {
+      all.checked = boxes.length > 0 && boxes.every(box => box.checked);
+      all.indeterminate = boxes.some(box => box.checked) && !all.checked;
+    }
+    root.querySelector('#selection-count').textContent = `${selected.size} selected`;
+    const button = root.querySelector('#delete-participants');
+    button.disabled = selected.size === 0 || deleting;
+    button.textContent = selected.size ? `Delete selected (${selected.size})` : 'Delete selected';
+  }
+  async function deleteSelected() {
+    if (deleting || !selected.size) return;
+    const emails = [...selected];
+    if (!confirm(`Permanently delete ${emails.length} selected participant(s)?\n\n${emails.join('\n')}\n\nThis removes their approved access, saved answers, Snapshots, and private review notes. They will be signed out and must be approved again to participate. This cannot be undone.`)) return;
+    deleting = true;
+    root.querySelectorAll('button, input, select, textarea').forEach(control => control.disabled = true);
+    try {
+      const result = await api('admin:delete', { emails });
+      selected.clear(); deleting = false;
+      await list(); message(`${result.count} participant(s) deleted, including saved responses and results.`);
+    } catch (e) {
+      deleting = false;
+      root.querySelectorAll('button, input, select, textarea').forEach(control => control.disabled = false);
+      selectionState(); message(e.message);
+    }
   }
   async function detail(address) {
     message('Loading participant…');
