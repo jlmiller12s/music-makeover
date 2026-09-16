@@ -4,7 +4,7 @@
   const saved = document.getElementById('save-status');
   const signOut = document.getElementById('sign-out');
   const esc = window.CheckinSnapshot.escape;
-  let q, account, data, step = 0, loginEmail = '', timer, saving = Promise.resolve(), busy = false, submitted = false;
+  let q, account, data, dataEmail = '', step = 0, loginEmail = '', timer, saving = Promise.resolve(), busy = false, submitted = false;
   function error(message) { errorBox.textContent = message || ''; errorBox.hidden = !message; }
   async function api(action, payload = {}) {
     const response = await fetch('/api/checkin', action ? { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action, ...payload }) } : { credentials: 'same-origin', cache: 'no-store' });
@@ -16,6 +16,8 @@
   async function load() {
     try {
       account = await api(); q = account.questionnaire;
+      if (dataEmail !== account.email) data = null;
+      dataEmail = account.email;
       signOut.hidden = false;
       if (account.submission) return showSnapshot(account.submission);
       data = data || account.draft || { answers: {}, step: 0, heaviest: '', hope: '', consent: false };
