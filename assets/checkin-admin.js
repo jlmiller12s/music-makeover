@@ -2,7 +2,7 @@
   const root = document.getElementById('checkin-admin');
   const status = document.getElementById('checkin-admin-status');
   const esc = window.CheckinSnapshot.escape;
-  let participants = [], filter = '', loading = false;
+  let participants = [], filter = '', loading = false, canResetPreview = false;
   async function api(action, data = {}, query = '') {
     const token = localStorage.getItem('musicMakeoverAdminToken') || sessionStorage.getItem('musicMakeoverAdminToken');
     const response = await fetch(`/api/checkin${query || (action ? '' : '?admin=1')}`, { method: action ? 'POST' : 'GET', cache: 'no-store', headers: { Authorization: `Bearer ${token || ''}`, ...(action ? { 'Content-Type': 'application/json' } : {}) }, ...(action ? { body: JSON.stringify({ action, ...data }) } : {}) });
@@ -14,7 +14,7 @@
   async function list() {
     if (loading) return; loading = true; message('Loading check-ins…');
     try {
-      const result = await api(); participants = result.participants;
+      const result = await api(); participants = result.participants; canResetPreview = result.canResetPreview === true;
       root.innerHTML = `<div class="ci-admin-layout"><section class="ci-card"><h3>Approve participant emails</h3><p>Add up to 100 addresses, separated by commas or new lines. Approval lets them request their own sign-in code; this does not send an invitation.</p><form id="approve-emails"><label for="approved-emails">Email addresses</label><textarea id="approved-emails" rows="4" required maxlength="25500" placeholder="participant@example.com"></textarea><div class="ci-admin-toolbar"><button class="ci-button" type="submit">Approve access</button></div></form></section><section class="ci-card"><h3>Share the private check-in</h3><p>Send this link directly to approved participants. They must verify their approved email before entering.</p><p><a href="/check-in" target="_blank" rel="noopener">${esc(location.origin)}/check-in</a></p><button id="copy-checkin-link" type="button" class="ci-secondary">Copy participant link</button><p class="ci-small">${result.emailReady ? 'Email delivery is configured. Verify a real sign-in email before inviting the pilot.' : 'Email delivery is not configured. Add the Resend API key and verified sender in Vercel before inviting participants.'}</p></section></div><div class="ci-admin-toolbar"><label for="checkin-filter">Filter participants</label><select id="checkin-filter"><option value="">Everyone</option><option value="pending">Awaiting review</option><option value="reviewed">Reviewed</option><option value="not-submitted">Not submitted</option></select><button class="ci-secondary" id="refresh-checkins" type="button">Refresh</button></div><div id="participant-table" class="ci-admin-table"></div>`;
       root.querySelector('#checkin-filter').value = filter;
       root.querySelector('#checkin-filter').addEventListener('change', e => { filter = e.target.value; table(); });
@@ -31,7 +31,13 @@
   }
   function table() {
     const visible = participants.filter(p => !filter || (filter === 'not-submitted' ? !p.submittedAt : p.reviewStatus === filter));
-    root.querySelector('#participant-table').innerHTML = visible.length ? `<table><thead><tr><th>Participant</th><th>Access</th><th>Check-in</th><th>Review</th><th>Actions</th></tr></thead><tbody>${visible.map(p => `<tr><td>${esc(p.email)}</td><td>${p.active ? 'Approved' : 'Revoked'}</td><td>${p.submittedAt ? esc(new Date(p.submittedAt).toLocaleDateString()) : p.started ? 'In progress' : 'Not started'}</td><td>${p.reviewStatus === 'reviewed' ? 'Reviewed' : p.submittedAt ? 'Awaiting review' : '—'}${p.notification === 'failed' ? '<br>Email notification failed' : ''}</td><td>${p.submittedAt ? `<button class="ci-secondary" type="button" data-open="${esc(p.email)}">Review</button> ` : ''}<button class="text-button" type="button" data-access="${esc(p.email)}" data-active="${p.active}">${p.active ? 'Revoke access' : 'Restore access'}</button></td></tr>`).join('')}</tbody></table>` : '<p>No participants in this view yet.</p>';
+    root.querySelector('#participant-table').innerHTML = visible.length ? `<table><thead><tr><th>Participant</th><th>Access</th><th>Check-in</th><th>Review</th><th>Actions</th></tr></thead><tbody>${visible.map(p => `<tr><td>${esc(p.email)}</td><td>${p.active ? 'Approved' : 'Revoked'}</td><td>${p.submittedAt ? esc(new Date(p.submittedAt).toLocaleDateString()) : p.started ? 'In progress' : 'Not started'}</td><td>${p.reviewStatus === 'reviewed' ? 'Reviewed' : p.submittedAt ? 'Awaiting review' : '—'}${p.notification === 'failed' ? '<br>Email notification failed' : ''}</td><td>${p.submittedAt ? `<button class="ci-secondary" type="button" data-open="${esc(p.email)}">Review</button> ` : ''}<button class="text-button" type="button" data-access="${esc(p.email)}" data-active="${p.active}">${p.active ? 'Revoke access' : 'Restore access'}</button>${canResetPreview ? ` <button class="text-button" type="button" data-reset="${esc(p.email)}">Reset preview test</button>` : ''}</td></tr>`).join('')}</tbody></table>` : '<p>No participants in this view yet.</p>';
+    root.querySelectorAll('[data-reset]').forEach(b => b.addEventListener('click', async () => {
+      if (!confirm(`Delete the saved preview answers, Snapshot, and notes for ${b.dataset.reset}? They will be able to start again after signing in. Production records are unaffected.`)) return;
+      b.disabled = true;
+      try { await api('admin:reset-preview', { email: b.dataset.reset }); await list(); message('Preview test reset. Sign in again to start a fresh assessment.'); }
+      catch (e) { message(e.message); b.disabled = false; }
+    }));
     root.querySelectorAll('[data-open]').forEach(b => b.addEventListener('click', () => detail(b.dataset.open)));
     root.querySelectorAll('[data-access]').forEach(b => b.addEventListener('click', async () => {
       b.disabled = true;

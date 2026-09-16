@@ -117,6 +117,19 @@ test('100 participants remain separate under concurrent submissions', async () =
   assert.equal(new Set(results.map(r => r.id)).size, 100);
   assert.equal((await f.service.list()).filter(a => a.submittedAt).length, 100);
 });
+
+test('preview reset clears only the selected test and requires fresh sign-in', async () => {
+  const f = setup(); const first = await f.login(); const other = await f.login('two@example.com', 'ip2');
+  await f.service.submit(first.token, input(), ['admin@example.com']);
+  await f.service.submit(other.token, input(5), ['admin@example.com']);
+  await f.service.resetPreview('one@example.com');
+  await assert.rejects(f.service.participant(first.token), e => e.status === 401);
+  assert.ok((await f.service.participant(other.token)).submission);
+  const fresh = await f.login();
+  const result = await f.service.participant(fresh.token);
+  assert.equal(result.submission, null); assert.equal(result.draft, null);
+  assert.ok((await f.service.submit(fresh.token, input(3), ['admin@example.com'])).snapshot);
+});
 test('email failure keeps saved submission and exposes retry status only to admin', async () => {
   const f = setup(); const { token } = await f.login();
   const broken = createCheckinService({ store: f.store, now: () => 1800000000000, emailReady: () => true, sendEmail: async () => { throw new Error('provider unavailable'); } });
@@ -151,6 +164,26 @@ test('HTTP login sets HttpOnly scoped cookie and never returns session token in 
   assert.equal(result.status, 200); assert.equal(result.body.token, undefined);
   assert.match(result.headers['Set-Cookie'], /HttpOnly; SameSite=Strict; Path=\/api\/checkin; Max-Age=43200; Secure/);
   assert.equal(result.headers['Cache-Control'], 'private, no-store');
+});
+
+test('preview reset endpoint requires an admin and rejects production', async () => {
+  const f = setup(); let resets = 0;
+  const auth = { admins: [{ ...f.admin, role: 'admin' }], sessions: [{ token: 'admin-test-session', adminId: f.admin.id, expiresAt: new Date(Date.now() + 60000).toISOString() }] };
+  const handler = makeHandler({ service: { ...f.service, resetPreview: async () => { resets++; } }, loadAuthState: async () => auth });
+  const headers = { origin: 'http://localhost:3000', 'content-type': 'application/json' };
+  const body = { action: 'admin:reset-preview', email: 'one@example.com' };
+  const previous = process.env.VERCEL_ENV;
+  try {
+    process.env.VERCEL_ENV = 'preview';
+    assert.equal((await request(handler, { method: 'POST', headers, body })).status, 401);
+    headers.authorization = 'Bearer admin-test-session';
+    process.env.VERCEL_ENV = 'production';
+    assert.equal((await request(handler, { method: 'POST', headers, body })).status, 403);
+    assert.equal(resets, 0);
+    process.env.VERCEL_ENV = 'preview';
+    assert.equal((await request(handler, { method: 'POST', headers, body })).status, 200);
+    assert.equal(resets, 1);
+  } finally { if (previous === undefined) delete process.env.VERCEL_ENV; else process.env.VERCEL_ENV = previous; }
 });
 test('production disables published setup code and unsigned/stateless admin fallback', () => {
   const previous = process.env.NODE_ENV; process.env.NODE_ENV = 'production';

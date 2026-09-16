@@ -20,7 +20,7 @@ function makeHandler(deps = {}) {
       if (req.method === 'GET') {
         if (url.searchParams.get('admin') === '1') {
           await requireAdmin(req, deps);
-          return respond(200, { ok: true, ...(url.searchParams.has('email') ? { participant: await service.detail(url.searchParams.get('email')) } : { participants: await service.list(), emailReady: (deps.emailReady || emailReady)() }) });
+          return respond(200, { ok: true, ...(url.searchParams.has('email') ? { participant: await service.detail(url.searchParams.get('email')) } : { participants: await service.list(), canResetPreview: process.env.VERCEL_ENV === 'preview', emailReady: (deps.emailReady || emailReady)() }) });
         }
         return respond(200, { ok: true, ...await service.participant(token) });
       }
@@ -42,6 +42,9 @@ function makeHandler(deps = {}) {
       if (payload.action === 'submit') return respond(200, { ok: true, submission: await service.submit(token, payload.input, await adminEmails(deps)) });
       const admin = await requireAdmin(req, deps);
       switch (payload.action) {
+        case 'admin:reset-preview':
+          if (process.env.VERCEL_ENV !== 'preview') throw fail('Test resets are available only in preview.', 403);
+          await service.resetPreview(payload.email); break;
         case 'admin:allow': return respond(200, { ok: true, ...await service.allow(payload.emails, admin) });
         case 'admin:revoke': await service.revoke(payload.email); break;
         case 'admin:review': await service.review(payload.email, payload.notes, payload.status, admin); break;
