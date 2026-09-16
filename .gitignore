@@ -2,3 +2,7 @@
 test-results/
 playwright-report/
 screenshots/
+tmp/
+.env*
+!.env.example
+public/
