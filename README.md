@@ -14,10 +14,10 @@ expiry or sign-out, entering an email begins a fresh assessment. Results can be
 printed/saved as PDF; admins retain submitted results for review.
 
 The release includes 32 frozen statements across eight domains, baseline clarity,
-optional written reflections, a separate three-year outlook, and an immediate
+required paragraph reflections, a separate three-year outlook, and an immediate
 Snapshot. Ashley reviews results with the participant later. Patterns remain
 admin-only, there is no overall score, and no undefined skill/safety cutoff is
-invented. The 4W reflection, 90-day plan and feedback form are outside this release.
+invented. After the Snapshot, participants can save a separate clarity rating and must answer all four feedback questions to submit feedback. These responses remain outside domain scoring. The 4W reflection and 90-day plan are outside this release.
 
 The admin Sustainability Check-Ins section supports filtering, session revocation,
 original answers and Snapshot review, private notes, and checkbox bulk deletion.
