@@ -9,6 +9,7 @@ const testimonialsHandler = require('../api/testimonials');
 const portalPreviewHandler = require('../api/portal-preview');
 const publicConfigHandler = require('../api/public-config');
 const checkinHandler = require('../api/checkin');
+const peacePromiseWebhook = require('../api/peace-promise-webhook');
 
 const root = path.resolve(__dirname, '..');
 const port = Number(process.env.PORT || 3000);
@@ -39,6 +40,7 @@ const server = http.createServer(async (req, res) => {
     if (pathname === '/api/portal-preview') return portalPreviewHandler(req, res);
     if (pathname === '/api/public-config') return publicConfigHandler(req, res);
     if (pathname === '/api/checkin') return checkinHandler(req, res);
+    if (pathname === '/api/peace-promise-webhook') return peacePromiseWebhook(req, res);
     const filePath = resolveStaticPath(pathname);
     const data = await fs.readFile(filePath);
     res.statusCode = 200;
