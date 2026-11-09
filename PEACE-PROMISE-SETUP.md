@@ -1,23 +1,50 @@
-# The Peace Promise preview and launch setup
+# The Peace Promise purchase delivery
 
-The standalone landing page is `/the-peace-promise`. The Music Makeover homepage and navigation are unchanged. This is an unlisted, noindex preview with disabled purchasing and clearly marked placeholders, not a private authenticated page. No live checkout or emails have been enabled.
+The landing page is live at `/the-peace-promise`. Checkout uses the approved Stripe Payment Link. Purchase delivery is implemented locally but requires hosted configuration and an end-to-end test before it is operational.
 
-## Content still needed
+## Product files
 
-Approved cover and portrait, final workbook, confirmed printable/fillable formats, price, product-specific refund policy, support address and Ashley-brand privacy/terms. The six featured tools are shown alongside the journey as a proposed presentation; confirm their chapter placement against the final workbook. Do not publish placeholders. Add canonical/social metadata for the final domain at launch.
+Purchasers receive one confirmation email with two attachments:
+- The Peace Promise - Editable Workbook.docx
+- The Peace Promise - Printable.pdf
 
-## Stripe and purchase email
+The originals supplied on November 8, 2026 are packaged as AES-256-GCM encrypted files under `lib/peace-promise-products`. They are not copied to the public website. Vercel bundles the encrypted files only with the purchase webhook function. The server decrypts them in memory before sending base64 attachments to Resend.
 
-1. Create a one-time Stripe product/price and Payment Link. Set its redirect to the eventual site origin plus `/peace-promise-next-steps`. Require purchaser email. Keep test and live settings separate.
-2. Configure the variables in `.env.example` in the hosting environment, including the existing `POSTGRES_URL` and `RESEND_API_KEY`. Use a verified Resend sending domain and approved support mailbox. `PEACE_STRIPE_LIVE` defaults to false; only set true for approved live checkout.
-3. Set `PEACE_WORKBOOK_ACCESS_URL` to the approved HTTPS customer access page. This integration does not implement protected file hosting or customer authentication. Set up access-controlled delivery before launch; never put the paid PDF in the public build folders. The email link must point to that finished delivery system.
-4. Register `/api/peace-promise-webhook` with Stripe for `checkout.session.completed` and `checkout.session.async_payment_succeeded`. Use its signing secret, the exact Payment Link ID and Price ID.
-5. The endpoint verifies the raw request signature, retrieves current payment details, checks paid status and product identity, and sends an access/next-step email through Resend. The email includes access instructions, starting with the Peace Inventory, a small next step, and a reply-to support address. It does not subscribe anyone to marketing.
-6. PostgreSQL stores a delivery marker per environment/session and locks simultaneous attempts. Resend receives a stable idempotency key. Failed sends return 503 for Stripe retries. If email succeeds but the database commit fails, Resend's deduplication window provides temporary protection; reconcile provider logs before manually replaying an old ambiguous failure beyond that window. Successful API acceptance is not proof of inbox delivery; monitor Resend bounces and Stripe failures operationally.
-7. Test valid/invalid signatures, successful payments, delayed payments, duplicate notifications, failed email retries, and actual workbook access on desktop/mobile. Then replace the disabled purchase button with the approved Payment Link, replace preview copy, and remove noindex only after launch approval.
+`PEACE_WORKBOOK_KEY` is generated in ignored `.env.local`. Preserve that file securely and add its value to Vercel through its environment settings; never commit it. Without the matching key, fulfillment fails and Stripe can retry. To replace the product files, run:
 
-The current automation sends one transactional welcome/next-steps email per confirmed purchase. A multi-day follow-up campaign is not enabled. The Rooted Letter signup is an explicit placeholder: connect an approved native MailerLite form with consent and privacy links separately. Never add buyers to marketing without opt-in.
+```
+node scripts/package-peace-workbooks.js "path/to/editable.docx" "path/to/printable.pdf"
+```
 
-## Local preview and checks
+The script retains the existing local key. If the local key is missing, it generates a new one; update the hosted key together with the encrypted files.
 
-Run `npm run dev` and open `http://localhost:3000/the-peace-promise`. Run `node --test test/peace-promise.test.js` for payment/email unit tests and `node scripts/build-site.js` to include both HTML pages and styling in the public build. These tests mock Stripe retrieval, the order store and email delivery; a hosted end-to-end test is still required before sales open.
+## Hosted setup still required
+
+1. Configure the values listed in `.env.example`, including the existing PostgreSQL connection, Resend sending key, Stripe API key, Payment Link ID, Price ID, webhook signing secret, and workbook encryption key. Keep test and live configurations separate.
+2. Use `Ashley Miller <ashley@rootedwomencollective.com>` as `PEACE_EMAIL_FROM` and `ashley@rootedwomencollective.com` as `PEACE_SUPPORT_EMAIL`. The domain was verified in Resend on November 8, 2026.
+3. Register `https://www.themusicmakeover.com/api/peace-promise-webhook` in the correct Stripe account for `checkout.session.completed` and `checkout.session.async_payment_succeeded`. Match the actual Payment Link and Price IDs behind the approved checkout URL. Set `PEACE_STRIPE_LIVE=true` only in the live configuration.
+4. Deploy the backend with its encrypted files, then test a confirmed payment, inspect Stripe webhook and Resend delivery status, and open both received attachments. Local tests mock external services and do not prove inbox delivery.
+
+The endpoint verifies the Stripe signature, retrieves the current checkout session, and checks paid status, product identity, and environment before sending. PostgreSQL locks orders and records delivery; Resend receives a stable idempotency key. Failures return 503 for Stripe retries. If the send succeeds but recording it fails, Resend's deduplication window provides temporary protection. Review provider logs before replaying an old ambiguous failure outside that window.
+
+This sends one transactional confirmation with product attachments and next steps. It does not enroll buyers in marketing. The Rooted Letter newsletter integration remains separate and unconfigured. Local-only social icon changes have not been deployed.
+
+## Checks
+
+`node --test test/peace-promise.test.js` checks payment filtering, signatures, duplicate events, retries, email contents, attachment payloads and missing-file failures. `node scripts/build-site.js` builds only public assets. The encrypted bundle was decrypted locally and compared byte-for-byte with both supplied originals.
+
+## Post-payment thank-you page
+
+The local `/peace-promise-next-steps` page matches Ashley's cream/plum thank-you reference. Stripe's Payment Link must redirect after successful payment to:
+
+`https://www.themusicmakeover.com/peace-promise-next-steps?session_id={CHECKOUT_SESSION_ID}`
+
+The page removes the session ID from the visible address and sends it in a POST to `/api/peace-promise-download`. That endpoint retrieves the Stripe session and checks payment status, live/test mode, Payment Link and price before decrypting either requested attachment. No raw workbook is published in static assets. Treat checkout-session links as private access links. Neither the redirect configuration nor this page/download handler has been deployed yet. Email copy says files will also be sent; it does not claim completed delivery.
+
+Purchase delivery now requires PEACE_RESEND_API_KEY, a dedicated Resend sending key for rootedwomencollective.com. Leave the existing RESEND_API_KEY used by Music Makeover check-in emails unchanged.
+
+## Approved production checkout (November 9, 2026)
+
+Sale price: $17.00, regular reference price $37.99. Approved link: https://buy.stripe.com/eVq5kC4Nncdh2gs0JY3Je06
+Verified live Payment Link ID: plink_1UZlEsAtTrpfqejCCGXHR7Uw
+Verified live Price ID: price_1UZkfHAtTrpfqejCHzy6jexq (1700 USD cents).

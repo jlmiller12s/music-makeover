@@ -1,6 +1,9 @@
 const http = require('node:http');
 const fs = require('node:fs/promises');
 const path = require('node:path');
+// Standalone Node does not automatically load the ignored local credentials.
+const localEnv = path.resolve(__dirname, '..', '.env.local');
+if (require('node:fs').existsSync(localEnv)) process.loadEnvFile(localEnv);
 
 const crmHandler = require('../api/crm');
 const authHandler = require('../api/auth');
@@ -33,6 +36,8 @@ const server = http.createServer(async (req, res) => {
   try {
     const pathname = new URL(req.url, `http://${req.headers.host}`).pathname;
 
+    if (pathname === '/api/peace-promise-download') return require('../api/peace-promise-download')(req, res);
+    if (pathname === '/api/rooted-letter') return require('../api/rooted-letter')(req, res);
     if (pathname === '/api/crm') return crmHandler(req, res);
     if (pathname === '/api/auth') return authHandler(req, res);
     if (pathname === '/api/inquiries') return inquiriesHandler(req, res);

@@ -32,3 +32,5 @@ h1,h2,.hero h1,.purchase h2,.newsletter h2{font-weight:700}
 
 /* Requested lighter heading weight; PT Serif resolves 200 to its available regular face. */
 h1,h2,.hero h1,.purchase h2,.newsletter h2{font-weight:200}
+
+.footer-socials{display:flex;align-items:center;gap:12px}.footer-socials a{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid #b7a693;border-radius:50%;color:#2e2926;text-decoration:none;transition:background .2s,color .2s}.footer-socials a:hover{background:#2e2926;color:#f4efe8;border-color:#2e2926}.footer-socials svg{width:22px;height:22px}
