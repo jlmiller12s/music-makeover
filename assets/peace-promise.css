@@ -34,3 +34,6 @@ h1,h2,.hero h1,.purchase h2,.newsletter h2{font-weight:700}
 h1,h2,.hero h1,.purchase h2,.newsletter h2{font-weight:200}
 
 .footer-socials{display:flex;align-items:center;gap:12px}.footer-socials a{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid #b7a693;border-radius:50%;color:#2e2926;text-decoration:none;transition:background .2s,color .2s}.footer-socials a:hover{background:#2e2926;color:#f4efe8;border-color:#2e2926}.footer-socials svg{width:22px;height:22px}
+
+/* Actual workbook preview, retaining the angled paper presentation. */
+.interior-preview{margin:0;min-width:0;background:#fff;border:1px solid #dccfc0;transform:rotate(2deg);box-shadow:0 18px 40px rgba(46,41,38,.10)}.interior-preview img{display:block;width:100%;height:auto}@media(max-width:620px){.interior-preview{width:calc(100% - 16px);margin:0 auto;transform:rotate(2deg)}}
